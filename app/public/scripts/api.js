@@ -57,7 +57,7 @@ const APP_API_CONFIG = {
   mode:
     (typeof window !== "undefined" && window.APP_CONFIG?.apiMode) ||
     APP_LOCAL_STORAGE?.getItem("hesabyarApiMode") ||
-    "mock",
+    "real",
   timeout: 10000,
 };
 
@@ -199,10 +199,6 @@ function validateRequired(value, message) {
 
 async function request(path, options) {
   const settings = options || {};
-
-  if (APP_API_CONFIG.mode === "mock" || !APP_API_CONFIG.baseUrl) {
-    return mockRequest(path, settings);
-  }
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), APP_API_CONFIG.timeout);
@@ -449,50 +445,6 @@ const appApi = {
     },
   },
 };
-
-/* ============================================================================
-   MOCK BRIDGE
-
-   In a browser, the api-mock-*.js files are loaded by their own <script>
-   tags before this one, so mockRequest is already a global by the time
-   request() runs.
-
-   Under Node there are no script tags. Loading the mock with eval() puts its
-   declarations into this module's scope, which is what a browser does for
-   free — a plain require() would give the mock its own scope and its helpers
-   would not see readStorage, getApiState or ApiError.
-
-   When the backend is live and the mock files are deleted, this block finds
-   nothing and does nothing. request() then always goes to fetch(), which is the
-   intended end state.
-   ========================================================================== */
-if (typeof mockRequest === "undefined" && typeof require === "function") {
-  try {
-    const nodeFs = require("fs");
-    const nodePath = require("path");
-    // Same order the HTML pages use: the store first, then the two route
-    // files that build on it.
-    //
-    // The three sources are joined and eval'd ONCE, in this scope. Evaluating
-    // them one call at a time does not work: each eval() would get its own
-    // scope, so api-mock-site.js could not see ADMIN_KEYS from the store file
-    // and Node failed with "mockRequest is not defined" while the browser was
-    // perfectly happy. Joining them reproduces the single shared scope that
-    // classic <script> tags give for free.
-    const mockSource = [
-      "api-mock-store.js",
-      "api-mock-site.js",
-      "api-mock-admin.js",
-    ]
-      .map((name) => nodePath.join(__dirname, name))
-      .filter((file) => nodeFs.existsSync(file))
-      .map((file) => nodeFs.readFileSync(file, "utf8"))
-      .join("\n;\n");
-    if (mockSource) eval(mockSource);
-  } catch (error) {
-    /* No mock available: request() falls through to fetch(). */
-  }
-}
 
 if (typeof window !== "undefined") {
   window.appApi = appApi;
