@@ -257,3 +257,4 @@ curl -s https://cdnjs.cloudflare.com/ajax/libs/font-awesome/<نسخه>/css/all.m
 ```bash
 grep -rn "BACKEND NOTE" scripts/
 ```
+just test text
