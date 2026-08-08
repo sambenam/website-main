@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>بررسی و نهایی‌سازی سفارش | حسابیار</title>
+  <link rel="icon" type="image/png" href="../images/ravin.png" />
+  <meta name="description" content="بازبینی سبد خرید و تکمیل اطلاعات پرداخت." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="بررسی و نهایی‌سازی سفارش | حسابیار" />
+  <meta property="og:description" content="بازبینی سبد خرید و تکمیل اطلاعات پرداخت." />
+  <meta property="og:image" content="../images/ravin.png" />
+  <meta property="og:locale" content="fa_IR" />
+  <link rel="stylesheet" href="/styles/pages/checkout.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a" crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <div class="checkout-container" style="max-width: 800px; margin: 40px auto; padding: 20px">
+    <div class="glass-card">
+      <div class="card-header" style="text-align: center; margin-bottom: 24px">
+        <h2>بازبینی نهایی سفارش</h2>
+        <p>
+          لطفاً پیش از انتقال به درگاه پرداخت، اقلام سبد خرید خود را بررسی
+          کنید
+        </p>
+      </div>
+
+      <!-- Order Items Summary -->
+      <div class="cart-items-list" style="margin-bottom: 24px">
+        <div class="cart-item">
+          <img src="../images/ravin.png" alt="دوره" />
+          <div class="cart-item-info">
+            <h4>دوره جامع آموزش پیشرفته فرانت‌اند و React</h4>
+            <p class="price">۲۵,۰۰۰,۰۰۰ تومان (تعداد: ۱)</p>
+          </div>
+        </div>
+        <div class="cart-item">
+          <img src="../images/ravin.png" alt="فایل" />
+          <div class="cart-item-info">
+            <h4>پک قالب‌های آماده گلس‌مورفیسم</h4>
+            <p class="price">۸,۰۰۰,۰۰۰ تومان (تعداد: ۱)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Discount Code Box -->
+      <div class="form-group" style="display: flex; gap: 10px; margin-bottom: 20px">
+        <input type="text" class="form-control" id="discountInput" placeholder="کد تخفیف دارید؟ وارد کنید" />
+        <button type="button" class="btn-secondary" id="discountBtn">
+          اعمال کد
+        </button>
+      </div>
+
+      <!-- Price Summary -->
+      <div class="cart-summary" style="margin-bottom: 24px">
+        <div class="summary-row">
+          <span>مجموع قیمت کالاها و دوره‌ها:</span>
+          <span id="cartSubtotalPrice">۳۳,۰۰۰,۰۰۰ تومان</span>
+        </div>
+        <div class="summary-row" id="discountRow" hidden>
+          <span>تخفیف اعمال شده:</span>
+          <span id="discountAmount" style="color: var(--success)">۰ تومان</span>
+        </div>
+        <div class="summary-row">
+          <span>مالیات ارزش افزوده:</span>
+          <span>رایگان</span>
+        </div>
+        <hr style="
+              border: 0;
+              border-top: 0.5px solid var(--glass-border);
+              margin: 12px 0;
+            " />
+        <div class="summary-row total">
+          <span>مبلغ قابل پرداخت نهایی:</span>
+          <span id="cartFinalPrice" style="color: var(--primary)">۳۳,۰۰۰,۰۰۰ تومان</span>
+        </div>
+      </div>
+
+      <!-- Billing Details Form -->
+      <form id="checkoutForm">
+        <div class="glass-card"
+          style="margin-bottom: 24px; padding: 20px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; text-align: right;">
+          <h3 style="margin-bottom: 12px; font-size: 16px; color: #fff;"><i class="fas fa-user"
+              style="color: var(--primary);"></i> مشخصات خریدار</h3>
+          <div class="form-group" style="margin-bottom: 12px; text-align: right;">
+            <label style="display: block; margin-bottom: 6px; font-size: 13px; color: var(--text-secondary);">نام و نام
+              خانوادگی خریدار</label>
+            <input type="text" id="billingName" class="form-control" placeholder="مثال: سام به‌نام" required
+              style="width: 100%; padding: 10px; border-radius: 8px;" />
+          </div>
+          <div class="form-group" style="margin-bottom: 12px; text-align: right;">
+            <label style="display: block; margin-bottom: 6px; font-size: 13px; color: var(--text-secondary);">شماره تلفن
+              همراه</label>
+            <input type="text" id="billingPhone" class="form-control" placeholder="مثال: 09123456789" required
+              style="width: 100%; padding: 10px; border-radius: 8px;" />
+          </div>
+          <div class="form-group" style="margin-bottom: 12px; text-align: right;">
+            <label style="display: block; margin-bottom: 6px; font-size: 13px; color: var(--text-secondary);">آدرس
+              ایمیل</label>
+            <input type="email" id="billingEmail" class="form-control" placeholder="مثال: sam@example.com" required
+              style="width: 100%; padding: 10px; border-radius: 8px;" />
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            ">
+          <a href="/" class="btn-secondary" style="text-decoration: none; padding: 12px 24px"><i
+              class="fas fa-arrow-right"></i> انصراف و بازگشت</a>
+          <button type="submit" class="btn-primary"
+            style="padding: 12px 24px; border: none; border-radius: 12px; font-size: 15px; font-weight: bold; cursor: pointer;"><i
+              class="fas fa-credit-card"></i> تکمیل خرید و انتقال به درگاه</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Mock backend: delete these three lines when the real server is live.
+         See the header of api.js for the two-line switch. -->
+  <script>
+    window.APP_CONFIG = { apiMode: "real", apiBaseUrl: "" };
+  </script>
+  <script src="../scripts/api.js"></script>
+  <script src="../scripts/app-shell.js"></script>
+  <script src="../scripts/checkout.js"></script>
+</body>
+
+</html>

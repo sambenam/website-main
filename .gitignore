@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environment / secrets
+.env
+.env.*
+*.pem
+*.key
+
+# Build output
+dist/
+build/
+.cache/
+
+# Editor
+.vscode/*
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+
+# Scratch files from local debugging. Anything starting with an underscore
+# in tests/ is a throwaway probe, not part of the suite.
+tests/_*.js
+preview-*.html

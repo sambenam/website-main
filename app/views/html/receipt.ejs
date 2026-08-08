@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>نتیجه تراکنش | حسابیار</title>
+  <link rel="icon" type="image/png" href="../images/ravin.png" />
+  <meta name="description" content="مشاهده نتیجه پرداخت و دریافت فایل‌های خریداری‌شده." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="نتیجه تراکنش | حسابیار" />
+  <meta property="og:description" content="مشاهده نتیجه پرداخت و دریافت فایل‌های خریداری‌شده." />
+  <meta property="og:image" content="../images/ravin.png" />
+  <meta property="og:locale" content="fa_IR" />
+  <link rel="stylesheet" href="../styles/pages/recipt.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a" crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <div class="receipt-wrapper">
+    <div class="receipt-card" id="receiptCard">
+      <!-- Icon & Header -->
+      <div class="receipt-header" id="receiptHeader">
+        <div class="status-icon" id="statusIcon">
+          <i class="fas fa-check" id="iconElement"></i>
+        </div>
+        <h2 id="receiptTitle">در حال بررسی تراکنش...</h2>
+        <p id="receiptSubtitle">لطفاً چند لحظه صبر کنید</p>
+      </div>
+
+      <!-- Details Box -->
+      <div class="receipt-details">
+        <div class="receipt-row">
+          <span>وضعیت تراکنش:</span>
+          <span id="statusBadge" class="badge">در حال بررسی</span>
+        </div>
+        <div class="receipt-row">
+          <span>شماره پیگیری (تراکنش):</span>
+          <strong id="trxId">TRX-98432176</strong>
+        </div>
+        <div class="receipt-row">
+          <span>کد رهگیری سفارش:</span>
+          <strong id="orderId">#ORD-98432</strong>
+        </div>
+        <div class="receipt-row">
+          <span>مبلغ تراکنش:</span>
+          <strong class="price-text" id="receiptAmount">—</strong>
+        </div>
+        <!-- Filled from the order; a receipt with no buyer or product on it
+               is not much use as proof of purchase. -->
+        <div class="receipt-row" id="receiptBuyerRow" hidden>
+          <span>خریدار:</span>
+          <strong id="receiptBuyer">—</strong>
+        </div>
+        <div class="receipt-row" id="receiptProductRow" hidden>
+          <span>محصول:</span>
+          <strong id="receiptProduct">—</strong>
+        </div>
+        <div class="receipt-row">
+          <span>تاریخ و ساعت:</span>
+          <strong id="receiptDate">—</strong>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="receipt-actions" id="receiptActions"></div>
+    </div>
+  </div>
+
+  <!-- Mock backend: delete these three lines when the real server is live.
+         See the header of api.js for the two-line switch. -->
+  <script>
+    window.APP_CONFIG = { apiMode: "real", apiBaseUrl: "" };
+  </script>
+  <script src="../scripts/api.js"></script>
+  <script src="../scripts/app-shell.js"></script>
+  <script src="../scripts/recipt.js"></script>
+</body>
+
+</html>

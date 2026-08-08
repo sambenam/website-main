@@ -1,0 +1,72 @@
+/* ============================================================================
+   نشان منبع پیام در صندوق ورودی
+
+   A single small thing: the badge that says where a message came from —
+ * the contact form, the assistant widget or a violation report.
+
+   Part of the admin stylesheet, split out of a single 2,764-line file.
+   Load order is set in html/admin.html and matters: see admin-base.css first
+   and admin-msg-actions.css last.
+   ========================================================================== */
+
+/* ============================================
+   MESSAGES — where a message came from
+   --------------------------------------------
+   The inbox now holds two kinds of message: the contact form on the support
+   page and the assistant widget on the home page. A small badge says which,
+   so the operator knows the context before reading.
+   ============================================ */
+.msg-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  margin-right: 10px;
+}
+
+.msg-source>i {
+  font-size: 10px;
+}
+
+.msg-source--ai {
+  background: rgba(88, 86, 214, 0.09);
+  color: #5856d6;
+  border: 1px solid rgba(88, 86, 214, 0.18);
+}
+
+.msg-source--contact {
+  background: rgba(0, 122, 255, 0.08);
+  color: var(--primary);
+  border: 1px solid rgba(0, 122, 255, 0.16);
+}
+
+/* Link from the header dropdown through to the full messages tab, so the
+   envelope icon and the tab are visibly one inbox rather than two lists. */
+.open-messages-tab-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 9px;
+  border-radius: 9px;
+  border: 1px solid rgba(0, 122, 255, 0.2);
+  background: rgba(0, 122, 255, 0.07);
+  color: var(--primary);
+  font-size: 12.5px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.open-messages-tab-btn:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.open-messages-tab-btn>i {
+  margin-left: 6px;
+  font-size: 11px;
+}

@@ -1,0 +1,1915 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>پنل مدیریت | حسابیار</title>
+  <link rel="icon" type="image/png" href="../images/ravin.png" />
+  <meta name="description" content="پنل مدیریت محتوا، کاربران، سفارشات و تنظیمات سایت." />
+  <!-- The admin stylesheet, split by area. ORDER MATTERS: admin-base.css
+         defines the :root variables the rest read, and admin-msg-actions.css
+         carries the [hidden] rule that must win over everything before it. -->
+  <link rel="stylesheet" href="../styles/pages/admin-base.css" />
+  <link rel="stylesheet" href="../styles/pages/admin-views.css" />
+  <link rel="stylesheet" href="../styles/pages/admin-modals.css" />
+  <link rel="stylesheet" href="../styles/pages/admin-content-tab.css" />
+  <link rel="stylesheet" href="../styles/pages/admin-add-item.css" />
+  <link rel="stylesheet" href="../styles/pages/admin-anim.css" />
+  <link rel="stylesheet" href="../styles/pages/admin-permissions.css" />
+  <link rel="stylesheet" href="../styles/pages/admin-products.css" />
+  <link rel="stylesheet" href="../styles/pages/admin-orders.css" />
+  <link rel="stylesheet" href="../styles/pages/admin-downloads.css" />
+  <link rel="stylesheet" href="../styles/pages/admin-messages.css" />
+  <link rel="stylesheet" href="../styles/pages/admin-search.css" />
+  <link rel="stylesheet" href="../styles/pages/admin-msg-actions.css" />
+  <link rel="stylesheet" href="../styles/pages/admin-notifications.css" />
+  <link rel="stylesheet" href="../styles/main/up-btn.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a" crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <i class="fas fa-crown"></i>
+        <span>مدیریت پیشرفته</span>
+      </div>
+      <button class="close-btn" id="closeSidebar">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul>
+        <li class="active" data-view="dashboard">
+          <a href="#dashboard">
+            <i class="fas fa-home"></i>
+            <span>داشبورد</span>
+          </a>
+        </li>
+
+        <!-- Users Link (No dropdown) -->
+        <li data-view="users">
+          <a href="#users">
+            <i class="fas fa-users"></i>
+            <span>کاربران</span>
+          </a>
+        </li>
+        <li data-view="staff">
+          <a href="#staff">
+            <i class="fas fa-user-shield"></i>
+            <span>مدیریت دسترسی‌ها</span>
+          </a>
+        </li>
+
+        <!-- Products Link (No dropdown) -->
+        <li data-view="products">
+          <a href="#products">
+            <i class="fas fa-box"></i>
+            <span>محصولات</span>
+          </a>
+        </li>
+
+        <li data-view="orders">
+          <a href="#orders">
+            <i class="fas fa-shopping-cart"></i>
+            <span>سفارشات</span>
+            <span class="badge" id="orders-badge">12</span>
+          </a>
+        </li>
+
+        <!-- Settings Link (No dropdown) -->
+        <li data-view="settings">
+          <a href="#settings">
+            <i class="fas fa-cog"></i>
+            <span>تنظیمات</span>
+          </a>
+        </li>
+
+        <li data-view="site-content">
+          <a href="#site-content">
+            <i class="fas fa-file-alt"></i>
+            <span>محتوای سایت</span>
+          </a>
+        </li>
+
+        <li data-view="analytics">
+          <a href="#analytics">
+            <i class="fas fa-chart-line"></i>
+            <span>تحلیل و گزارش</span>
+          </a>
+        </li>
+
+        <li data-view="messages">
+          <a href="#messages">
+            <i class="fas fa-envelope"></i>
+            <span>پیام‌ها</span>
+            <span class="badge" id="messages-badge" style="display: none;"></span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile" id="userProfileTrigger" onclick="switchView('profile')" style="cursor: pointer"
+        title="ویرایش پروفایل مدیر کل">
+        <img src="../images/ravin.png" alt="پروفایل مدیر کل" id="sidebarAvatar" />
+        <div class="user-info">
+          <h4 id="sidebarUserName">مدیر کل سایت</h4>
+          <p id="sidebarUserRole">مدیر ارشد و مالک سیستم</p>
+        </div>
+      </div>
+      <button class="logout-btn" id="logoutBtn" title="خروج از سیستم">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Top Header -->
+    <header class="top-header">
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="globalSearch" placeholder="جستجو در کاربران، محصولات، سفارشات، محتوا و پیام‌ها..."
+          autocomplete="off" aria-label="جستجوی سریع در سیستم" />
+        <!-- Results drop under the box; filled by renderGlobalSearch(). -->
+        <div class="global-search" id="globalSearchResults"></div>
+      </div>
+
+      <div class="header-actions">
+        <div style="position: relative;">
+          <button class="header-btn" id="messagesHeaderBtn" title="پیام‌ها" style="position: relative;">
+            <i class="fas fa-envelope"></i>
+            <span class="notification-dot" id="messages-header-badge"
+              style="position: absolute; top: -2px; right: -2px; width: 10px; height: 10px; background: var(--danger); border-radius: 50%; display: none;"></span>
+          </button>
+
+          <!-- FLOATING MESSAGES PANEL -->
+          <div class="messages-floating-panel" id="messagesFloatingPanel"
+            style="position: absolute; top: 50px; left: 0; width: 320px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 12px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); z-index: 10002; padding: 15px; display: none; text-align: right; direction: rtl;">
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 10px; margin-bottom: 10px;">
+              <h4 style="margin: 0; color: var(--text-primary); font-size: 14px; font-weight: bold;"><i
+                  class="fas fa-envelope-open-text" style="color: var(--primary); margin-left: 6px;"></i> پیام‌های اخیر
+              </h4>
+              <button type="button" id="closeFloatingPanelBtn"
+                style="background: none; border: none; cursor: pointer; color: var(--text-secondary); font-size: 14px;"><i
+                  class="fas fa-times"></i></button>
+            </div>
+            <div id="floatingMessagesContainer"
+              style="display: flex; flex-direction: column; gap: 10px; max-height: 280px; overflow-y: auto; padding-left: 5px;">
+              <!-- Rendered dynamically with JS -->
+            </div>
+            <button type="button" id="openMessagesTabBtn" class="open-messages-tab-btn">
+              <i class="fas fa-inbox"></i> مشاهده همه پیام‌ها
+            </button>
+          </div>
+        </div>
+
+        <!-- NEW BEAUTIFUL NOTIFICATION BELL -->
+        <div style="position: relative;" class="notif-wrapper">
+          <button class="header-btn notif-bell-btn" id="notificationBtn" title="اعلان‌ها">
+            <i class="fas fa-bell"></i>
+            <span class="notif-badge" id="notifBadge"
+              style="position: absolute; top: -2px; right: -2px; min-width: 16px; height: 16px; background: linear-gradient(135deg, var(--danger), #ff6b6b); color: white; border-radius: 50%; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 8px rgba(255, 59, 48, 0.6); animation: badge-bounce 0.4s ease; display: none;"></span>
+            <span class="bell-glow"></span>
+          </button>
+          <!-- Animated Notification Dropdown -->
+          <div class="notification-dropdown glass-notif-dropdown" id="notificationDropdown"
+            style="position: absolute; top: 60px; left: 0; width: 360px; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(24px) saturate(140%); -webkit-backdrop-filter: blur(24px) saturate(140%); border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.12), 0 0 0 1px rgba(255,255,255,0.2); z-index: 10003; padding: 0; overflow: hidden; text-align: right; direction: rtl; opacity: 0; transform: translateY(-15px) scale(0.96); pointer-events: none; transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);">
+            <div class="notif-header"
+              style="padding: 18px 22px; background: linear-gradient(135deg, rgba(0,122,255,0.06), rgba(0,122,255,0.02)); border-bottom: 1px solid rgba(255,255,255,0.3); display: flex; justify-content: space-between; align-items: center;">
+              <h4
+                style="margin: 0; color: var(--text-primary); font-size: 15px; font-weight: 700; letter-spacing: -0.3px; display: flex; align-items: center; gap: 8px;">
+                <span
+                  style="width: 8px; height: 8px; background: linear-gradient(135deg, var(--primary), #34c759); border-radius: 50%; box-shadow: 0 0 6px var(--primary); animation: pulse-glow 2s infinite;"></span>
+                اعلان‌های سیستم
+              </h4>
+              <button class="btn-secondary"
+                onclick="document.getElementById('notificationDropdown').classList.remove('active'); document.body.classList.remove('notification-panel-open'); switchView('notifications')"
+                style="font-size: 11px; padding: 5px 10px; border-radius: 8px; background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.06); color: var(--primary); font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                مشاهده همه
+              </button>
+            </div>
+            <div class="notif-body" id="notifListContainer"
+              style="padding: 10px 14px; max-height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+            </div>
+          </div>
+        </div>
+
+        <button class="header-btn" id="profileHeaderBtn" title="پروفایل کاربری" onclick="switchView('profile')">
+          <i class="fas fa-user-circle"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- VIEW 1: DASHBOARD -->
+    <div id="view-dashboard" class="admin-view active">
+      <div class="dashboard-content">
+        <div class="page-title">
+          <h1>داشبورد مدیریت</h1>
+          <p>خوش آمدید؛ وضعیت کلی فروش و فعالیت‌های سیستم امروز</p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class="fas fa-users"></i></div>
+            <div class="stat-info">
+              <h3 id="stat-users">۱,۲۳۴</h3>
+              <p>کاربران فعال</p>
+              <span class="stat-change positive"><i class="fas fa-arrow-up"></i> ۱۲٪</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">
+              <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="stat-revenue">۳۲۰,۱۵۰,۰۰۰</h3>
+              <p>درآمد کل (تومان)</p>
+              <span class="stat-change positive"><i class="fas fa-arrow-up"></i> ۱۸٪</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange">
+              <i class="fas fa-shopping-bag"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="stat-orders">۸۹۲</h3>
+              <p>سفارشات جدید</p>
+              <span class="stat-change negative"><i class="fas fa-arrow-down"></i> ۳٪</span>
+            </div>
+          </div>
+          <div class="glass-card">
+            <div class="card-header">
+              <h2>رضایت مشتریان</h2>
+            </div>
+            <div style="padding: 14px 0;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="font-size: 11px; color: var(--text-secondary);">بر اساس نظرسنجی اخیر</span>
+                <strong id="stat-satisfaction" style="font-size: 13px; color: var(--text-primary);">۹۵٪</strong>
+              </div>
+              <div
+                style="height: 8px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+                <div id="stat-satisfaction-bar"
+                  style="height: 100%; width: 95%; background: linear-gradient(90deg, #34C759, #5ee08a); border-radius: 99px; transition: width 0.6s ease; box-shadow: 0 0 8px rgba(52,199,89,0.35);">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts and Tables Section -->
+        <div class="content-grid">
+          <div class="glass-card">
+            <div class="card-header">
+              <h2>سفارشات اخیر</h2>
+              <button class="btn-secondary" onclick="switchView('orders')">
+                مشاهده همه
+              </button>
+            </div>
+            <div class="table-container">
+              <table class="data-table" id="dashboardOrdersTable">
+                <thead>
+                  <tr>
+                    <th>شماره سفارش</th>
+                    <th>مشتری</th>
+                    <th>محصول</th>
+                    <th>مبلغ</th>
+                    <th>وضعیت</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <div class="card-header">
+              <h2>محصولات پرفروش</h2>
+              <button class="btn-secondary" onclick="switchView('products')">
+                مشاهده همه
+              </button>
+            </div>
+            <div class="products-list" id="dashboardTopProducts"></div>
+          </div>
+
+          <div class="glass-card">
+            <div class="card-header">
+              <h2>آمار فروش ماهانه (این ماه)</h2>
+            </div>
+            <div class="stats-chart">
+              <div class="chart-bars">
+                <div class="chart-bar-item">
+                  <div class="chart-bar" style="height: 45%"></div>
+                  <span>هفته ۱</span>
+                </div>
+                <div class="chart-bar-item">
+                  <div class="chart-bar" style="height: 65%"></div>
+                  <span>هفته ۲</span>
+                </div>
+                <div class="chart-bar-item">
+                  <div class="chart-bar" style="height: 85%"></div>
+                  <span>هفته ۳</span>
+                </div>
+                <div class="chart-bar-item">
+                  <div class="chart-bar" style="height: 70%"></div>
+                  <span>هفته ۴</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 2: USERS -->
+    <div id="view-users" class="admin-view">
+      <div class="dashboard-content">
+        <div class="page-title" style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            ">
+          <div>
+            <h1>مدیریت کاربران</h1>
+
+          </div>
+        </div>
+        <div class="glass-card">
+          <div class="card-header">
+            <h2>لیست کاربران سیستم</h2>
+            <input type="text" id="userTableSearch" class="form-control" style="max-width: 250px; padding: 8px 12px"
+              placeholder="جستجوی کاربر..." />
+          </div>
+          <div class="table-container">
+            <table class="data-table" id="usersManageTable">
+              <thead>
+                <tr>
+                  <th>شناسه</th>
+                  <th>نام</th>
+                  <th>ایمیل</th>
+                  <th>تلفن همراه</th>
+                  <th>تاریخ عضویت</th>
+                  <th>وضعیت</th>
+                  <th>عملیات</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: STAFF / ACCESS MANAGEMENT -->
+    <div id="view-staff" class="admin-view">
+      <div class="dashboard-content">
+        <div class="page-title staff-page-title">
+          <div>
+            <h1>مدیریت دسترسی‌ها</h1>
+            <p>فهرست مدیران و ادمین‌های سامانه</p>
+          </div>
+          <button class="btn-primary" onclick="openModal('addUserModal')"><i class="fas fa-user-plus"></i> افزودن مدیر
+            یا ادمین</button>
+        </div>
+        <div class="glass-card">
+          <div class="card-header">
+            <h2>مدیران و ادمین‌ها</h2><input type="text" id="staffTableSearch" class="form-control"
+              style="max-width:250px;padding:8px 12px" placeholder="جستجوی مدیر یا ادمین..." />
+          </div>
+          <div class="table-container">
+            <table class="data-table" id="staffManageTable">
+              <thead>
+                <tr>
+                  <th>شناسه</th>
+                  <th>نام کاربر</th>
+                  <th>سطح دسترسی</th>
+                  <th>ایمیل</th>
+                  <th>تلفن همراه</th>
+                  <th>وضعیت</th>
+                  <th>عملیات</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 3: PRODUCTS -->
+    <div id="view-products" class="admin-view">
+      <div class="dashboard-content">
+        <div class="page-title" style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            ">
+          <div>
+            <h1>مدیریت محصولات</h1>
+            <p>فایل‌ها و ویدیوهای قابل فروش، متصل به مطالب سایت</p>
+          </div>
+          <button class="btn-primary" onclick="openModal('addProductModal')">
+            <i class="fas fa-plus"></i> افزودن محصول
+          </button>
+        </div>
+        <div class="glass-card">
+          <div class="card-header">
+            <h2>لیست محصولات انبار</h2>
+            <input type="text" id="productTableSearch" class="form-control" style="max-width: 250px; padding: 8px 12px"
+              placeholder="جستجوی محصول..." />
+          </div>
+          <div class="table-container">
+            <table class="data-table" id="productsManageTable">
+              <thead>
+                <tr>
+                  <th>تصویر</th>
+                  <th>نام محصول</th>
+                  <th>فرمت فایل</th>
+                  <th>قیمت (تومان)</th>
+                  <th>شناسه محتوا (ID)</th>
+                  <th>عملیات</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 4: ORDERS -->
+    <div id="view-orders" class="admin-view">
+      <div class="dashboard-content">
+        <div class="page-title"
+          style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <h1>مدیریت سفارشات</h1>
+            <p>بررسی و پیگیری سفارشات ثبت شده</p>
+          </div>
+          <button class="btn-primary" onclick="downloadOrdersReport()"
+            style="background-color: #10b981; border-color: #10b981; border-radius: 8px; font-weight: bold; display: flex; align-items: center; gap: 8px; font-size: 13px; padding: 10px 16px; cursor: pointer;">
+            <i class="fas fa-file-excel"></i> دانلود گزارش اکسل (CSV)
+          </button>
+        </div>
+        <div class="orders-summary" id="ordersSummary"></div>
+
+        <div class="glass-card">
+          <div class="card-header">
+            <h2>کلیه سفارشات</h2>
+            <select class="select-dropdown" id="orderStatusFilter">
+              <option value="all">همه وضعیت‌ها</option>
+              <option value="success">پرداخت موفق</option>
+              <option value="failed">پرداخت ناموفق</option>
+              <option value="cancelled">لغو شده</option>
+              <option value="pending">در حال پردازش</option>
+            </select>
+          </div>
+          <div class="table-container">
+            <table class="data-table" id="ordersFullTable">
+              <thead>
+                <tr>
+                  <th>شماره سفارش</th>
+                  <th>مشتری</th>
+                  <th>محصول</th>
+                  <th>مبلغ</th>
+                  <th>تاریخ ثبت</th>
+                  <th>وضعیت</th>
+                  <th>عملیات</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 5: SETTINGS -->
+    <div id="view-settings" class="admin-view">
+      <div class="dashboard-content">
+        <div class="page-title">
+          <h1>تنظیمات پیشرفته سایت</h1>
+        </div>
+        <div class="content-grid"
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; align-items: stretch; direction: rtl;">
+
+          <!-- CARD 1: GENERAL & SUPPORT -->
+          <div class="glass-card"
+            style="min-height: 420px; display: flex; flex-direction: column; justify-content: space-between;">
+            <form id="settingsGeneralForm"
+              style="text-align: right; direction: rtl; display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+              <div>
+                <div class="card-header" style="margin-bottom: 1rem;">
+                  <h2>⚙️ تنظیمات عمومی و پشتیبانی</h2>
+                </div>
+                <div class="form-group" style="margin-bottom: 1rem;">
+                  <label>آدرس ایمیل پشتیبانی</label>
+                  <input type="email" id="setSupportEmail" class="form-control" value="support@irhesabdar.ir"
+                    required />
+                </div>
+                <div class="form-group" style="margin-bottom: 1rem;">
+                  <label>شماره تماس پشتیبانی</label>
+                  <input type="text" id="setSupportPhone" class="form-control" value="۰۹۱۲۳۴۵۶۷۸۹" required />
+                </div>
+
+                <!-- Maintenance Mode Slider -->
+                <div
+                  style="background: rgba(255, 149, 0, 0.12); padding: 12px; border-radius: 10px; border: 1px solid rgba(255, 149, 0, 0.35); display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; box-shadow: 0 4px 12px rgba(255, 149, 0, 0.05);">
+                  <span style="font-weight: bold; font-size: 13px; color: var(--text-primary);">🛠️ فعال‌سازی حالت
+                    تعمیرات سایت</span>
+                  <label class="content-editor_toggle" style="margin-bottom: 0;">
+                    <input type="checkbox" id="setMaintenanceMode"
+                      style="cursor: pointer; width: 18px; height: 18px;" />
+                  </label>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-primary" style="width: 100%; margin-top: auto; cursor: pointer;">ذخیره
+                تنظیمات عمومی</button>
+            </form>
+          </div>
+
+          <!-- CARD 2: GATEWAY SETTINGS -->
+          <div class="glass-card"
+            style="min-height: 420px; display: flex; flex-direction: column; justify-content: space-between;">
+            <form id="settingsGatewayForm"
+              style="text-align: right; direction: rtl; display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+              <div>
+                <div class="card-header" style="margin-bottom: 1rem;">
+                  <h2>💳 تنظیمات درگاه مالی زرین‌پال</h2>
+                </div>
+                <div class="form-group" style="margin-bottom: 1rem;">
+                  <label>کد مرچنت درگاه (Merchant ID)</label>
+                  <input type="text" id="setMerchantId" class="form-control"
+                    placeholder="مثال: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                    value="e482da20-9bf3-482a-89a1-893f2dae89cf" required style="font-family: monospace;" />
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                  <label>واحد پولی پیش‌فرض سایت</label>
+                  <select id="setCurrencyUnit" class="form-control select-dropdown"
+                    style="width: 100%; padding: 8px; border-radius: 6px; background: #1e293b; color: #f1f5f9; border: 1px solid rgba(255,255,255,0.1);">
+                    <option value="toman">تومان (پیش‌فرض)</option>
+                    <option value="rial">ریال ایران</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-primary" style="width: 100%; margin-top: auto; cursor: pointer;">ذخیره
+                تنظیمات درگاه</button>
+            </form>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: MY PROFILE -->
+    <div id="view-profile" class="admin-view">
+      <div class="dashboard-content">
+        <div class="page-title">
+          <h1>پروفایل من</h1>
+          <p>اطلاعات شخصی و امنیت حساب کاربری</p>
+        </div>
+        <div class="profile-layout">
+          <section class="glass-card profile-identity-card">
+            <div class="profile-avatar-wrap"><img id="profileAvatarPreview" src="../images/ravin.png"
+                alt="تصویر پروفایل"><label for="profileAvatarFile" class="profile-avatar-edit"><i
+                  class="fas fa-camera"></i></label><input id="profileAvatarFile" type="file" accept="image/*" hidden>
+            </div><span class="profile-role-badge" id="profileRoleBadge">مدیر</span>
+            <h2 id="profileHeadingName">مدیر کل سایت</h2><small><i class="fas fa-shield-halved"></i> اطلاعات شما محرمانه
+              نگه داشته می‌شود</small>
+          </section>
+          <section class="glass-card profile-form-card">
+            <form id="settingsAdminForm">
+              <div class="profile-form-header">
+                <h2>اطلاعات حساب و امنیت</h2><span>ویرایش مشخصات و رمز عبور</span>
+              </div>
+              <div class="profile-info-grid">
+                <div class="form-group"><label>نام کاربری</label><input type="text" id="setAdminName"
+                    class="form-control" required></div>
+                <div class="form-group"><label>ایمیل</label><input type="email" id="profileEmail" class="form-control"
+                    required></div>
+                <div class="form-group"><label>تلفن همراه</label><input type="text" id="profilePhone"
+                    class="form-control" required></div>
+                <div class="form-group profile-photo-field"><label>تصویر پروفایل</label><button type="button"
+                    id="profilePhotoChoose" class="btn-secondary"><i class="fas fa-image"></i> انتخاب تصویر از
+                    دستگاه</button><input type="hidden" id="setAdminAvatar"></div>
+              </div>
+              <div class="profile-security-box">
+                <h3><i class="fas fa-lock"></i> امنیت حساب</h3>
+                <div class="form-group"><label>رمز عبور فعلی</label>
+                  <div class="profile-password-wrap"><input type="password" id="setAdminCurrentPassword"
+                      class="form-control" placeholder="رمز عبور فعلی"><i class="fas fa-eye toggle-password-settings"
+                      data-target="setAdminCurrentPassword"></i></div>
+                  <div id="passwordChangeAlert"></div>
+                </div><button type="button" id="toggleNewPasswordBtn" class="profile-change-password"><i
+                    class="fas fa-key"></i> تمایل به تغییر رمز عبور دارم</button>
+                <div id="newPasswordSection" style="display:none">
+                  <div class="profile-info-grid">
+                    <div class="form-group"><label>رمز عبور جدید</label>
+                      <div class="profile-password-wrap"><input type="password" id="setAdminPassword"
+                          class="form-control"><i class="fas fa-eye toggle-password-settings"
+                          data-target="setAdminPassword"></i></div>
+                    </div>
+                    <div class="form-group"><label>تکرار رمز عبور جدید</label>
+                      <div class="profile-password-wrap"><input type="password" id="setAdminPasswordConfirm"
+                          class="form-control"><i class="fas fa-eye toggle-password-settings"
+                          data-target="setAdminPasswordConfirm"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div><button type="submit" class="btn-primary profile-save-btn">بازبینی و ذخیره تغییرات</button>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: SITE CONTENT -->
+    <div id="view-site-content" class="admin-view">
+      <div class="dashboard-content">
+        <div class="page-title">
+          <h1>مدیریت محتوای آیتم‌ها</h1>
+          <p>ویرایش متن، بلوک‌های محتوا، ویدیو و فایل‌های دانلود</p>
+        </div>
+
+        <div class="glass-card" style="margin-bottom: 20px;">
+          <div class="card-header"
+            style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;">
+            <div>
+              <h2>سکشن‌های صفحه اصلی</h2>
+              <p style="margin:4px 0 0;font-size:12px;color:var(--text-secondary);">
+                افزودن بخش تازه به صفحه اصلی و تعیین جای آن
+              </p>
+            </div>
+            <button type="button" class="btn-primary" id="addHomeSectionBtn"
+              style="background-color:#10b981;border-color:#10b981;font-size:14px;padding:8px 16px;border-radius:8px;cursor:pointer;">
+              <i class="fas fa-plus"></i> افزودن سکشن
+            </button>
+          </div>
+          <div id="homeSectionsList" class="home-sections-list"></div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-header" style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+              ">
+            <div style="display: flex; align-items: center; gap: 1.5rem">
+              <h2>لیست آیتم‌های سایت</h2>
+              <button type="button" class="btn-primary" id="addNewContentItemBtn" style="
+                    background-color: #10b981;
+                    border-color: #10b981;
+                    font-size: 14px;
+                    padding: 8px 16px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                  ">
+                + افزودن آیتم جدید
+              </button>
+            </div>
+            <input type="text" id="contentTableSearch" class="form-control" placeholder="جستجو در آیتم‌ها..."
+              style="max-width: 280px" />
+          </div>
+          <div id="groupedContentContainer" class="grouped-content-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 6: ANALYTICS -->
+    <!-- VIEW: ANALYTICS -->
+    <div id="view-analytics" class="admin-view">
+      <div class="dashboard-content">
+        <div class="page-title">
+          <h1>تحلیل و گزارش‌های پیشرفته</h1>
+          <p>آمار عملکرد مالی، پرفروش‌ترین محصولات و نمودارهای پویا</p>
+        </div>
+
+        <!-- KPI Cards for Financial Metrics -->
+        <div class="stats-grid"
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 24px;">
+          <div class="stat-card" onclick="focusRevenueChart()" style="cursor: pointer;"
+            title="جهت اسکرول به نمودار فروش کلیک کنید">
+            <div class="stat-icon green"><i class="fas fa-calculator"></i></div>
+            <div class="stat-info">
+              <h3 id="set-analytics-avg">۰ تومان</h3>
+              <p>میانگین مبلغ هر خرید</p>
+            </div>
+          </div>
+          <div class="stat-card" onclick="jumpToCancelledOrders()" style="cursor: pointer;"
+            title="جهت بررسی سفارشات لغو شده کلیک کنید">
+            <div class="stat-icon red"><i class="fas fa-ban"></i></div>
+            <div class="stat-info">
+              <h3 id="set-analytics-cancel">۰٪</h3>
+              <p>نرخ لغو سفارشات</p>
+            </div>
+          </div>
+          <div class="stat-card" onclick="jumpToProducts()" style="cursor: pointer;"
+            title="جهت ورود به مدیریت محصولات کلیک کنید">
+            <div class="stat-icon blue"><i class="fas fa-graduation-cap"></i></div>
+            <div class="stat-info">
+              <h3 id="set-analytics-products">۰ عدد</h3>
+              <p>کل محصولات و دوره‌ها</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-grid"
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; align-items: stretch;">
+
+          <!-- Live Monthly Revenue Chart -->
+          <div class="glass-card" id="revenueChartCard" onclick="openExpandedChartModal()"
+            style="display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;"
+            title="جهت مشاهده جزئیات بزرگتر و سالانه کلیک کنید">
+            <div class="card-header">
+              <h2>📊 نمودار فروش ماهیانه (تومان)</h2>
+            </div>
+            <div class="stats-chart"
+              style="height: 250px; display: flex; align-items: flex-end; justify-content: center; margin-top: 20px;">
+              <div class="chart-bars" id="dynamicChartBars"
+                style="height: 220px; display: flex; align-items: flex-end; gap: 6px; width: 100%; justify-content: space-around; overflow-x: auto;">
+                <!-- Rendered dynamically by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Bestselling Products Progress List -->
+          <div class="glass-card" onclick="openExpandedBestsellersModal()"
+            style="display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;"
+            title="جهت مشاهده لیست کامل و بزرگتر کلیک کنید">
+            <div class="card-header" style="margin-bottom: 12px;">
+              <h2>🏆 سه دوره و فایل پرفروش</h2>
+            </div>
+            <div id="bestsellingProductsContainer"
+              style="display: flex; flex-direction: column; gap: 14px; text-align: right; direction: rtl; justify-content: center; height: 100%;">
+              <!-- Rendered dynamically by JS -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- VIEW: NOTIFICATIONS -->
+    <div id="view-notifications" class="admin-view">
+      <div class="dashboard-content">
+        <div class="page-title"
+          style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+          <div>
+            <h1>اعلان‌های سیستم</h1>
+            <p>رویدادهای جدید سفارش، کاربران و دسترسی‌ها با طراحی شیک</p>
+          </div>
+        </div>
+        <div class="glass-card">
+          <div class="card-header"
+            style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <h2>آخرین اعلان‌ها</h2>
+            <button type="button" class="btn-secondary notif-clear-all" id="clearAllNotifsBtn"
+              onclick="clearAllNotifications()" style="display: none;">
+              <i class="fas fa-trash-can"></i> حذف همه
+            </button>
+          </div>
+          <div id="notificationsPageList" class="notifications-list"
+            style="display: flex; flex-direction: column; gap: 12px; padding: 10px 0;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 7: MESSAGES -->
+    <div id="view-messages" class="admin-view">
+      <div class="dashboard-content">
+        <div class="page-title">
+          <h1>پیام‌های کاربران</h1>
+          <p>صندوق پیام‌ها و تیکت‌های پشتیبانی</p>
+        </div>
+        <div class="glass-card">
+          <div class="card-header">
+            <h2>صندوق پیام‌ها</h2>
+          </div>
+          <div class="notifications-list" id="messagesListContainer"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- MODAL: ADD PRODUCT -->
+  <div class="modal-overlay" id="editProductModal">
+    <div class="modal-box modal-box--wide product-modal">
+      <div class="modal-header">
+        <h3><i class="fas fa-pen-to-square"></i> ویرایش محصول</h3>
+        <button class="modal-close" onclick="closeModal('editProductModal')" aria-label="بستن"><i
+            class="fas fa-times"></i></button>
+      </div>
+      <form id="editProductForm">
+        <input type="hidden" id="editProdId" />
+        <div class="product-form-grid">
+
+          <section class="product-form-col">
+            <h4 class="product-form-legend"><i class="fas fa-circle-info"></i> مشخصات محصول</h4>
+
+            <div class="form-group">
+              <label>مطلب مرتبط</label>
+              <output id="editProdOwner" class="form-control form-control--readonly">—</output>
+              <small class="field-hint">برای تغییر مطلب، محصول را حذف و دوباره ثبت کنید.</small>
+            </div>
+
+            <div class="form-group">
+              <label>نام محصول</label>
+              <input type="text" id="editProdName" class="form-control" required />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>نوع فایل</label>
+                <select id="editProdCat" class="form-control select-dropdown">
+                  <option value="pdf">فایل PDF (جزوه / کتاب)</option>
+                  <option value="zip">فایل فشرده ZIP (پکیج کامل)</option>
+                  <option value="mp4">ویدیوی آموزشی MP4</option>
+                  <option value="xlsx">فایل اکسل Excel</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>حجم فایل</label>
+                <input type="text" id="editProdSize" class="form-control" placeholder="مثال: ۱۲ مگابایت" />
+              </div>
+            </div>
+            <small class="field-hint" id="editProdCatHint"></small>
+
+            <div class="form-group">
+              <label>قیمت (تومان) — عدد صفر یعنی رایگان</label>
+              <input type="text" id="editProdPrice" data-price-input inputmode="numeric" dir="ltr" class="form-control"
+                required />
+            </div>
+          </section>
+
+          <section class="product-form-col">
+            <h4 class="product-form-legend"><i class="fas fa-folder-open"></i> فایل و تصویر</h4>
+
+            <div class="form-group">
+              <label>آدرس فایل</label>
+              <div class="url-field">
+                <input type="text" id="editProdFileUrl" class="form-control" dir="ltr"
+                  placeholder="../files/course-101.pdf" />
+                <button type="button" class="btn-secondary url-check-btn" id="editProdUrlCheck"
+                  title="بررسی اینکه فایل واقعاً در این آدرس هست">
+                  <i class="fas fa-circle-check"></i> بررسی
+                </button>
+              </div>
+              <small class="field-hint" id="editProdUrlHint"></small>
+              <div class="url-notice" id="editProdUrlNotice" hidden></div>
+            </div>
+
+            <div class="form-group">
+              <label>تصویر محصول</label>
+              <div class="image-picker">
+                <img id="editProdImgPreview" class="image-picker__preview" src="../images/ravin.png"
+                  alt="پیش‌نمایش تصویر محصول" />
+                <div class="image-picker__actions">
+                  <button type="button" class="btn-secondary" id="editProdImgChoose">
+                    <i class="fas fa-image"></i> انتخاب تصویر
+                  </button>
+                  <button type="button" class="btn-secondary" id="editProdImgReset">
+                    تصویر پیش‌فرض
+                  </button>
+                </div>
+                <input type="file" id="editProdImgFile" accept="image/*" hidden />
+                <input type="hidden" id="editProdImg" />
+              </div>
+              <small class="field-hint" id="editProdImgHint">
+                تصویر مربعی حدود ۶۰۰ در ۶۰۰ پیکسل مناسب است.
+              </small>
+            </div>
+          </section>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('editProductModal')">انصراف</button>
+          <button type="submit" class="btn-primary">ذخیره تغییرات</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="addProductModal">
+    <div class="modal-box modal-box--wide product-modal">
+      <div class="modal-header">
+        <h3>افزودن محصول جدید</h3>
+        <button class="modal-close" onclick="closeModal('addProductModal')">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form id="addProductForm">
+        <div class="product-form-grid">
+
+          <!-- ستون راست: مشخصات محصول -->
+          <section class="product-form-col">
+            <h4 class="product-form-legend"><i class="fas fa-circle-info"></i> مشخصات محصول</h4>
+
+            <div class="form-group">
+              <label>این محصول به کدام مطلب سایت وصل است؟</label>
+              <select id="newProdContentId" class="form-control select-dropdown" required>
+                <!-- Populate dynamically with JS -->
+              </select>
+              <small class="field-hint">مطلبی که فایل زیر آن نمایش داده می‌شود.</small>
+            </div>
+
+            <div class="form-group">
+              <label>نام محصول (عنوان فایل دانلودی)</label>
+              <input type="text" id="newProdName" class="form-control" required
+                placeholder="مثلا: دانلود فایل PDF آموزش مقدماتی" />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>نوع محصول (فرمت)</label>
+                <select id="newProdCat" class="form-control select-dropdown">
+                  <option value="pdf">فایل PDF (جزوه / کتاب)</option>
+                  <option value="zip">فایل فشرده ZIP (پکیج کامل)</option>
+                  <option value="mp4">ویدیوی آموزشی MP4</option>
+                  <option value="xlsx">فایل اکسل Excel</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>حجم فایل</label>
+                <input type="text" id="newProdSize" class="form-control" placeholder="مثال: ۱۲ مگابایت" />
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label>نوع دسترسی به محصول</label>
+              <div style="display: flex; gap: 1.5rem; margin-top: 6px;">
+                <label
+                  style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--text-primary); font-weight: 500;">
+                  <input type="radio" name="prodAccessType" value="premium" checked id="accessTypePremium" /> 🔒 نقدی و
+                  پولی
+                </label>
+                <label
+                  style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--text-primary); font-weight: 500;">
+                  <input type="radio" name="prodAccessType" value="free" id="accessTypeFree" /> 🟢 کاملاً رایگان
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group" id="prodPriceContainer">
+              <label>قیمت (تومان)</label>
+              <input type="text" id="newProdPrice" data-price-input inputmode="numeric" dir="ltr" class="form-control"
+                placeholder="مثال: ۵۰,۰۰۰" />
+            </div>
+          </section>
+
+          <!-- ستون چپ: محل فایل -->
+          <section class="product-form-col">
+            <h4 class="product-form-legend"><i class="fas fa-folder-open"></i> محل نگهداری فایل</h4>
+
+            <div class="form-group source-picker">
+              <div class="source-options" id="newProdSourceOptions">
+                <label class="source-option">
+                  <input type="radio" name="newProdSource" value="link" checked />
+                  <span class="source-option__body">
+                    <strong><i class="fas fa-link"></i> فایل روی هاست خودتان</strong>
+                    <small>PDF، ZIP یا Excel — از طریق File Manager در سی‌پنل آپلود کنید</small>
+                  </span>
+                </label>
+                <label class="source-option">
+                  <input type="radio" name="newProdSource" value="stream" />
+                  <span class="source-option__body">
+                    <strong><i class="fas fa-play-circle"></i> ویدیو از آپارات یا یوتیوب</strong>
+                    <small>برای ویدیو همیشه این گزینه — پهنای باند سایت مصرف نمی‌شود</small>
+                  </span>
+                </label>
+                <label class="source-option source-option--disabled">
+                  <input type="radio" name="newProdSource" value="upload" disabled />
+                  <span class="source-option__body">
+                    <strong><i class="fas fa-cloud-arrow-up"></i> آپلود از دستگاه</strong>
+                    <small>نیازمند اتصال سرور — به‌زودی فعال می‌شود</small>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label id="newProdFileUrlLabel">لینک دانلود فایل اصلی محصول (پس از خرید موفق)</label>
+              <div class="url-field">
+                <input type="text" id="newProdFileUrl" class="form-control" dir="ltr" required
+                  placeholder="../files/course-101.pdf" />
+                <button type="button" class="btn-secondary url-check-btn" id="newProdUrlCheck"
+                  title="بررسی اینکه فایل واقعاً در این آدرس هست">
+                  <i class="fas fa-circle-check"></i> بررسی
+                </button>
+              </div>
+              <small class="field-hint" id="newProdUrlHint">
+                فایل را در پوشه <code>files</code> هاست آپلود کنید و آدرس آن را اینجا بنویسید،
+                مثلاً <code dir="ltr">../files/course-101.pdf</code>
+              </small>
+              <div class="url-notice" id="newProdUrlNotice" hidden></div>
+            </div>
+          </section>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('addProductModal')">انصراف</button>
+          <button type="submit" class="btn-primary">ثبت محصول</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD USER -->
+  <div class="modal-overlay" id="addUserModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>افزودن کاربر جدید</h3>
+        <button class="modal-close" onclick="closeModal('addUserModal')">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form id="addUserForm">
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label>نقش کاربر</label>
+          <select id="newUserRole" class="form-control select-dropdown"
+            style="width: 100%; padding: 8px; border-radius: 6px; background: #1e293b; color: #f1f5f9; border: 1px solid rgba(255,255,255,0.1);"
+            required>
+            <option value="مدیر سایت">مدیر سایت</option>
+            <option value="مدیر سیستم">مدیر سیستم</option>
+            <option value="ادمین">ادمین</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label>نام و نام خانوادگی</label>
+          <input type="text" id="newUserName" class="form-control" required placeholder="مثال: علی رضایی" />
+        </div>
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label>آدرس ایمیل</label>
+          <input type="email" id="newUserEmail" class="form-control" required placeholder="reza@example.com" />
+        </div>
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label>شماره تلفن همراه</label>
+          <input type="text" id="newUserPhone" class="form-control" required placeholder="مثال: 09123456789" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('addUserModal')">
+            انصراف
+          </button>
+          <button type="submit" class="btn-primary">ثبت کاربر جدید</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: EDIT PROFILE -->
+  <div class="modal-overlay" id="editProfileModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>پروفایل مدیر کل سایت</h3>
+        <button class="modal-close" onclick="closeModal('editProfileModal')">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form id="editProfileForm">
+        <div class="form-group">
+          <label>نام مدیر کل</label>
+          <input type="text" id="editNameInput" class="form-control" value="مدیر کل سایت" required />
+        </div>
+        <div class="form-group">
+          <label>سمت</label>
+          <input type="text" id="editRoleInput" class="form-control" value="مدیر ارشد و مالک سیستم" required />
+        </div>
+        <div class="form-group">
+          <label>لینک تصویر پروفایل</label>
+          <input type="text" id="editAvatarInput" class="form-control" value="../images/ravin.png" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('editProfileModal')">
+            انصراف
+          </button>
+          <button type="submit" class="btn-primary">ذخیره تغییرات</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: USER DETAILS -->
+  <div class="modal-overlay" id="editUserModal">
+    <div class="modal-box user-details-modal">
+      <div class="modal-header user-details-modal__header">
+        <button class="modal-close" onclick="closeModal('editUserModal')" aria-label="بستن"><i
+            class="fas fa-times"></i></button>
+      </div>
+      <form id="editUserForm">
+        <input type="hidden" id="editUserId" />
+        <div class="user-modal-layout">
+          <section class="user-modal-layout__identity">
+            <section class="user-identity-card">
+              <div class="user-identity-card__icon"><i class="fas fa-user"></i></div>
+              <div><strong id="userModalDisplayName">—</strong></div>
+            </section>
+            <div class="user-readonly-grid">
+              <div class="user-readonly-field"><label><i class="fas fa-fingerprint"></i> شناسه کاربر</label><output
+                  id="editUserIdDisplay">—</output></div>
+              <div class="user-readonly-field"><label><i class="fas fa-user"></i> نام کاربر</label><output
+                  id="editUserNameDisplay">—</output></div>
+              <div class="user-readonly-field"><label><i class="fas fa-envelope"></i> ایمیل</label><output
+                  id="editUserEmailDisplay" dir="ltr">—</output></div>
+              <div class="user-readonly-field"><label><i class="fas fa-phone"></i> تلفن همراه</label><output
+                  id="editUserPhoneDisplay" dir="ltr">—</output></div>
+            </div>
+          </section>
+          <section class="user-modal-layout__management">
+            <details class="user-orders-accordion" id="userOrdersAccordion">
+              <summary><span><i class="fas fa-shopping-bag"></i> سفارشات این کاربر</span><span
+                  class="user-orders-accordion__hint" id="userOrdersCount">برای مشاهده کلیک کنید</span><i
+                  class="fas fa-chevron-down"></i></summary>
+              <div class="user-orders-list" id="userOrdersList"></div>
+            </details>
+            <div class="form-group user-status-field"><label>وضعیت حساب کاربری</label><select id="editUserStatus"
+                class="form-control select-dropdown">
+                <option value="فعال">🟢 فعال</option>
+                <option value="غیرفعال">⚪ غیرفعال</option>
+                <option value="بلاک شده">🔴 مسدود شده (بلاک)</option>
+              </select></div>
+            <section class="user-delete-zone">
+              <div>
+                <h4><i class="fas fa-trash-alt"></i> حذف حساب کاربری</h4>
+                <p>پس از تأیید، کاربر برای ۱۰ ثانیه در لیست با هشدار قرمز نمایش داده می‌شود و سپس حذف خواهد شد.</p>
+              </div><button type="button" id="deleteUserFromEditBtn"><i class="fas fa-trash"></i> حذف کاربر</button>
+            </section>
+          </section>
+        </div>
+        <div class="modal-footer"><button type="button" class="btn-secondary"
+            onclick="closeModal('editUserModal')">بستن</button><button type="submit" class="btn-primary">ذخیره
+            وضعیت</button></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: STAFF DETAILS -->
+  <div class="modal-overlay" id="editStaffModal">
+    <div class="modal-box user-details-modal staff-details-modal">
+      <div class="modal-header user-details-modal__header"><button class="modal-close"
+          onclick="closeModal('editStaffModal')" aria-label="بستن"><i class="fas fa-times"></i></button></div>
+      <form id="editStaffForm"><input type="hidden" id="editStaffId">
+        <div class="user-modal-layout">
+          <section class="user-modal-layout__identity">
+            <section class="user-identity-card">
+              <div class="user-identity-card__icon"><i class="fas fa-user-shield"></i></div>
+              <div><strong id="staffModalDisplayName">—</strong></div>
+            </section>
+            <div class="user-readonly-grid">
+              <div class="user-readonly-field"><label><i class="fas fa-fingerprint"></i> شناسه کاربر</label><output
+                  id="staffIdDisplay">—</output></div>
+              <div class="user-readonly-field"><label><i class="fas fa-user"></i> نام کاربر <i
+                    class="staff-modal-field-dot" data-staff-field="name" hidden></i></label><output
+                  id="staffNameDisplay">—</output></div>
+              <div class="user-readonly-field"><label><i class="fas fa-envelope"></i> ایمیل <i
+                    class="staff-modal-field-dot" data-staff-field="email" hidden></i></label><output
+                  id="staffEmailDisplay" dir="ltr">—</output></div>
+              <div class="user-readonly-field"><label><i class="fas fa-phone"></i> تلفن همراه <i
+                    class="staff-modal-field-dot" data-staff-field="phone" hidden></i></label><output
+                  id="staffPhoneDisplay" dir="ltr">—</output></div>
+            </div>
+          </section>
+          <section class="user-modal-layout__management"><button type="button" class="staff-audit-trigger"
+              onclick="openStaffAuditModal()"><span>لیست تغییرات</span></button>
+            <div class="form-group user-status-field"><label>سطح دسترسی</label><select id="editStaffRole"
+                class="form-control select-dropdown">
+                <option value="ادمین">ادمین</option>
+                <option value="کاربر عادی">کاربر عادی (تنزل به کاربر)</option>
+              </select><small id="editStaffRoleHint" class="field-hint"></small></div>
+            <div class="form-group user-status-field"><label>وضعیت حساب کاربری</label><select id="editStaffStatus"
+                class="form-control select-dropdown">
+                <option value="فعال">🟢 فعال</option>
+                <option value="غیرفعال">⚪ غیرفعال</option>
+                <option value="بلاک شده">🔴 مسدود شده (بلاک)</option>
+              </select></div>
+            <section class="user-delete-zone">
+              <div>
+                <h4><i class="fas fa-trash-alt"></i> حذف حساب کاربری</h4>
+                <p>پس از تأیید، حساب برای ۱۰ ثانیه با هشدار قرمز نمایش داده و سپس حذف می‌شود.</p>
+              </div><button type="button" id="deleteStaffBtn"><i class="fas fa-trash"></i> حذف حساب</button>
+            </section>
+          </section>
+        </div>
+        <div class="modal-footer"><button type="button" class="btn-secondary"
+            onclick="closeModal('editStaffModal')">بستن</button><button type="submit" class="btn-primary">ذخیره
+            وضعیت</button></div>
+      </form>
+    </div>
+  </div>
+  <!-- MODAL: STAFF AUDIT LOG -->
+  <div class="modal-overlay" id="staffAuditModal" style="z-index:2100">
+    <div class="modal-box staff-audit-modal">
+      <div class="modal-header">
+        <h3><i class="fas fa-clock-rotate-left"></i> تاریخچه تغییرات</h3><button class="modal-close"
+          onclick="closeModal('staffAuditModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <div id="staffAuditList" class="staff-audit-list"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: EDIT SITE CONTENT -->
+  <div class="modal-overlay" id="editContentModal">
+    <div class="modal-box modal-box--wide">
+      <div class="modal-header">
+        <h3>ویرایش محتوای آیتم</h3>
+        <button class="modal-close" onclick="closeModal('editContentModal')">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form id="editContentForm">
+        <input type="hidden" id="editContentItemId" />
+
+        <div class="content-editor_meta">
+          <p class="content-editor_meta-sub" id="editContentCategory"></p>
+        </div>
+
+        <div class="form-row" style="display: flex; gap: 1rem; margin-bottom: 1rem">
+          <div class="form-group" style="flex: 1">
+            <label>عنوان آیتم (Title)</label>
+            <input type="text" id="editContentTitleInput" class="form-control" placeholder="عنوان آیتم" required />
+          </div>
+          <div class="form-group" style="flex: 1">
+            <label>آدرس تصویر شاخص (Image URL)</label>
+            <input type="text" id="editContentImageInput" class="form-control"
+              placeholder="آدرس تصویر (مثال: ../images/ravin.png)" />
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 1rem">
+          <label>خلاصه (excerpt)</label>
+          <textarea id="editContentExcerpt" class="form-control" rows="2"
+            placeholder="متن کوتاه برای کارت‌ها و لیست"></textarea>
+        </div>
+
+        <div class="content-editor_section">
+          <div class="content-editor_section-header">
+            <h4>بلوک‌های متن</h4>
+            <div class="content-editor_toolbar">
+              <button type="button" class="btn-secondary" data-add-block="heading">
+                + عنوان
+              </button>
+              <button type="button" class="btn-secondary" data-add-block="paragraph">
+                + پاراگراف
+              </button>
+              <button type="button" class="btn-secondary" data-add-block="list">
+                + لیست
+              </button>
+              <button type="button" class="btn-secondary" data-add-block="ordered-list">
+                + لیست شماره‌دار
+              </button>
+              <button type="button" class="btn-secondary" data-add-block="quote">
+                + نقل‌قول
+              </button>
+              <button type="button" class="btn-secondary" data-add-block="link">
+                + لینک
+              </button>
+              <button type="button" class="btn-secondary" data-add-block="image">
+                + تصویر
+              </button>
+              <button type="button" class="btn-secondary" data-add-block="divider">
+                + جداکننده
+              </button>
+              <button type="button" class="btn-secondary" data-add-block="html">
+                + HTML سفارشی
+              </button>
+            </div>
+          </div>
+          <div id="contentBlocksEditor" class="content-blocks-editor"></div>
+        </div>
+
+        <div class="content-editor_section">
+          <div class="content-editor_section-header">
+            <h4>ویدیو</h4>
+            <label class="content-editor_toggle">
+              <input type="checkbox" id="contentVideoEnabled" />
+              <span>نمایش ویدیو</span>
+            </label>
+          </div>
+          <div id="contentVideoFields" hidden>
+            <div class="form-group">
+              <label>لینک ویدیو</label>
+              <input type="text" id="contentVideoUrl" class="form-control"
+                placeholder="https://www.youtube.com/watch?v=..." />
+              <small class="field-hint">نشانی صفحه ویدیو در آپارات یا یوتیوب، یا آدرس مستقیم فایل.</small>
+              <div class="url-notice" id="contentVideoUrlNotice" hidden></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>سرویس</label>
+                <select id="contentVideoProvider" class="form-control select-dropdown">
+                  <option value="youtube">یوتیوب</option>
+                  <option value="aparat">آپارات</option>
+                  <option value="file">فایل مستقیم</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>عنوان ویدیو</label>
+                <input type="text" id="contentVideoTitle" class="form-control" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-editor_section"
+          style="background: rgba(255, 149, 0, 0.05); border: 1px solid rgba(255, 149, 0, 0.15); border-radius: 12px; padding: 15px; margin-bottom: 1.5rem; text-align: right;">
+          <div
+            style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; direction: rtl;">
+            <label
+              style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: bold; color: #fff; user-select: none;">
+              <input type="checkbox" id="contentVideoIsPaid" style="width: 18px; height: 18px; cursor: pointer;" />
+              <span>🔒 نیاز به خرید و قفل‌گذاری ویدیو؟ (نقدی و پولی)</span>
+            </label>
+            <div id="contentVideoPriceContainer" style="display: none; align-items: center; gap: 8px; direction: rtl;">
+              <label style="font-size: 13px; color: var(--text-secondary);">قیمت ویدیو (تومان):</label>
+              <input type="text" id="contentVideoPrice" data-price-input inputmode="numeric" dir="ltr"
+                class="form-control" placeholder="مثال: ۵۰,۰۰۰" style="max-width: 140px; padding: 8px;" />
+            </div>
+          </div>
+        </div>
+
+        <div class="content-editor_section">
+          <div class="content-editor_section-header">
+            <h4>فایل‌های دانلود</h4>
+            <button type="button" class="btn-secondary" id="addDownloadBtn">
+              + افزودن فایل
+            </button>
+          </div>
+          <div id="contentDownloadsEditor" class="content-downloads-editor"></div>
+
+          <!-- New Files Gold Box -->
+          <div class="content-editor_section"
+            style="background: rgba(255, 149, 0, 0.05); border: 1px solid rgba(255, 149, 0, 0.15); border-radius: 12px; padding: 15px; margin-top: 1.5rem; text-align: right;">
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; direction: rtl;">
+              <label
+                style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: bold; color: #fff; user-select: none;">
+                <input type="checkbox" id="contentFilesIsPaid" style="width: 18px; height: 18px; cursor: pointer;" />
+                <span>🔒 نیاز به خرید و قفل‌گذاری فایل‌های دانلود؟ (نقدی و پولی)</span>
+              </label>
+              <div id="contentFilesPriceContainer"
+                style="display: none; align-items: center; gap: 8px; direction: rtl;">
+                <label style="font-size: 13px; color: var(--text-secondary);">قیمت فایل‌ها (تومان):</label>
+                <input type="text" id="contentFilesPrice" data-price-input inputmode="numeric" dir="ltr"
+                  class="form-control" placeholder="مثال: ۵۰,۰۰۰" style="max-width: 140px; padding: 8px;" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('editContentModal')">
+            انصراف
+          </button>
+          <button type="button" class="btn-secondary" id="resetContentBtn">
+            بازگشت به پیش‌فرض
+          </button>
+          <button type="submit" class="btn-primary">ذخیره محتوا</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD NEW ITEM -->
+  <div class="modal-overlay" id="homeSectionModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3><i class="fas fa-layer-group"></i> <span id="homeSectionModalTitle">افزودن سکشن جدید</span></h3>
+        <button class="modal-close" onclick="closeModal('homeSectionModal')" aria-label="بستن"><i
+            class="fas fa-times"></i></button>
+      </div>
+      <form id="homeSectionForm">
+        <input type="hidden" id="homeSectionKey" />
+
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label>نام سکشن</label>
+          <input type="text" id="homeSectionTitle" class="form-control" required
+            placeholder="مثلاً: دوره‌های پیشنهادی" />
+          <small class="field-hint">همان عنوانی که بالای بخش در صفحه اصلی دیده می‌شود.</small>
+        </div>
+
+        <div class="form-row" style="margin-bottom:1rem;">
+          <div class="form-group">
+            <label>جای قرارگیری</label>
+            <select id="homeSectionAfter" class="form-control select-dropdown"></select>
+            <small class="field-hint">سکشن جدید بلافاصله بعد از بخش انتخاب‌شده می‌نشیند.</small>
+          </div>
+          <div class="form-group">
+            <label>آیکون</label>
+            <select id="homeSectionIcon" class="form-control select-dropdown">
+              <option value="fa-layer-group">لایه‌ها</option>
+              <option value="fa-heart">قلب</option>
+              <option value="fa-star">ستاره</option>
+              <option value="fa-fire">آتش</option>
+              <option value="fa-graduation-cap">کلاه فارغ‌التحصیلی</option>
+              <option value="fa-book">کتاب</option>
+              <option value="fa-video">ویدیو</option>
+              <option value="fa-file-lines">سند</option>
+              <option value="fa-bolt">صاعقه</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row" style="margin-bottom:1rem;">
+          <div class="form-group">
+            <label>برچسب روی کارت‌ها (اختیاری)</label>
+            <input type="text" id="homeSectionBadge" class="form-control" placeholder="مثلاً: پیشنهادی" />
+          </div>
+          <div class="form-group">
+            <label>حداکثر تعداد نمایش</label>
+            <input type="number" id="homeSectionLimit" class="form-control" min="1" max="24" value="8" />
+          </div>
+        </div>
+
+        <label class="section-flag" style="margin-bottom:1rem;">
+          <input type="checkbox" id="homeSectionShowAll" checked />
+          <span>نمایش لینک «مشاهده همه»</span>
+        </label>
+
+        <div class="url-notice url-notice--info" style="margin-bottom:0;">
+          <i class="fas fa-circle-info"></i>
+          <span>پس از ساخت سکشن، از فهرست پایین همین صفحه با «افزودن آیتم جدید» به آن مطلب اضافه کنید.</span>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('homeSectionModal')">انصراف</button>
+          <button type="submit" class="btn-primary">ذخیره سکشن</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="addNewItemModal">
+    <!-- Wide and short rather than narrow and tall: six stacked fields in a
+           500px box pushed the submit button off the bottom of the screen. -->
+    <div class="modal-box add-item-modal">
+      <div class="modal-header">
+        <h3>افزودن آیتم جدید به سایت</h3>
+        <button class="modal-close" onclick="closeModal('addNewItemModal')">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form id="addNewItemForm">
+        <div class="add-item-body">
+          <!-- Right column: what the item is -->
+          <section class="add-item-col">
+            <h4 class="add-item-col__title">
+              <i class="fas fa-file-lines"></i> مشخصات آیتم
+            </h4>
+
+            <div class="add-item-row">
+              <div class="form-group">
+                <label>شناسه یکتا (انگلیسی)</label>
+                <input type="text" id="newItemId" class="form-control" placeholder="custom-article-1" required />
+              </div>
+
+              <div class="form-group">
+                <label>دسته هدف</label>
+                <select id="newItemCategory" class="form-control select-dropdown" required>
+                  <!-- Populate dynamically with JS -->
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>عنوان آیتم</label>
+              <input type="text" id="newItemTitle" class="form-control" placeholder="عنوان آیتم جدید" required />
+            </div>
+
+            <div class="form-group">
+              <label>آدرس تصویر شاخص</label>
+              <input type="text" id="newItemImage" class="form-control" placeholder="../images/ravin.png"
+                value="../images/ravin.png" />
+            </div>
+
+            <div class="form-group">
+              <label>خلاصه (Excerpt)</label>
+              <textarea id="newItemExcerpt" class="form-control" rows="2"
+                placeholder="توضیح کوتاه برای نمایش در کارت‌ها"></textarea>
+            </div>
+          </section>
+
+          <!-- Left column: where it shows up. Default is the category page
+                 only - the home page is a shop window with a fixed number of
+                 slots, not a list of everything. -->
+          <section class="add-item-col placement-field" id="newItemPlacementField">
+            <h4 class="add-item-col__title">
+              <i class="fas fa-map-pin"></i> محل نمایش آیتم
+            </h4>
+
+            <label class="placement-option">
+              <input type="radio" name="newItemPlacement" value="list" checked />
+              <span>
+                <strong>فقط صفحه دسته‌بندی</strong>
+                <small>آیتم در لیست دسته خودش دیده می‌شود — حالت معمول</small>
+              </span>
+            </label>
+
+            <label class="placement-option" id="newItemPlacementHomeOption">
+              <input type="radio" name="newItemPlacement" value="both" />
+              <span>
+                <strong>صفحه دسته‌بندی + صفحه اصلی</strong>
+                <small id="newItemPlacementHint">
+                  یک دسته انتخاب کنید تا ظرفیت آن نمایش داده شود
+                </small>
+              </span>
+            </label>
+
+            <p class="placement-notice" id="newItemPlacementNotice" hidden></p>
+          </section>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('addNewItemModal')">
+            انصراف
+          </button>
+          <button type="submit" class="btn-primary">ثبت آیتم جدید</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ORDER DETAILS -->
+  <div class="modal-overlay" id="orderDetailModal">
+    <div class="modal-box" style="max-width: 550px;">
+      <div class="modal-header">
+        <h3>جزئیات و بررسی سفارش</h3>
+        <button class="modal-close" onclick="closeModal('orderDetailModal')">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 1.5rem; text-align: right; direction: rtl;">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+          <i class="fas fa-receipt" style="font-size: 3.5rem; color: var(--primary);"></i>
+          <h4 style="margin-top: 10px; font-size: 18px; color: var(--text-primary); font-weight: bold;"
+            id="detailOrderNum">شماره سفارش: #---</h4>
+        </div>
+
+        <div
+          style="display: flex; flex-direction: column; gap: 12px; background: rgba(0,0,0,0.03); padding: 1.25rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between;"><strong style="color: var(--text-secondary);">نام
+              خریدار:</strong><span id="detailOrderCustomer"
+              style="color: var(--text-primary); font-weight: bold;">---</span></div>
+          <div style="display: flex; justify-content: space-between;"><strong
+              style="color: var(--text-secondary);">شماره همراه:</strong><span id="detailOrderPhone"
+              style="color: var(--text-primary); font-weight: bold;">---</span></div>
+          <div style="display: flex; justify-content: space-between;"><strong style="color: var(--text-secondary);">آدرس
+              ایمیل:</strong><span id="detailOrderEmail"
+              style="color: var(--text-primary); font-weight: bold;">---</span></div>
+          <div style="display: flex; justify-content: space-between;"><strong style="color: var(--text-secondary);">نام
+              محصول:</strong><span id="detailOrderProduct" style="color: var(--primary); font-weight: bold;">---</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;"><strong style="color: var(--text-secondary);">مبلغ
+              پرداختی:</strong><span id="detailOrderAmount" style="color: var(--success); font-weight: bold;">---</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;"><strong
+              style="color: var(--text-secondary);">تاریخ پرداخت:</strong><span id="detailOrderDate"
+              style="color: var(--text-primary); font-weight: bold;">---</span></div>
+        </div>
+
+        <div style="text-align: center;" id="detailOrderDownloadContainer">
+          <!-- Populated dynamically with a beautiful download button -->
+        </div>
+      </div>
+      <div class="modal-footer" style="padding: 1rem 1.5rem;">
+        <button type="button" class="btn-primary"
+          style="width: 100%; border-radius: 8px; cursor: pointer; padding: 12px;"
+          onclick="closeModal('orderDetailModal')">
+          تایید و بستن صفحه
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: EXPANDED MONTHLY CHART -->
+  <div class="modal-overlay" id="expandedChartModal">
+    <div class="modal-box modal-box--wide" style="width: 90% !important; max-width: 1200px !important;">
+      <div class="modal-header">
+        <h3>📊 نمودار پیشرفته فروش سالانه (تفکیک ۱۲ ماه)</h3>
+        <button class="modal-close" onclick="closeModal('expandedChartModal')">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 1.5rem; text-align: center; direction: rtl;">
+        <div class="stats-chart"
+          style="height: 320px; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 1.5rem; background: rgba(255,255,255,0.01); border-radius: 12px; padding: 10px;">
+          <div class="chart-bars" id="expandedChartBars"
+            style="height: 280px; display: flex; align-items: flex-end; gap: 12px; width: 100%; justify-content: space-around;">
+            <!-- Populated dynamically with all 12 months -->
+          </div>
+        </div>
+        <button type="button" class="btn-primary" onclick="downloadDetailedRevenueReport()"
+          style="background: #10b981; border-color: #10b981; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; border: none; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <i class="fas fa-file-excel"></i> دانلود گزارش فروش ۱۲ ماهه (Excel)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: EXPANDED BESTSELLERS -->
+  <div class="modal-overlay" id="expandedBestsellersModal">
+    <div class="modal-box" style="width: 70% !important; max-width: 800px !important;">
+      <div class="modal-header">
+        <h3>🏆 لیست کامل دوره‌ها و فایل‌های پرفروش</h3>
+        <button class="modal-close" onclick="closeModal('expandedBestsellersModal')">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 1.5rem; text-align: right; direction: rtl;">
+        <div id="expandedBestsellersList"
+          style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 1.5rem; max-height: 380px; overflow-y: auto; padding-right: 5px;">
+          <!-- Populated dynamically with all products -->
+        </div>
+        <button type="button" class="btn-primary" onclick="downloadDetailedBestsellersReport()"
+          style="background: #10b981; border-color: #10b981; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; border: none; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <i class="fas fa-file-excel"></i> دانلود گزارش کامل پرفروش‌ترین‌ها (Excel)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: READ AND REPLY TO USER MESSAGES -->
+  <div class="modal-overlay" id="readMessageModal" style="z-index: 10003;">
+    <div class="modal-box" style="max-width: 500px;">
+      <div class="modal-header">
+        <h3>💬 خواندن و پاسخ به پیام</h3>
+        <button class="modal-close" onclick="closeModal('readMessageModal')">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 1.5rem; text-align: right; direction: rtl;">
+        <!-- Message Metadata -->
+        <div
+          style="background: rgba(0,122,255,0.03); border: 1px solid rgba(0,122,255,0.06); padding: 12px; border-radius: 8px; margin-bottom: 1.25rem;">
+          <div style="margin-bottom: 6px;"><strong style="color: var(--text-secondary);">ارسال‌کننده:</strong> <span
+              id="readMsgSender" style="color: var(--text-primary); font-weight: bold;">---</span></div>
+          <div style="margin-bottom: 6px;"><strong style="color: var(--text-secondary);">آدرس ایمیل:</strong> <span
+              id="readMsgEmail" style="color: var(--primary); font-weight: bold;">---</span></div>
+          <div><strong style="color: var(--text-secondary);">تاریخ ارسال:</strong> <span id="readMsgDate"
+              style="color: var(--text-secondary); font-weight: bold;">---</span></div>
+        </div>
+
+        <!-- Message Original Body -->
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display: block; font-weight: bold; margin-bottom: 6px; color: var(--text-primary);">متن پیام
+            کاربر:</label>
+          <div id="readMsgBody"
+            style="background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05); padding: 12px; border-radius: 8px; font-size: 14px; color: var(--text-primary); line-height: 1.8;">
+            ---
+          </div>
+        </div>
+
+        <form id="replyMessageForm">
+          <input type="hidden" id="replyMsgId" />
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label style="display: block; font-weight: bold; margin-bottom: 6px; color: var(--primary);">📝 پاسخ شما به
+              عنوان مدیر/ادمین:</label>
+            <textarea id="replyMsgText" class="form-control" rows="4" placeholder="متن پاسخ خود را اینجا وارد کنید..."
+              required style="width: 100%; padding: 10px; border-radius: 8px; line-height: 1.8;"></textarea>
+          </div>
+
+          <div class="modal-footer" style="padding: 0; border-top: none;">
+            <button type="button" class="btn-secondary" onclick="closeModal('readMessageModal')"
+              style="padding: 10px 20px;">انصراف</button>
+            <button type="submit" class="btn-primary"
+              style="padding: 10px 20px; cursor: pointer; border: none; font-weight: bold; color: #fff;">ارسال پاسخ
+              فوری</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL: PROFILE CHANGE REVIEW -->
+  <div class="modal-overlay" id="profileChangeReviewModal" style="z-index:10005">
+    <div class="modal-box profile-review-modal">
+      <div class="modal-header">
+        <div><span>بازبینی نهایی</span>
+          <h3>تغییرات پروفایل شما</h3>
+        </div>
+        <div class="profile-review-timer" id="profileReviewTimer">۱۵</div>
+      </div>
+      <p class="profile-review-intro">موارد زیر پس از تأیید اعمال می‌شوند. در صورت عدم انتخاب، پس از اتمام زمان به‌صورت
+        خودکار تأیید خواهد شد.</p>
+      <div id="profileReviewChanges" class="profile-review-changes"></div>
+      <div class="modal-footer profile-review-actions"><button type="button" class="btn-secondary"
+          id="profileReviewCancel">انصراف و بازگشت</button><button type="button" class="btn-primary"
+          id="profileReviewConfirm">تأیید و اعمال تغییرات</button></div>
+    </div>
+  </div>
+
+  <!-- MODAL: SAFETY CONFIRMATION WARNING WITH COUNTDOWN TIMER -->
+  <div class="modal-overlay" id="safetyWarningModal" style="z-index: 10001;">
+    <div class="modal-box" style="max-width: 420px; text-align: center;">
+      <div class="modal-header" style="justify-content: center; border-bottom: none; padding-bottom: 0;">
+        <h3 style="color: var(--danger);"><i class="fas fa-exclamation-triangle" style="color: var(--danger);"></i>
+          هشدار امنیتی بسیار مهم</h3>
+      </div>
+      <div class="modal-body" style="padding: 1.5rem; text-align: center; direction: rtl;">
+        <p style="color: var(--text-primary); font-weight: bold; margin-bottom: 10px; font-size: 15px;"
+          id="warningActionText">آیا از انجام این عملیات اطمینان دارید؟</p>
+        <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 1.5rem;">این تغییرات مستقیماً روی
+          دسترسی‌ها و سوابق سرور اعمال خواهد شد.</p>
+
+        <!-- Animated Countdown Timer Circle -->
+        <div
+          style="display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; border-radius: 50%; border: 4px solid var(--danger); font-size: 2rem; font-weight: bold; color: var(--danger); margin-bottom: 1.5rem; background: rgba(255, 59, 48, 0.05);"
+          id="warningTimerCount">
+          ۱۰
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <button type="button" class="btn-primary" id="warningConfirmBtn"
+            style="background: var(--danger); border-color: var(--danger); width: 100%; border-radius: 8px; padding: 12px; cursor: pointer; font-weight: bold; border: none; color: #fff;">
+            بله، مطمئن هستم (انجام فوری)
+          </button>
+          <button type="button" class="btn-secondary" id="warningCancelBtn"
+            style="width: 100%; border-radius: 8px; padding: 12px; cursor: pointer;">
+            خیر، لغو عملیات
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: NOTIFICATION DETAIL (Universal — rebuilt) -->
+  <div class="modal-overlay" id="notificationDetailModal" style="z-index: 10004;">
+    <div class="modal-box notification-detail-modal" style="max-width: 580px;">
+      <div class="modal-header" style="padding: 18px 22px;">
+        <div style="flex: 1;">
+          <h3 id="notifDetailTitle" style="margin: 0 0 4px; font-size: 17px; color: var(--text-primary);">اعلان سیستم
+          </h3>
+          <span id="notifDetailTime" style="font-size: 11px; color: var(--text-secondary);">همین حالا</span>
+        </div>
+        <button class="modal-close" onclick="closeModal('notificationDetailModal')"
+          style="margin-right: auto; margin-left: 12px; background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.06); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-secondary);">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 0 22px 22px; text-align: right; direction: rtl;">
+        <div id="notifDetailHero" class="notification-detail-hero" style="margin-bottom: 16px;">
+          <i class="fas fa-bell" id="notifDetailIcon" style="font-size: 22px;"></i>
+          <div>
+            <small style="font-size: 10px; color: var(--text-secondary);">نوع اعلان</small>
+            <strong id="notifDetailType" style="font-size: 14px; color: var(--text-primary);">—</strong>
+          </div>
+        </div>
+
+        <div id="notifDetailDesc" class="notification-detail-desc"
+          style="margin-bottom: 14px; padding: 12px; background: rgba(0,122,255,0.03); border-radius: 9px; line-height: 1.9; font-size: 13px; color: var(--text-primary);">
+          توضیحات در اینجا نمایش داده می‌شود.
+        </div>
+
+        <div id="notifDetailDynamic" style="margin-top: 4px;">
+          <!-- Dynamic content injected based on notification type -->
+        </div>
+      </div>
+      <div class="modal-footer" style="padding: 14px 22px; border-top: 1px solid rgba(148,163,184,0.1);">
+        <button type="button" class="btn-primary" onclick="closeModal('notificationDetailModal')"
+          style="width: 100%; border-radius: 8px; padding: 12px; cursor: pointer; border: none; color: #fff; font-weight: bold;">
+          بستن
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: REPLY TO A VIOLATION REPORT
+         Reached from the "پاسخ به کاربر" button inside a گزارش تخلف notice.
+         The answer is delivered as a normal support thread, so it lands in
+         the reporter's "پیام‌های من" alongside their other conversations. -->
+  <div class="modal-overlay" id="reportReplyModal" style="z-index: 10005;">
+    <div class="modal-box report-reply-box">
+      <div class="modal-header">
+        <h3><i class="fas fa-reply"></i> پاسخ به گزارش‌دهنده</h3>
+        <button class="modal-close" onclick="closeModal('reportReplyModal')" aria-label="بستن">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form id="reportReplyForm">
+        <div class="modal-body report-reply-body">
+          <input type="hidden" id="reportReplyId" />
+
+          <!-- Left: what is being answered. Right: the answer itself.
+                 Side by side keeps the sheet short enough that the send
+                 button stays on screen without scrolling. -->
+          <aside class="report-reply-col report-reply-col--context">
+            <h4 class="report-reply-legend"><i class="fas fa-flag"></i> گزارش</h4>
+            <div class="report-reply-summary" id="reportReplySummary"></div>
+          </aside>
+
+          <section class="report-reply-col report-reply-col--form">
+            <div class="form-group">
+              <label for="reportReplyText">متن پاسخ</label>
+              <textarea id="reportReplyText" class="form-control" rows="4" required
+                placeholder="نتیجه بررسی را برای گزارش‌دهنده بنویسید..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="reportReplyStatus">وضعیت رسیدگی</label>
+              <select id="reportReplyStatus" class="form-control select-dropdown">
+                <option value="answered">پاسخ داده شد</option>
+                <option value="reviewed">بررسی شد و بسته شد</option>
+                <option value="pending">همچنان در حال بررسی</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>پیوست پاسخ <span class="field-optional">(اختیاری)</span></label>
+              <div class="evidence-upload">
+                <input type="file" id="reportReplyFile" accept="image/*" hidden />
+                <button type="button" class="evidence-upload__btn" id="reportReplyChoose">
+                  <i class="fas fa-image"></i> انتخاب تصویر
+                </button>
+                <button type="button" class="evidence-upload__clear" id="reportReplyClear" hidden>
+                  <i class="fas fa-xmark"></i> حذف
+                </button>
+                <img id="reportReplyPreview" class="evidence-upload__preview" alt="پیش‌نمایش پیوست" hidden />
+              </div>
+              <small class="evidence-upload__hint" id="reportReplyHint">
+                فقط تصویر پذیرفته می‌شود (JPG، PNG، WebP یا GIF) و حداکثر ۳۰۰ کیلوبایت.
+              </small>
+              <input type="hidden" id="reportReplyAttachment" />
+            </div>
+          </section>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('reportReplyModal')">انصراف</button>
+          <button type="submit" class="btn-primary">
+            <i class="fas fa-paper-plane"></i> ارسال پاسخ
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- UP BUTTON -->
+  <button class="scroll-top-btn">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
+
+  <!-- Mock backend: delete these three lines when the real server is live.
+         See the header of api.js for the two-line switch. -->
+  <script>
+    window.APP_CONFIG = { apiMode: "real", apiBaseUrl: "" };
+  </script>
+  <script src="../scripts/api.js"></script>
+  <script src="../scripts/app-shell.js"></script>
+  <script src="../scripts/header-items.js"></script>
+  <script src="../scripts/item-content.js"></script>
+  <script src="../scripts/main-items.js"></script>
+  <script src="../scripts/item-store.js"></script>
+  <script src="../scripts/home-sections.js"></script>
+  <script src="../scripts/data.js"></script>
+  <!-- The site-content tab, split by area out of one 1,784-line file.
+         content-table.js MUST stay last: its boot hook calls
+         initContentAdmin(), which reaches into all the others. -->
+  <script src="../scripts/home-slots.js"></script>
+  <script src="../scripts/admin-content/content-blocks.js"></script>
+  <script src="../scripts/admin-content/content-downloads.js"></script>
+  <script src="../scripts/admin-content/content-save.js"></script>
+  <script src="../scripts/admin-content/home-sections-admin.js"></script>
+  <script src="../scripts/admin-content/content-table.js"></script>
+  <!-- The admin panel, split by area out of one 5,241-line file.
+         boot.js MUST stay last: it is the only one that runs code while
+         it is being parsed, so everything it touches must already exist. -->
+  <script src="../scripts/admin/auth.js"></script>
+  <script src="../scripts/admin/state.js"></script>
+  <script src="../scripts/admin/notifications.js"></script>
+  <script src="../scripts/admin/views.js"></script>
+  <script src="../scripts/admin/users.js"></script>
+  <script src="../scripts/admin/products.js"></script>
+  <script src="../scripts/admin/orders.js"></script>
+  <script src="../scripts/admin/messages.js"></script>
+  <script src="../scripts/admin/reports.js"></script>
+  <script src="../scripts/admin/search.js"></script>
+  <script src="../scripts/admin/analytics.js"></script>
+  <script src="../scripts/admin/modals.js"></script>
+  <script src="../scripts/admin/boot.js"></script>
+  <script src="../scripts/up-btn.js"></script>
+</body>
+
+</html>

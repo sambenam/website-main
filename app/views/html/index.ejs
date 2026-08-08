@@ -1,0 +1,1019 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>حسابیار | آموزش حسابداری از صفر تا صد</title>
+  <link rel="icon" type="image/png" href="../images/ravin.png" />
+  <meta name="description"
+    content="آموزش تخصصی حسابداری، مالیات و نرم‌افزارهای مالی. دوره‌ها، مقالات و آزمون‌های کاربردی برای حسابداران." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="حسابیار | آموزش حسابداری از صفر تا صد" />
+  <meta property="og:description"
+    content="آموزش تخصصی حسابداری، مالیات و نرم‌افزارهای مالی. دوره‌ها، مقالات و آزمون‌های کاربردی برای حسابداران." />
+  <meta property="og:image" content="../images/ravin.png" />
+  <meta property="og:locale" content="fa_IR" />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a" crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../styles/header/top-header.css" />
+  <link rel="stylesheet" href="../styles/header/bottom-header.css" />
+  <link rel="stylesheet" href="../styles/header/mobile-header.css" />
+  <link rel="stylesheet" href="../styles/main/main.css" />
+  <link rel="stylesheet" href="../styles/footer/main-footer.css" />
+</head>
+
+<body>
+  <!-- HEADER -->
+  <%- include("./partials/header") %>
+  <section class="mobile-header">
+    <div class="mobile-menu_container">
+      <div class="mobile-header_container">
+        <button class="mobile-menu-btn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+
+      <div class="website-logo">
+        <a href="/">
+          <img src="../images/ravin.png" class="website-logo_img" alt="لوگوی حسابیار" />
+        </a>
+      </div>
+    </div>
+
+    <div class="mobile-menu">
+      <div class="mobile-menu_header">
+        <button class="mobile-close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="mobile-search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="جستجو..." />
+        </div>
+
+        <button class="mobile-search-btn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+
+      <ul class="mobile-menu_list">
+        <li class="mobile-dropdown">
+          <button class="mobile-dropdown-btn">
+            <span>برای دانشجویان</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+
+          <ul class="mobile-dropdown-menu">
+            <li class="mobile-sub-dropdown">
+              <button class="mobile-sub-btn">
+                <span>کتاب و جزوه</span>
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+
+              <ul class="mobile-sub_menu">
+                <li>
+                  <a href="list-page.html?cat=diploma"> دروس تخصصی دیپلم </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=associate_degree">
+                    دروس تخصصی کاردانی
+                  </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=bachelor">
+                    دروس تخصصی کارشناسی
+                  </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=master"> دروس تخصصی ارشد </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=phd"> دروس تخصصی دکتری </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- کنکوری ها -->
+
+            <li class="mobile-sub-dropdown">
+              <button class="mobile-sub-btn">
+                <span>کنکوری ها</span>
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+
+              <ul class="mobile-sub_menu">
+                <li>
+                  <a href="list-page.html?cat=konkur1">
+                    سوالات کنکوری ها + جواب ها
+                  </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=konkur2">
+                    ضرایب و منابع کنکور ها
+                  </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=konkur3">
+                    روش های مطالعه و تست
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- پروژه ها -->
+
+            <li class="mobile-sub-dropdown">
+              <button class="mobile-sub-btn">
+                <span>پروژه های حسابداری</span>
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+
+              <ul class="mobile-sub_menu">
+                <li>
+                  <a href="list-page.html?cat=Enterpreneurship_projects">پروژه های کارآفرینی</a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=Enternship-projects">پروژه های کاراموزی</a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=Financial-project">پروژه های مالی و حسابداری</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <li class="mobile-dropdown">
+          <button class="mobile-dropdown-btn">
+            <span>فایل های حسابداری</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+
+          <ul class="mobile-dropdown-menu">
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=power_point">
+                دانلود فایل پاور پوینت
+              </a>
+            </li>
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=Exel"> دانلود فایل های اکسل</a>
+            </li>
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=Word"> دانلود فایل های ورد</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="mobile-dropdown">
+          <button class="mobile-dropdown-btn">
+            <span>مقالات</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+
+          <ul class="mobile-dropdown-menu">
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=accounting_article">
+                مقالات حسابداری
+              </a>
+            </li>
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=software_training">
+                آموزش نرم افزار ها</a>
+            </li>
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=standards"> اصول و استانداردها</a>
+            </li>
+
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=accounting_circulars">
+                بخش نامه های حسابداری</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="mobile-dropdown">
+          <button class="mobile-dropdown-btn">
+            <span>فیلم های آموزشی</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+
+          <ul class="mobile-dropdown-menu">
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=videos"> فیلم های آموزشی </a>
+            </li>
+          </ul>
+        </li>
+        <li class="mobile-dropdown">
+          <a href="/sign-up" class="mobile-dropdown-btn">
+            <span>ورود</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="mobile-overlay"></div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="main-container">
+      <!-- 1. HERO SECTION -->
+      <section class="hero-section">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            یادگیری <span class="text-gradient">حسابداری</span> <br />
+            از صفر تا صد
+          </h1>
+          <p class="hero-description">
+            با بیش از <span class="highlight">۱۲۰۰ مقاله</span>،
+            <span class="highlight">۴۵۰ ویدیو</span> و
+            <span class="highlight">۵۰۰۰ فایل آماده</span>، حسابیار بهترین
+            منبع برای یادگیری حسابداری، مالیات و نرم‌افزارهای مالی است.
+          </p>
+          <div class="hero-actions">
+            <a href="list-page.html?cat=videos" class="btn btn-primary btn-lg">
+              <i class="fa-solid fa-play-circle"></i>
+              شروع یادگیری
+            </a>
+            <a href="/sign-up" class="btn btn-glass btn-lg">
+              <i class="fa-solid fa-li-plus"></i>
+              عضویت رایگان
+            </a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-image-wrapper">
+            <img src="../images/ravin.png" alt="حسابداری" class="hero-image" loading="lazy" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. LEARNING PATH -->
+      <section class="learning-path-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="fa-solid fa-road"></i>
+            مسیر یادگیری <span class="text-gradient">حسابداری</span>
+          </h2>
+        </div>
+        <div class="learning-path">
+          <div class="path-item">
+            <div class="path-step"><i class="fa-solid fa-1"></i></div>
+            <div class="path-content">
+              <h3>مبتدی</h3>
+              <p>آشنایی با مبانی حسابداری</p>
+              <ul class="path-topics">
+                <li>
+                  <i class="fa-solid fa-check-circle"></i> اصول حسابداری
+                </li>
+                <li><i class="fa-solid fa-check-circle"></i> ترازنامه</li>
+                <li>
+                  <i class="fa-solid fa-check-circle"></i> صورت سود و زیان
+                </li>
+                <li><i class="fa-solid fa-check-circle"></i> دفاتر قانونی</li>
+              </ul>
+              <a href="list-page.html?cat=beginner" class="path-link">
+                شروع کنید <i class="fa-solid fa-arrow-left"></i>
+              </a>
+            </div>
+          </div>
+          <div class="path-connector">
+            <i class="fa-solid fa-chevron-left"></i>
+          </div>
+          <div class="path-item active">
+            <div class="path-step"><i class="fa-solid fa-2"></i></div>
+            <div class="path-content">
+              <h3>متوسط</h3>
+              <p>آموزش نرم‌افزارها و تکنیک‌ها</p>
+              <ul class="path-topics">
+                <li>
+                  <i class="fa-solid fa-check-circle"></i> نرم‌افزار سپیدار
+                </li>
+                <li>
+                  <i class="fa-solid fa-check-circle"></i> اکسل حسابداری
+                </li>
+                <li>
+                  <i class="fa-solid fa-check-circle"></i> مالیات بر ارزش
+                  افزوده
+                </li>
+                <li>
+                  <i class="fa-solid fa-check-circle"></i> حقوق و دستمزد
+                </li>
+              </ul>
+              <a href="list-page.html?cat=intermediate" class="path-link">
+                شروع کنید <i class="fa-solid fa-arrow-left"></i>
+              </a>
+            </div>
+          </div>
+          <div class="path-connector">
+            <i class="fa-solid fa-chevron-left"></i>
+          </div>
+          <div class="path-item">
+            <div class="path-step"><i class="fa-solid fa-3"></i></div>
+            <div class="path-content">
+              <h3>پیشرفته</h3>
+              <p>تخصصی و حرفه‌ای</p>
+              <ul class="path-topics">
+                <li><i class="fa-solid fa-check-circle"></i> حسابرسی</li>
+                <li><i class="fa-solid fa-check-circle"></i> تحلیل مالی</li>
+                <li><i class="fa-solid fa-check-circle"></i> بهداشت مالی</li>
+                <li>
+                  <i class="fa-solid fa-check-circle"></i> استانداردهای
+                  بین‌المللی
+                </li>
+              </ul>
+              <a href="list-page.html?cat=advanced" class="path-link">
+                شروع کنید <i class="fa-solid fa-arrow-left"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. POPULAR COURSES -->
+      <section class="poplar-courses courses-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="fas fa-heart"></i>
+            دوره‌های <span class="text-gradient">محبوب</span>
+          </h2>
+          <a href="list-page.html?cat=popularCourses" class="see-all-link">
+            مشاهده همه <i class="fa-solid fa-arrow-left"></i>
+          </a>
+        </div>
+        <div class="popular-courses_container">
+          <ul class="popular-courses_items">
+            <li class="popular-courses_item">
+              <div class="popular-courses_banner">
+                <img src="../images/ravin.png" class="popular-courses_img" alt="دوره حسابداری" />
+              </div>
+
+              <span class="popular-courses_badge"> محبوب </span>
+
+              <div class="popular-courses_content">
+                <h3 class="course-title">حسابداری مقدماتی</h3>
+
+                <p class="course-description">
+                  اگر هیچ آشنایی با حسابداری ندارید، این دوره بهترین نقطه شروع
+                  شماست. در این دوره مفاهیم پایه، ثبت اسناد، ترازنامه و اصول
+                  اولیه را به صورت پروژه‌محور یاد می‌گیرید.
+                </p>
+
+                <a href="single-post.html?id=popularCourses-1" class="popular-courses_link">
+                  مشاهده توضیحات
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+              </div>
+            </li>
+            <li class="popular-courses_item">
+              <div class="popular-courses_banner">
+                <img src="../images/ravin.png" class="popular-courses_img" alt="دوره حسابداری" />
+              </div>
+
+              <span class="popular-courses_badge"> محبوب </span>
+
+              <div class="popular-courses_content">
+                <h3 class="course-title">حسابداری مقدماتی</h3>
+
+                <p class="course-description">
+                  اگر هیچ آشنایی با حسابداری ندارید، این دوره بهترین نقطه شروع
+                  شماست. در این دوره مفاهیم پایه، ثبت اسناد، ترازنامه و اصول
+                  اولیه را به صورت پروژه‌محور یاد می‌گیرید.
+                </p>
+
+                <a href="single-post.html?id=popularCourses-1" class="popular-courses_link">
+                  مشاهده توضیحات
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+              </div>
+            </li>
+            <li class="popular-courses_item">
+              <div class="popular-courses_banner">
+                <img src="../images/ravin.png" class="popular-courses_img" alt="دوره حسابداری" />
+              </div>
+
+              <span class="popular-courses_badge"> محبوب </span>
+
+              <div class="popular-courses_content">
+                <h3 class="course-title">حسابداری مقدماتی</h3>
+
+                <p class="course-description">
+                  اگر هیچ آشنایی با حسابداری ندارید، این دوره بهترین نقطه شروع
+                  شماست. در این دوره مفاهیم پایه، ثبت اسناد، ترازنامه و اصول
+                  اولیه را به صورت پروژه‌محور یاد می‌گیرید.
+                </p>
+
+                <a href="single-post.html?id=popularCourses-1" class="popular-courses_link">
+                  مشاهده توضیحات
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+              </div>
+            </li>
+            <li class="popular-courses_item">
+              <div class="popular-courses_banner">
+                <img src="../images/ravin.png" class="popular-courses_img" alt="دوره حسابداری" />
+              </div>
+
+              <span class="popular-courses_badge"> محبوب </span>
+
+              <div class="popular-courses_content">
+                <h3 class="course-title">حسابداری مقدماتی</h3>
+
+                <p class="course-description">
+                  اگر هیچ آشنایی با حسابداری ندارید، این دوره بهترین نقطه شروع
+                  شماست. در این دوره مفاهیم پایه، ثبت اسناد، ترازنامه و اصول
+                  اولیه را به صورت پروژه‌محور یاد می‌گیرید.
+                </p>
+
+                <a href="single-post.html?id=popularCourses-1" class="popular-courses_link">
+                  مشاهده توضیحات
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 4. NEW COURSES -->
+      <section class="new-courses courses-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="fas fa-rocket"></i>
+            دوره های<span class="text-gradient">جدید</span>
+          </h2>
+          <a href="list-page.html?cat=newCourses" class="see-all-link">
+            مشاهده همه <i class="fa-solid fa-arrow-left"></i>
+          </a>
+        </div>
+        <div class="new-courses_container">
+          <ul class="new-courses_items">
+            <li class="new-courses_item">
+              <div class="new-courses_banner">
+                <img src="../images/ravin.png" class="new-courses_img" alt="دوره حسابداری" />
+              </div>
+
+              <span class="new-courses_badge"> جدید </span>
+
+              <div class="new-courses_content">
+                <h3 class="course-title">حسابداری مقدماتی</h3>
+
+                <p class="course-description">
+                  اگر هیچ آشنایی با حسابداری ندارید، این دوره بهترین نقطه شروع
+                  شماست. در این دوره مفاهیم پایه، ثبت اسناد، ترازنامه و اصول
+                  اولیه را به صورت پروژه‌محور یاد می‌گیرید.
+                </p>
+
+                <a href="single-post.html?id=newCourses-1" class="new-courses_link">
+                  مشاهده توضیحات
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+              </div>
+            </li>
+            <li class="new-courses_item">
+              <div class="new-courses_banner">
+                <img src="../images/ravin.png" class="new-courses_img" alt="دوره حسابداری" />
+              </div>
+
+              <span class="new-courses_badge"> جدید </span>
+
+              <div class="new-courses_content">
+                <h3 class="course-title">حسابداری مقدماتی</h3>
+
+                <p class="course-description">
+                  اگر هیچ آشنایی با حسابداری ندارید، این دوره بهترین نقطه شروع
+                  شماست. در این دوره مفاهیم پایه، ثبت اسناد، ترازنامه و اصول
+                  اولیه را به صورت پروژه‌محور یاد می‌گیرید.
+                </p>
+
+                <a href="single-post.html?id=newCourses-2" class="new-courses_link">
+                  مشاهده توضیحات
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+              </div>
+            </li>
+            <li class="new-courses_item">
+              <div class="new-courses_banner">
+                <img src="../images/ravin.png" class="new-courses_img" alt="دوره حسابداری" />
+              </div>
+
+              <span class="new-courses_badge"> جدید </span>
+
+              <div class="new-courses_content">
+                <h3 class="course-title">حسابداری مقدماتی</h3>
+
+                <p class="course-description">
+                  اگر هیچ آشنایی با حسابداری ندارید، این دوره بهترین نقطه شروع
+                  شماست. در این دوره مفاهیم پایه، ثبت اسناد، ترازنامه و اصول
+                  اولیه را به صورت پروژه‌محور یاد می‌گیرید.
+                </p>
+
+                <a href="single-post.html?id=newCourses-3" class="new-courses_link">
+                  مشاهده توضیحات
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+              </div>
+            </li>
+            <li class="new-courses_item">
+              <div class="new-courses_banner">
+                <img src="../images/ravin.png" class="new-courses_img" alt="دوره حسابداری" />
+              </div>
+
+              <span class="new-courses_badge"> جدید </span>
+
+              <div class="new-courses_content">
+                <h3 class="course-title">حسابداری مقدماتی</h3>
+
+                <p class="course-description">
+                  اگر هیچ آشنایی با حسابداری ندارید، این دوره بهترین نقطه شروع
+                  شماست. در این دوره مفاهیم پایه، ثبت اسناد، ترازنامه و اصول
+                  اولیه را به صورت پروژه‌محور یاد می‌گیرید.
+                </p>
+
+                <a href="single-post.html?id=newCourses-4" class="new-courses_link">
+                  مشاهده توضیحات
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 5. FEATURED CONTENT -->
+      <section class="featured-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="fa-solid fa-star"></i>
+            محتواهای <span class="text-gradient">ویژه</span>
+          </h2>
+          <a href="list-page.html?cat=specials" class="see-all-link">
+            مشاهده همه <i class="fa-solid fa-arrow-left"></i>
+          </a>
+        </div>
+        <div class="featured-grid">
+          <article class="featured-card large">
+            <div class="featured-image">
+              <img src="../images/ravin.png" loading="lazy" alt="لوگوی حسابیار" />
+              <span class="featured-badge">پیشنهادی</span>
+            </div>
+            <div class="featured-content">
+              <span class="content-tag">مقاله</span>
+              <a href="single-post.html?id=specials-1" class="featured-title">
+                راهنمای کامل حسابداری مالی برای مبتدیان
+              </a>
+              <p class="featured-desc">
+                از صفر تا صد حسابداری مالی را در این مقاله جامع یاد بگیرید.
+                شامل مثال‌های عملی و تمرین‌های کاربردی.
+              </p>
+            </div>
+          </article>
+          <div class="featured-small">
+            <article class="featured-card">
+              <a href="single-post.html?id=specials-2" class="featured-content">
+                <span class="content-tag">ویدئو</span>
+                <h3 class="featured-title">آموزش نرم‌افزار سپیدار</h3>
+              </a>
+            </article>
+            <article class="featured-card">
+              <a href="single-post.html?id=specials-3" class="featured-content">
+                <span class="content-tag">اکسل</span>
+                <h3 class="featured-title">توابع پیشرفته اکسل</h3>
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. LATEST ARTICLES -->
+      <section class="articles-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="fa-solid fa-newspaper"></i>
+
+            آخرین <span class="text-gradient">مقالات</span>
+          </h2>
+
+          <a href="list-page.html?cat=articles" class="see-all-link">
+            مشاهده همه
+
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+        </div>
+
+        <div class="articles-container">
+          <ul class="article-items">
+            <li class="article-item">
+              <div class="article-image">
+                <img src="../images/ravin.png" alt="آموزش ثبت سند حسابداری" />
+              </div>
+
+              <div class="article-content">
+                <span class="article-category"> حسابداری </span>
+
+                <h3 class="article-title">
+                  <a href="single-post.html?id=articles-1">
+                    آموزش ثبت سند حسابداری از صفر تا صد
+                  </a>
+                </h3>
+
+                <p class="article-desc">
+                  در این مقاله یاد می‌گیرید ثبت اسناد حسابداری را به صورت
+                  کاملاً پروژه‌محور انجام دهید و با مهم‌ترین اشتباهات رایج
+                  آشنا شوید.
+                </p>
+
+                <a href="single-post.html?id=articles-1" class="article-read-more">
+                  ادامه مطالعه
+
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+
+                <div class="article-meta">
+                  <span>
+                    <i class="far fa-calendar"></i>
+
+                    ۲۶ تیر ۱۴۰۵
+                  </span>
+
+                  <span>
+                    <i class="far fa-clock"></i>
+
+                    ۸ دقیقه مطالعه
+                  </span>
+
+                  <span>
+                    <i class="far fa-user"></i>
+
+                    حسابیار
+                  </span>
+                </div>
+              </div>
+            </li>
+            <li class="article-item">
+              <div class="article-image">
+                <img src="../images/ravin.png" alt="آموزش ثبت سند حسابداری" />
+
+                <span class="article-badge"> جدید </span>
+              </div>
+
+              <div class="article-content">
+                <span class="article-category"> حسابداری </span>
+
+                <h3 class="article-title">
+                  <a href="single-post.html?id=articles-2">
+                    آموزش ثبت سند حسابداری از صفر تا صد
+                  </a>
+                </h3>
+
+                <p class="article-desc">
+                  در این مقاله یاد می‌گیرید ثبت اسناد حسابداری را به صورت
+                  کاملاً پروژه‌محور انجام دهید و با مهم‌ترین اشتباهات رایج
+                  آشنا شوید.
+                </p>
+
+                <a href="single-post.html?id=articles-2" class="article-read-more">
+                  ادامه مطالعه
+
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+
+                <div class="article-meta">
+                  <span>
+                    <i class="far fa-calendar"></i>
+
+                    ۲۶ تیر ۱۴۰۵
+                  </span>
+
+                  <span>
+                    <i class="far fa-clock"></i>
+
+                    ۸ دقیقه مطالعه
+                  </span>
+
+                  <span>
+                    <i class="far fa-user"></i>
+
+                    حسابیار
+                  </span>
+                </div>
+              </div>
+            </li>
+            <li class="article-item">
+              <div class="article-image">
+                <img src="../images/ravin.png" alt="آموزش ثبت سند حسابداری" />
+
+                <span class="article-badge"> جدید </span>
+              </div>
+
+              <div class="article-content">
+                <span class="article-category"> حسابداری </span>
+
+                <h3 class="article-title">
+                  <a href="single-post.html?id=articles-3">
+                    آموزش ثبت سند حسابداری از صفر تا صد
+                  </a>
+                </h3>
+
+                <p class="article-desc">
+                  در این مقاله یاد می‌گیرید ثبت اسناد حسابداری را به صورت
+                  کاملاً پروژه‌محور انجام دهید و با مهم‌ترین اشتباهات رایج
+                  آشنا شوید.
+                </p>
+
+                <a href="single-post.html?id=articles-3" class="article-read-more">
+                  ادامه مطالعه
+
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+
+                <div class="article-meta">
+                  <span>
+                    <i class="far fa-calendar"></i>
+
+                    ۲۶ تیر ۱۴۰۵
+                  </span>
+
+                  <span>
+                    <i class="far fa-clock"></i>
+
+                    ۸ دقیقه مطالعه
+                  </span>
+
+                  <span>
+                    <i class="far fa-user"></i>
+
+                    حسابیار
+                  </span>
+                </div>
+              </div>
+            </li>
+            <li class="article-item">
+              <div class="article-image">
+                <img src="../images/ravin.png" alt="آموزش ثبت سند حسابداری" />
+
+                <span class="article-badge"> جدید </span>
+              </div>
+
+              <div class="article-content">
+                <span class="article-category"> حسابداری </span>
+
+                <h3 class="article-title">
+                  <a href="single-post.html?id=articles-4">
+                    آموزش ثبت سند حسابداری از صفر تا صد
+                  </a>
+                </h3>
+
+                <p class="article-desc">
+                  در این مقاله یاد می‌گیرید ثبت اسناد حسابداری را به صورت
+                  کاملاً پروژه‌محور انجام دهید و با مهم‌ترین اشتباهات رایج
+                  آشنا شوید.
+                </p>
+
+                <a href="single-post.html?id=articles-4" class="article-read-more">
+                  ادامه مطالعه
+
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+
+                <div class="article-meta">
+                  <span>
+                    <i class="far fa-calendar"></i>
+
+                    ۲۶ تیر ۱۴۰۵
+                  </span>
+
+                  <span>
+                    <i class="far fa-clock"></i>
+
+                    ۸ دقیقه مطالعه
+                  </span>
+
+                  <span>
+                    <i class="far fa-user"></i>
+
+                    حسابیار
+                  </span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 7. EXAMS NEWS -->
+      <section class="exam-news-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="fa-solid fa-clipboard-list"></i>
+
+            اخبار <span class="text-gradient">آزمون‌ها</span>
+          </h2>
+
+          <a href="list-page.html?cat=exams" class="see-all-link">
+            مشاهده همه
+
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+        </div>
+
+        <div class="exam-news_container">
+          <ul class="exam-news_items">
+            <li class="exam-news_item">
+              <div class="exam-news_content">
+                <h3 class="exam-news_title">
+                  آغاز ثبت‌نام آزمون استخدامی دستگاه‌های اجرایی
+                </h3>
+
+                <a href="list-page.html?cat=exams-1" class="exam-news_link">
+                  ادامه مطالعه
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+
+                <div class="exam-news_meta">
+                  <span>
+                    <i class="far fa-calendar"></i>
+
+                    ۲۸ تیر ۱۴۰۵
+                  </span>
+
+                  <span>
+                    <i class="far fa-clock"></i>
+
+                    ۲ دقیقه مطالعه
+                  </span>
+                </div>
+              </div>
+            </li>
+            <li class="exam-news_item">
+              <div class="exam-news_content">
+                <h3 class="exam-news_title">
+                  آغاز ثبت‌نام آزمون استخدامی دستگاه‌های اجرایی
+                </h3>
+
+                <a href="list-page.html?cat=exams-2" class="exam-news_link">
+                  ادامه مطالعه
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+
+                <div class="exam-news_meta">
+                  <span>
+                    <i class="far fa-calendar"></i>
+
+                    ۲۸ تیر ۱۴۰۵
+                  </span>
+
+                  <span>
+                    <i class="far fa-clock"></i>
+
+                    ۲ دقیقه مطالعه
+                  </span>
+                </div>
+              </div>
+            </li>
+            <li class="exam-news_item">
+              <div class="exam-news_content">
+                <h3 class="exam-news_title">
+                  آغاز ثبت‌نام آزمون استخدامی دستگاه‌های اجرایی
+                </h3>
+
+                <a href="list-page.html?cat=exams-3" class="exam-news_link">
+                  ادامه مطالعه
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+
+                <div class="exam-news_meta">
+                  <span>
+                    <i class="far fa-calendar"></i>
+
+                    ۲۸ تیر ۱۴۰۵
+                  </span>
+
+                  <span>
+                    <i class="far fa-clock"></i>
+
+                    ۲ دقیقه مطالعه
+                  </span>
+                </div>
+              </div>
+            </li>
+            <li class="exam-news_item">
+              <div class="exam-news_content">
+                <h3 class="exam-news_title">
+                  آغاز ثبت‌نام آزمون استخدامی دستگاه‌های اجرایی
+                </h3>
+
+                <a href="list-page.html?cat=exams-4" class="exam-news_link">
+                  ادامه مطالعه
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+
+                <div class="exam-news_meta">
+                  <span>
+                    <i class="far fa-calendar"></i>
+
+                    ۲۸ تیر ۱۴۰۵
+                  </span>
+
+                  <span>
+                    <i class="far fa-clock"></i>
+
+                    ۲ دقیقه مطالعه
+                  </span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- toggle btn -->
+  <button id="themeToggleBtn" class="theme-toggle" aria-label="تغییر تم">
+    <span class="theme-toggle-track-icons"><span>🌙</span><span>☀️</span></span>
+    <span class="theme-toggle-knob">
+      <span class="icon-sun">☀️</span>
+      <span class="icon-moon">🌙</span>
+    </span>
+  </button>
+
+  <!-- UP BUTTON -->
+  <button class="scroll-top-btn">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
+
+  <!-- ai widget -->
+  <div class="ai-widget" id="aiWidget">
+    <button class="ai-toggle-btn" id="aiToggleBtn" aria-label="چت آنلاین">
+      <i class="fa-solid fa-comments"></i>
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="ai-chat-window" id="aiChatWindow">
+      <div class="ai-chat-header">
+        <div class="ai-chat-header-info">
+          <div class="ai-bot-avatar"><i class="fa-solid fa-robot"></i></div>
+          <div class="ai-chat-header-text">
+            <h4>پشتیبان هوشمند حسابیار</h4>
+            <span><span class="ai-status-dot"></span> آنلاین - پاسخ فوری</span>
+          </div>
+        </div>
+      </div>
+      <div class="ai-messages" id="aiMessages">
+        <div class="ai-message bot">
+          سلام! من پشتیبان هوشمند حسابیارم 👋<br />هر سوالی درباره حسابداری
+          داری بپرس.
+        </div>
+        <div class="ai-suggestions">
+          <button class="ai-suggestion">مالیات حقوق ۱۴۰۴ چقدره؟</button>
+          <button class="ai-suggestion">آموزش لیست بیمه</button>
+          <button class="ai-suggestion">نحوه ثبت سند حسابداری</button>
+        </div>
+      </div>
+      <div class="ai-input-area">
+        <input type="text" class="ai-input" id="aiInput" placeholder="سوالت رو بنویس..." autocomplete="off" />
+        <button class="ai-send-btn" id="aiSendBtn">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+ <%- include("./partials/footer") %>
+
+  <!-- SCRIPTS -->
+  <!-- Mock backend: delete these three lines when the real server is live.
+         See the header of api.js for the two-line switch. -->
+  <script>
+    window.APP_CONFIG = { apiMode: "real", apiBaseUrl: "" };
+  </script>
+  <script src="../../scripts/api.js"></script>
+  <script src="../../scripts/app-shell.js"></script>
+  <script src="../../scripts/mobile-menu.js"></script>
+  <script src="../../scripts/header-items.js"></script>
+  <script src="../../scripts/item-content.js"></script>
+  <script src="../../scripts/main-items.js"></script>
+  <script src="../../scripts/item-store.js"></script>
+  <script src="../../scripts/home-sections.js"></script>
+  <script src="../../scripts/data.js"></script>
+  <script src="../../scripts/home-slots.js"></script>
+  <script src="../../scripts/home-renderer.js"></script>
+  <script src="../../scripts/ai-widget.js"></script>
+  <script src="../../scripts/up-btn.js"></script>
+  <script src="../../scripts/toggle-btn.js"></script>
+</body>
+
+</html>

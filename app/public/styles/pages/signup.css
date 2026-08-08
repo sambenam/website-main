@@ -1,0 +1,348 @@
+/* ============================================
+   SIGNUP PAGE STYLES
+   ============================================ */
+
+@import url('../main/variables.css');
+
+.signup-container {
+    max-width: 500px;
+    margin: var(--spacing-2xl) auto;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-lg);
+}
+
+.signup-tabs {
+    display: flex;
+    margin-bottom: var(--spacing-xl);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: var(--spacing-md);
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    border-bottom: 2px solid transparent;
+}
+
+.tab-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn.active {
+    color: var(--accent-primary);
+    border-bottom-color: var(--accent-primary);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+#loginEmail,
+#loginPassword,
+#registerName,
+#registerEmail,
+#registerPassword,
+#registerConfirmPassword {
+    width: 95%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.form-group label {
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    font-size: var(--font-size-base);
+    outline: none;
+    transition: all var(--transition-fast);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--accent-primary);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+}
+
+.form-group select {
+    cursor: pointer;
+}
+
+.form-row {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+/* PASSWORD INPUT */
+.password-input {
+    position: relative;
+}
+
+.password-input input {
+    width: 100%;
+}
+
+.toggle-password {
+    position: absolute;
+    left: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+}
+
+.toggle-password:hover {
+    color: var(--accent-primary);
+}
+
+/* FORM OPTIONS */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+/* CHECKBOX */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.checkbox-label input {
+    display: none;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: transparent;
+    position: relative;
+    transition: all var(--transition-fast);
+}
+
+.checkbox-label input:checked+.checkmark {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+.checkmark::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.checkbox-label input:checked+.checkmark::after {
+    opacity: 1;
+}
+
+/* FORGOT PASSWORD */
+.forgot-password {
+    color: var(--accent-secondary);
+    font-size: var(--font-size-sm);
+    transition: color var(--transition-fast);
+}
+
+.forgot-password:hover {
+    color: var(--accent-primary);
+}
+
+/* DIVIDER */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin: var(--spacing-md) 0;
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border-color);
+}
+
+/* SOCIAL LOGIN */
+.social-login {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.social-btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+}
+
+.social-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+.social-btn.google {
+    background: rgba(220, 78, 65, 0.1);
+    border-color: rgba(220, 78, 65, 0.3);
+    color: #db4437;
+}
+
+.social-btn.google:hover {
+    background: rgba(220, 78, 65, 0.2);
+    border-color: #db4437;
+    color: white;
+}
+
+.social-btn.telegram {
+    background: rgba(0, 136, 212, 0.1);
+    border-color: rgba(0, 136, 212, 0.3);
+    color: #0088cc;
+}
+
+.social-btn.telegram:hover {
+    background: rgba(0, 136, 212, 0.2);
+    border-color: #0088cc;
+    color: white;
+}
+
+/* login-signup light mode */
+html[data-theme="light"] .signup-container {
+    background: rgb(210 216 231 / 95%) !important;
+}
+
+html[data-theme="light"] .checkmark {
+    border: 1px solid rgb(151, 147, 147) !important;
+}
+
+html[data-theme="light"] .checkbox-label a {
+    color: rgba(85, 109, 157, 0.95) !important;
+}
+
+/* login-signup light mode */
+
+/* Responsive */
+@media (max-width: 768px) {
+    .signup-container {
+        margin: var(--spacing-lg) auto;
+        padding: var(--spacing-lg);
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+
+    .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.auth-form-message {
+    margin: 0 0 16px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: .9rem;
+    line-height: 1.8;
+    background: rgba(59, 130, 246, .1);
+    color: var(--primary);
+}
+
+.auth-form-message[data-type="success"] {
+    background: rgba(34, 197, 94, .12);
+    color: #16a34a;
+}
+
+.auth-form-message[data-type="error"] {
+    background: rgba(239, 68, 68, .12);
+    color: #dc2626;
+}

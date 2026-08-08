@@ -1,0 +1,131 @@
+.single-post {
+    margin-top: 1px;
+}
+
+.single-post_container {
+    max-width: 85rem;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+}
+
+.single-post_layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.single-post_content {
+    border: 1px solid #bcb1b1;
+    border-radius: 18px;
+    padding: 1.5rem;
+}
+
+.single-post_title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1565e8;
+    margin-bottom: 1rem;
+    line-height: 1.8;
+}
+
+.single-post_image {
+    width: 100%;
+    max-height: 320px;
+    object-fit: fill;
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+}
+
+.single-post_text {
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 2;
+    margin-bottom: 1rem;
+}
+
+.single-post_sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: 1px solid;
+    border-radius: 18px;
+    padding: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+    transition: all ease-in-out 0.5s;
+    position: relative;
+    background: #fff;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.single-post_sidebar::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: conic-gradient(transparent 0deg,
+            transparent 280deg,
+            #5da9ff 320deg,
+            transparent 360deg);
+    animation: rotateBorder 8s ease-in-out infinite;
+    z-index: -2;
+}
+
+.single-post_sidebar::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: white;
+    border-radius: 13px;
+    z-index: -1;
+}
+
+@keyframes rotateBorder {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.single-post_sidebar:hover {
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .2);
+    transform: translateY(-8px);
+}
+
+.single-post_sidebar_title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.single-post_sidebar_link {
+    display: block;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    background: #F3F4F6;
+    color: #4B5563;
+    line-height: 1.7;
+    text-decoration: none;
+}
+
+.single-post_sidebar_link:hover {
+    background: #f5f5f5;
+}
+
+.single-post_sidebar_box--blue {
+    background: #1565e8;
+    color: #fff;
+    font-weight: 600;
+}
+
+@media (max-width: 900px) {
+    .single-post_layout {
+        grid-template-columns: 1fr;
+    }
+}

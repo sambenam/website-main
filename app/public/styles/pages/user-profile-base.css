@@ -1,0 +1,564 @@
+/* ============================================================================
+   پروفایل کاربر: سایدبار، محتوا، سبد خرید و جدول
+
+   The profile shell: the sidebar, the main content area, the cart, tables
+   and the toast.
+
+   Every variable here is prefixed --up-. It used to use --text-primary and
+   friends, which variables.css redefines when main-footer.css imports it —
+   so the page silently lost its colours and rendered as blank white.
+
+   Split out of user-profile.css. Load order is set in html/user-profile.html and
+   matters where noted.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ----------------------------------------------------------------------------
+   Theme tokens.
+
+   These used to be plain --text-primary / --text-secondary declared on :root.
+   The page also loads styles/main/variables.css (through main.css) and again
+   through main-footer.css, which comes AFTER this file - so the dark-theme
+   values won on equal specificity and the whole page rendered near-white text
+   (#f1f5f9) on a light background. Everything was invisible.
+
+   The names are prefixed now, so nothing else can overwrite them, and the
+   page follows the site's day/night toggle like every other page.
+   -------------------------------------------------------------------------- */
+:root {
+    --up-primary: #007AFF;
+    --up-success: #34C759;
+    --up-warning: #FF9500;
+    --up-danger: #FF3B30;
+
+    /* night (default) */
+    --up-text: #f1f5f9;
+    --up-text-soft: #cbd5e1;
+    --up-page: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    --up-card: rgba(30, 41, 59, 0.55);
+    --up-card-hover: rgba(30, 41, 59, 0.72);
+    --up-border: rgba(148, 163, 184, 0.22);
+    --up-field: rgba(15, 23, 42, 0.35);
+    /* A focused field lifts slightly instead of turning solid white. */
+    --up-field-focus: rgba(15, 23, 42, 0.55);
+    --up-toast: rgba(30, 41, 59, 0.96);
+    --up-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+
+    --radius: 20px;
+    --radius-sm: 14px;
+}
+
+html[data-theme="light"] {
+    --up-text: #1D1D1F;
+    --up-text-soft: #64748b;
+    --up-page: linear-gradient(135deg, #F5F7FA 0%, #C3CFE2 100%);
+    --up-card: rgba(255, 255, 255, 0.55);
+    --up-card-hover: rgba(255, 255, 255, 0.75);
+    --up-border: rgba(255, 255, 255, 0.6);
+    --up-field: rgba(255, 255, 255, 0.75);
+    --up-field-focus: #ffffff;
+    --up-toast: rgba(255, 255, 255, 0.96);
+    --up-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+body {
+    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--up-page);
+    min-height: 100vh;
+    direction: rtl;
+}
+
+.profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 24px;
+}
+
+.glass-card {
+    background: var(--up-card);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid var(--up-border);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--up-shadow);
+}
+
+/* Profile Sidebar */
+.profile-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: fit-content;
+}
+
+.user-avatar-section {
+    text-align: center;
+    border-bottom: 0.5px solid var(--up-border);
+    padding-bottom: 20px;
+}
+
+.avatar-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 14px;
+}
+
+.avatar-wrapper img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-edit-btn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: var(--up-primary);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.4);
+}
+
+.user-avatar-section h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--up-text);
+    margin-bottom: 4px;
+}
+
+.user-avatar-section p {
+    font-size: 13px;
+    color: var(--up-text-soft);
+    margin-bottom: 12px;
+}
+
+.user-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    background: rgba(255, 215, 0, 0.2);
+    border: 0.5px solid rgba(255, 215, 0, 0.4);
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #b37400;
+}
+
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    text-align: center;
+    border-bottom: 0.5px solid var(--up-border);
+    padding-bottom: 20px;
+}
+
+.stat-box {
+    background: var(--up-field);
+    padding: 10px 6px;
+    border-radius: 12px;
+}
+
+.stat-number {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--up-text);
+}
+
+.stat-label {
+    font-size: 11px;
+    color: var(--up-text-soft);
+}
+
+.profile-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.profile-nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    color: var(--up-text);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.profile-nav li.active a {
+    background: rgba(0, 122, 255, 0.15);
+    color: var(--up-primary);
+    font-weight: 600;
+}
+
+.profile-nav a:hover {
+    background: var(--up-field);
+}
+
+.profile-nav .badge {
+    background: var(--up-danger);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    margin-right: auto;
+}
+
+.logout-link {
+    color: var(--up-danger) !important;
+}
+
+.logout-link:hover {
+    background: rgba(255, 59, 48, 0.1) !important;
+}
+
+/* Main Content Area */
+.profile-main-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.profile-tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card-header {
+    margin-bottom: 20px;
+}
+
+.card-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--up-text);
+    margin-bottom: 4px;
+}
+
+.card-header p {
+    font-size: 13px;
+    color: var(--up-text-soft);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group.full-width {
+    grid-column: span 2;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--up-text);
+    margin-bottom: 6px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--up-card-hover);
+    border: 0.5px solid var(--up-border);
+    border-radius: var(--radius-sm);
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 14px;
+    color: var(--up-text);
+}
+
+/* Focus used to force `background: #fff`. In night mode the text is
+   near-white (#f1f5f9), so clicking into any field - name, email, phone,
+   birth date, address, or any password box - turned it white on white and
+   whatever you had typed vanished. The token follows the theme instead, and
+   the ring alone marks focus. */
+.form-control:focus {
+    outline: none;
+    border-color: var(--up-primary);
+    background: var(--up-field-focus);
+    box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.15);
+}
+
+textarea.form-control {
+    resize: none;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-primary {
+    background: var(--up-primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+.btn-secondary {
+    background: rgba(0, 122, 255, 0.12);
+    color: var(--up-primary);
+    border: 0.5px solid rgba(0, 122, 255, 0.2);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background: rgba(0, 122, 255, 0.2);
+}
+
+/* Cart Styles */
+.cart-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px;
+    background: var(--up-field);
+    border: 0.5px solid var(--up-border);
+    border-radius: var(--radius-sm);
+}
+
+.cart-item img {
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-info h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--up-text);
+    margin-bottom: 4px;
+}
+
+.cart-item-info .price {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--up-primary);
+}
+
+.cart-quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.qty-btn {
+    width: 28px;
+    height: 28px;
+    background: rgba(0, 0, 0, 0.06);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qty-btn:hover {
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.cart-summary {
+    background: var(--up-field);
+    border: 0.5px solid var(--up-border);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: var(--up-text-soft);
+    margin-bottom: 8px;
+}
+
+.summary-row.total {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--up-text);
+}
+
+/* Table */
+.table-container {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th {
+    text-align: right;
+    padding: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--up-text-soft);
+    border-bottom: 0.5px solid var(--up-border);
+}
+
+.data-table td {
+    padding: 14px 12px;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.2);
+    font-size: 13px;
+    color: var(--up-text);
+}
+
+.status {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.status.success {
+    background: rgba(52, 199, 89, 0.2);
+    color: var(--up-success);
+}
+
+.status.pending {
+    background: rgba(255, 149, 0, 0.2);
+    color: var(--up-warning);
+}
+
+/* Toast */
+.toast-container {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    background: var(--up-toast);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--up-border);
+    padding: 14px 20px;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--up-text);
+    animation: slideInLeft 0.3s ease;
+    min-width: 280px;
+}
+
+.toast.success {
+    border-right: 4px solid var(--up-success);
+}
+
+.toast.info {
+    border-right: 4px solid var(--up-primary);
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 900px) {
+    .profile-container {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full-width {
+        grid-column: span 1;
+    }
+}

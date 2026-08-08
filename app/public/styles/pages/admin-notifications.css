@@ -1,0 +1,169 @@
+/* Notifications - ساده و یک شکل برای همه - زنگوله کنار پیامک */
+
+/* Lock scrolling behind the dropdown - nothing else.
+   A dimming/blurring backdrop used to live here, which made the whole
+   dashboard look broken while the bell was open. The panel is a small
+   dropdown, not a modal, so it should not veil the page. */
+body.notification-panel-open {
+  overflow: hidden;
+  /* Removing the scrollbar shifts the layout sideways; reserve its width so
+     the dashboard stays put while the dropdown is open. */
+  padding-right: var(--scrollbar-width, 0px);
+}
+
+.notification-dropdown {
+  display: none;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 360px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  z-index: 10002;
+  overflow: hidden;
+  animation: notifSlideIn 0.25s ease;
+}
+
+@keyframes notifSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* The markup carries inline `opacity:0; pointer-events:none; transform:...`
+   for the closed state, and inline styles beat a plain class. Each property
+   therefore needs !important to win when the panel opens. */
+.notification-dropdown.active {
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+.notif-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notif-body {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.notif-body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.notif-body::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.notif-footer {
+  padding: 10px 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(0, 0, 0, 0.01);
+  text-align: center;
+}
+
+/* Uniform notification item - همه یک شکل */
+.notif-item-uniform {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.notif-item-uniform:hover {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+  transform: translateX(-2px);
+}
+
+.notif-item-uniform.unread {
+  background: rgba(14, 165, 233, 0.06);
+  border-color: rgba(14, 165, 233, 0.15);
+}
+
+.notif-item-uniform .notif-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #f1f5f9;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.notif-item-uniform.unread .notif-icon {
+  background: #0ea5e9;
+  color: white;
+}
+
+.notif-item-uniform .notif-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notif-item-uniform .notif-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.notif-item-uniform.unread .notif-title {
+  font-weight: 700;
+}
+
+.notif-item-uniform .notif-desc {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.notif-item-uniform .notif-time {
+  font-size: 10px;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+.notif-item-uniform .notif-dot {
+  width: 8px;
+  height: 8px;
+  background: #0ea5e9;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+/* Page list same shape */
+.notifications-list .notif-item-uniform {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}

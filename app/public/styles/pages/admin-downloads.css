@@ -1,0 +1,257 @@
+/* ============================================================================
+   ویرایشگر فایل‌های دانلود در تب محتوا
+
+   The downloads editor inside the site-content tab: one row per file, with
+ * the "where does this file live?" guidance beside it.
+
+   Part of the admin stylesheet, split out of a single 2,764-line file.
+   Load order is set in html/admin.html and matters: see admin-base.css first
+   and admin-msg-actions.css last.
+   ========================================================================== */
+
+/* ============================================
+   DOWNLOADS EDITOR (site-content tab)
+   Was a bare strip of inputs with no hint about where the file should live.
+   Now mirrors the products form: pick a source, get guidance, verify the link.
+   ============================================ */
+.content-download-row {
+  padding: 16px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.02);
+}
+
+.download-row__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.download-row__head strong {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.download-row__head .download-delete {
+  padding: 5px 12px;
+  font-size: 11px;
+  border-radius: 7px;
+  cursor: pointer;
+  color: var(--danger);
+  border-color: rgba(255, 59, 48, 0.25);
+  background: rgba(255, 59, 48, 0.05);
+}
+
+.download-row__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.download-field {
+  display: block;
+  margin-bottom: 14px;
+}
+
+.download-field .form-control,
+.download-row__grid .form-control,
+.download-row__grid .select-dropdown {
+  width: 100%;
+}
+
+.download-field>span {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.download-field--narrow {
+  max-width: 240px;
+  margin-bottom: 0;
+}
+
+/* Where does this file live? */
+.download-source {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.download-source__option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 9px;
+  font-size: 12px;
+  line-height: 1.6;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.download-source__option input {
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.download-source__option>span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.download-source__option:hover {
+  border-color: rgba(0, 122, 255, 0.4);
+}
+
+.download-source__option:has(input:checked) {
+  border-color: var(--primary);
+  background: rgba(0, 122, 255, 0.06);
+  font-weight: 600;
+}
+
+.download-source__option i {
+  font-size: 11px;
+  color: var(--primary);
+}
+
+.download-source__option--off {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: rgba(148, 163, 184, 0.05);
+}
+
+.download-source__option--off:hover {
+  border-color: rgba(148, 163, 184, 0.22);
+}
+
+.download-source__option--off i {
+  color: var(--text-secondary);
+}
+
+.content-download-row .field-hint code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.16);
+  font-size: 11px;
+}
+
+@media (max-width: 640px) {
+  .download-row__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .download-source {
+    grid-template-columns: 1fr;
+  }
+
+  .download-field--narrow {
+    max-width: none;
+  }
+
+  .url-field {
+    flex-direction: column;
+  }
+
+  .url-field .url-check-btn {
+    width: 100%;
+  }
+}
+
+/* ============================================
+   HOME SECTIONS manager (site-content tab)
+   ============================================ */
+.home-sections-list {
+  padding: 4px 0;
+}
+
+.home-section-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 16px;
+  margin-bottom: 9px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 11px;
+  background: rgba(15, 23, 42, 0.02);
+}
+
+.home-section-row__main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.home-section-row__main>i {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: rgba(0, 122, 255, 0.1);
+  color: var(--primary);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.home-section-row__main strong {
+  display: block;
+  font-size: 13px;
+}
+
+.home-section-row__main small {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.home-section-row__actions {
+  display: flex;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.home-section-row__actions button {
+  padding: 6px 13px;
+  font-size: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.home-section-delete {
+  color: var(--danger);
+  border-color: rgba(255, 59, 48, 0.22);
+  background: rgba(255, 59, 48, 0.05);
+}
+
+.section-flag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+@media (max-width: 620px) {
+  .home-section-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .home-section-row__actions button {
+    flex: 1;
+  }
+}

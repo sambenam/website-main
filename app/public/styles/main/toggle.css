@@ -1,0 +1,130 @@
+/* /* THEME TOGGLE - شب = فعلی سایت (#0f172a) */
+* {
+    transition-property: background, background-color, border-color, color, box-shadow;
+    transition-duration: .6s;
+    transition-timing-function: cubic-bezier(.16, 1, .3, 1);
+}
+
+
+.theme-toggle {
+    position: fixed;
+    top: 75px;
+    left: 7px;
+    width: 64px;
+    height: 34px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, .15);
+    background: rgba(255, 255, 255, .08);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    outline: none;
+    z-index: 9999;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.04)
+}
+
+.theme-toggle-track-icons {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    font-size: 13px;
+    pointer-events: none;
+    opacity: .6;
+}
+
+.theme-toggle-knob {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, .2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(0);
+    transition: transform .6s cubic-bezier(.68, -.2, .27, 1.25), background .5s;
+    z-index: 2;
+}
+
+.theme-toggle-knob .icon-sun {
+    opacity: 0;
+    transform: rotate(-90deg) scale(.5);
+    position: absolute;
+    transition: all .4s
+}
+
+.theme-toggle-knob .icon-moon {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+    position: absolute;
+    transition: all .4s
+}
+
+/* حالت روز */
+html[data-theme="light"] {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f1f5f9;
+    --bg-glass: rgba(255, 255, 255, .85);
+    --bg-glass-light: rgba(255, 255, 255, .92);
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --border-color: rgba(15, 23, 42, .08);
+    --border-color-light: rgba(15, 23, 42, .12);
+    --shadow-sm: 0 2px 8px rgba(15, 23, 42, .06);
+    --shadow-md: 0 4px 16px rgba(15, 23, 42, .08);
+}
+
+html[data-theme="light"] .main-container {
+    background: #fff !important;
+    border-color: var(--border-color) !important;
+}
+
+
+
+
+html[data-theme="light"] .theme-toggle {
+    background: rgba(15, 23, 42, .06) !important;
+    border-color: rgba(15, 23, 42, .12) !important;
+}
+
+html[data-theme="light"] .theme-toggle-knob {
+    background: linear-gradient(180deg, #ffffff, #f1f5f9) !important;
+    transform: translateX(-28px) !important;
+}
+
+html[data-theme="light"] .theme-toggle-knob .icon-sun {
+    opacity: 1 !important;
+    transform: rotate(0) scale(1) !important;
+}
+
+html[data-theme="light"] .theme-toggle-knob .icon-moon {
+    opacity: 0 !important;
+    transform: rotate(90deg) scale(.5) !important;
+}
+
+@media (max-width:1000px) {
+    .theme-toggle {
+        position: absolute;
+        top: 18px;
+        left: 65px;
+        transition: opacity 0.4s cubic-bezier(.16, 1, .3, 1), visibility 0.4s cubic-bezier(.16, 1, .3, 1), transform 0.6s cubic-bezier(.16, 1, .3, 1), background 0.6s, background-color 0.6s, border-color 0.6s, color 0.6s, box-shadow 0.6s;
+    }
+
+    body.mobile-menu-open .theme-toggle {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+}

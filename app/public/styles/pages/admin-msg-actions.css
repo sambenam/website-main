@@ -1,0 +1,279 @@
+/* ============================================================================
+   دکمه‌های حذف پیام/اعلان و پنجره پاسخ به گزارش
+
+   Two related things: the delete buttons on message and notification rows,
+ * and the reply-to-reporter dialog.
+ *
+ * MUST LOAD LAST. It carries the [hidden] { display: none !important } rule
+ * that stops any earlier `display` rule from overriding the hidden
+ * attribute, and three selectors here deliberately restate ones from
+ * earlier files.
+
+   Part of the admin stylesheet, split out of a single 2,764-line file.
+   Load order is set in html/admin.html and matters: see admin-base.css first
+   and admin-msg-actions.css last.
+   ========================================================================== */
+
+/* ============================================
+   DELETE BUTTONS — messages and notifications
+   --------------------------------------------
+   Neither list could remove a row, so finished conversations and read
+   notices piled up forever. The buttons stay quiet until hovered so they
+   do not compete with the content.
+   ============================================ */
+.thread-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.thread-delete,
+.notif-delete {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0.45;
+  transition: all 0.2s ease;
+}
+
+.thread-delete:hover,
+.notif-delete:hover {
+  opacity: 1;
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.28);
+  color: #dc2626;
+}
+
+.thread-delete:focus-visible,
+.notif-delete:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* The notification row is a flex line; the button sits at its far edge. */
+.notification-item {
+  position: relative;
+}
+
+.notification-item .notif-delete {
+  margin-right: auto;
+}
+
+.notif-clear-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+  border-radius: 9px;
+  cursor: pointer;
+  background: rgba(239, 68, 68, 0.07);
+  border: 1px solid rgba(239, 68, 68, 0.22);
+  color: #dc2626;
+  transition: all 0.2s ease;
+}
+
+.notif-clear-all:hover {
+  background: #dc2626;
+  color: #fff;
+}
+
+/* ============================================
+   REPORT REPLY — پاسخ به گزارش‌دهنده
+   ============================================ */
+.report-reply-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 11px;
+  border: none;
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.report-reply-btn>i {
+  font-size: 12px;
+}
+
+/* Wider and shorter: the report sits beside the reply instead of above it,
+   so the sheet is not a tall column the operator has to scroll through to
+   reach the send button. */
+.report-reply-box {
+  width: 96%;
+  max-width: 880px;
+}
+
+.report-reply-body {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 22px;
+  padding: 20px 24px;
+  text-align: right;
+  direction: rtl;
+}
+
+.report-reply-col {
+  min-width: 0;
+}
+
+.report-reply-legend {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 10px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--text-secondary);
+}
+
+.report-reply-legend>i {
+  color: #dc2626;
+  font-size: 12px;
+}
+
+.report-reply-summary {
+  padding: 13px 15px;
+  border-radius: 11px;
+  background: rgba(239, 68, 68, 0.05);
+  border: 1px solid rgba(239, 68, 68, 0.16);
+}
+
+.report-reply-summary__row {
+  display: flex;
+  gap: 10px;
+  font-size: 12.5px;
+  line-height: 1.95;
+}
+
+.report-reply-summary__row+.report-reply-summary__row {
+  margin-top: 7px;
+  padding-top: 7px;
+  border-top: 1px solid rgba(239, 68, 68, 0.1);
+}
+
+.report-reply-summary__row>span {
+  flex-shrink: 0;
+  min-width: 88px;
+  color: var(--text-secondary);
+}
+
+.report-reply-summary__row>strong {
+  color: var(--text-primary);
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.report-reply-col--form .form-group {
+  margin-bottom: 14px;
+}
+
+.report-reply-col--form .form-group:last-child {
+  margin-bottom: 0;
+}
+
+.report-reply-col--form textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+/* Attachment picker, shared shape with the public report form. */
+#reportReplyModal .evidence-upload {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+#reportReplyModal .evidence-upload__btn,
+#reportReplyModal .evidence-upload__clear {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 14px;
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#reportReplyModal .evidence-upload__btn {
+  background: rgba(0, 122, 255, 0.08);
+  border: 1px solid rgba(0, 122, 255, 0.24);
+  color: var(--primary);
+}
+
+#reportReplyModal .evidence-upload__btn:hover {
+  background: rgba(0, 122, 255, 0.16);
+}
+
+#reportReplyModal .evidence-upload__clear {
+  background: rgba(239, 68, 68, 0.07);
+  border: 1px solid rgba(239, 68, 68, 0.24);
+  color: #dc2626;
+}
+
+/* Small inline thumbnail: a large preview was what made the sheet so tall. */
+#reportReplyModal .evidence-upload__preview {
+  width: 46px;
+  height: 46px;
+  object-fit: cover;
+  border-radius: 9px;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+}
+
+#reportReplyModal .evidence-upload__hint {
+  display: block;
+  margin-top: 8px;
+  font-size: 11.5px;
+  line-height: 1.85;
+  color: var(--text-secondary);
+}
+
+#reportReplyModal .evidence-upload__hint[data-tone="error"] {
+  color: #dc2626;
+}
+
+#reportReplyModal .evidence-upload__hint[data-tone="ok"] {
+  color: #16a34a;
+}
+
+#reportReplyModal .field-optional {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* Narrow screens cannot fit two columns; stack them back up. */
+@media (max-width: 760px) {
+  .report-reply-body {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 16px 18px;
+  }
+}
+
+/* The `hidden` attribute is only a weak default style, so any rule that sets
+   `display` beats it. That left the "حذف" button and a broken image preview
+   showing in the reply sheet before anything had been attached. This makes
+   the attribute authoritative everywhere in the panel. */
+[hidden] {
+  display: none !important;
+}

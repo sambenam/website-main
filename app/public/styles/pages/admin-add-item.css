@@ -1,0 +1,213 @@
+/* ============================================================================
+   دیالوگ افزودن آیتم جدید
+
+   The add-item dialog: its two-column shape, and the placement picker that
+   decides whether the item reaches the home page or only its category page.
+
+   Split out of admin-content-tab.css, which crossed the 700-line ceiling
+   when the placement picker landed. These rules belong to a dialog, not to
+   the content tab, so they were never really at home there.
+   ========================================================================== */
+
+/* ----------------------------------------------------------------------------
+   ADD-ITEM DIALOG — wide and short
+
+   It used to be the default 500px box with six fields stacked vertically,
+   which made it narrow and tall enough that the submit button fell off the
+   bottom of a laptop screen: the operator had to scroll inside the dialog to
+   find it.
+
+   Two columns instead: what the item is on the right, where it appears on
+   the left. Same fields, roughly half the height.
+   -------------------------------------------------------------------------- */
+.add-item-modal {
+  max-width: 900px !important;
+  width: calc(100% - 40px);
+  /* Never taller than the viewport. On a short screen the body scrolls, not
+     the whole dialog, so the header and the footer buttons stay reachable. */
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.add-item-modal .modal-header,
+.add-item-modal .modal-footer {
+  flex: 0 0 auto;
+}
+
+.add-item-modal form {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.add-item-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  overflow-y: auto;
+  min-height: 0;
+  padding: 4px 2px;
+}
+
+.add-item-col__title {
+  margin: 0 0 13px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.add-item-col__title i {
+  color: var(--primary);
+  margin-left: 6px;
+}
+
+.add-item-col .form-group {
+  margin-bottom: 13px;
+}
+
+.add-item-col .form-group:last-child {
+  margin-bottom: 0;
+}
+
+.add-item-col label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* The id and the category are both short. Side by side they save a whole
+   row of height and read as the pair they are. */
+.add-item-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+}
+
+.add-item-row .form-group {
+  margin-bottom: 13px;
+}
+
+/* The category select carried its colours as an inline style attribute, which
+   meant it could not follow the theme. Same shape as every other control. */
+.add-item-col select.select-dropdown {
+  width: 100%;
+  padding: 9px;
+  border-radius: 8px;
+}
+
+/* One column on a narrow screen: two columns of 450px do not fit a phone. */
+@media (max-width: 780px) {
+  .add-item-body {
+    grid-template-columns: 1fr;
+  }
+
+  .add-item-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   PLACEMENT PICKER (add-item dialog)
+
+   Where a new item shows up. The home page is a shop window with a fixed
+   number of slots, not a list of everything, so the default is the category
+   page alone and the home page is an explicit opt-in.
+
+   The hint under the second option is filled live by content-table.js with
+   how many slots the chosen section has left.
+   -------------------------------------------------------------------------- */
+.placement-field {
+  padding: 14px;
+  border: 1px solid rgba(0, 122, 255, 0.16);
+  border-radius: 11px;
+  background: rgba(0, 122, 255, 0.03);
+}
+
+.placement-field .add-item-col__title {
+  border-bottom-color: rgba(0, 122, 255, 0.18);
+}
+
+.placement-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 10px;
+  margin-bottom: 7px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 9px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.placement-option:last-of-type {
+  margin-bottom: 0;
+}
+
+.placement-option:hover {
+  border-color: rgba(0, 122, 255, 0.4);
+}
+
+.placement-option input {
+  margin-top: 3px;
+  cursor: pointer;
+  accent-color: var(--primary);
+}
+
+.placement-option strong {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.placement-option small {
+  display: block;
+  margin-top: 3px;
+  font-size: 10.5px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* The chosen row, so the current answer is readable at a glance. */
+.placement-option:has(input:checked) {
+  border-color: var(--primary);
+  background: rgba(0, 122, 255, 0.07);
+}
+
+/* A section with no free slot, or a category that has no home section at all.
+   The radio is disabled, so the row must not look clickable. */
+.placement-option--blocked {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.placement-option--blocked:hover {
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+.placement-notice {
+  margin: 10px 0 0;
+  padding: 9px 11px;
+  border-radius: 8px;
+  font-size: 11px;
+  line-height: 1.8;
+  background: rgba(234, 179, 8, 0.09);
+  border-right: 3px solid #eab308;
+  color: var(--text-primary);
+}
+
+.placement-notice--full {
+  background: rgba(239, 68, 68, 0.07);
+  border-right-color: #ef4444;
+}
+
+/* The `hidden` attribute is only a weak default style; any display rule
+   beats it. Without this the notice showed before a category was chosen. */
+.placement-notice[hidden] {
+  display: none !important;
+}

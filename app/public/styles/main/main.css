@@ -1,0 +1,17 @@
+/* ============================================
+   MAIN STYLES - Import All Section Styles
+   ============================================ */
+
+@import url('variables.css');
+@import url('common.css');
+@import url('hero.css');
+@import url('learning-path.css');
+@import url('popular-courses.css');
+@import url('new-courses.css');
+@import url('categories.css');
+@import url('featured.css');
+@import url('articles.css');
+@import url('exams.css');
+@import url('up-btn.css');
+@import url('ai-widget.css');
+@import url('toggle.css');

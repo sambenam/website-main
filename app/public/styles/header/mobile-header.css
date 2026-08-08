@@ -1,0 +1,445 @@
+/* ============================================
+   MOBILE MENU STYLES - Glassmorphism
+   Matching with Desktop Header
+   ============================================ */
+
+a {
+    text-decoration: none;
+    color: #cbd5e1;
+}
+
+.mobile-header {
+    display: none;
+    position: unset;
+}
+
+.mobile-menu_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-secondary);
+}
+
+.mobile-header_container {
+    height: 60px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(18, 26, 46, 0.95);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f1f5f9;
+}
+
+.mobile-menu-btn:hover {
+    background: rgba(33, 45, 76, 0.95);
+    color: #d8e2ec;
+}
+
+.mobile-menu-btn i {
+    font-size: 19px;
+}
+
+/* Website Logo */
+.website-logo {
+    padding: 0.5rem 0 0 0.75rem;
+}
+
+.website-logo_img {
+    width: 3rem;
+    height: 3.3rem;
+}
+
+/* Mobile Menu - Glass Effect */
+.mobile-menu {
+    width: 280px;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.98);
+    position: fixed;
+    top: 0;
+    right: -290px;
+    z-index: 9999;
+    overflow-y: auto;
+    transition: all 0.35s ease;
+    box-shadow: -8px 0 30px rgba(0, 0, 0, 0.4);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.mobile-menu.active {
+    right: 0;
+}
+
+/* Mobile Menu Header */
+.mobile-menu_header {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* Close Button */
+.mobile-close {
+    width: 38px;
+    height: 38px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f1f5f9;
+}
+
+.mobile-close:hover {
+    background: #ef4444;
+    color: #fff;
+}
+
+.mobile-close i {
+    font-size: 17px;
+}
+
+/* Mobile Search Box */
+.mobile-search-box {
+    flex: 1;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    overflow: hidden;
+    width: 0;
+    opacity: 0;
+    transition: all 0.35s ease;
+}
+
+.mobile-search-box.active {
+    width: 100%;
+    opacity: 1;
+}
+
+.mobile-search-box i {
+    color: #64748b;
+}
+
+.mobile-search-box input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    color: #f1f5f9;
+}
+
+.mobile-search-box input::placeholder {
+    color: #64748b;
+}
+
+.mobile-search-btn {
+    width: 38px;
+    height: 38px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f1f5f9;
+}
+
+.mobile-search-btn:hover {
+    background: #3b82f6;
+    color: #fff;
+}
+
+.mobile-search-btn i {
+    font-size: 17px;
+}
+
+/* ============================================
+   MENU LIST STYLES
+   ============================================ */
+
+.mobile-menu_list,
+.mobile-dropdown-menu,
+.mobile-sub_menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Dropdown Menu */
+.mobile-dropdown {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mobile-dropdown-btn {
+    width: 100%;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: 'Vazirmatn', 'Segoe UI', sans-serif;
+    color: #f1f5f9;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.mobile-dropdown-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.mobile-dropdown-btn i {
+    transition: all 0.3s ease;
+    color: #64748b;
+}
+
+.mobile-dropdown.active>.mobile-dropdown-btn i {
+    transform: rotate(180deg);
+    color: #3b82f6;
+}
+
+.mobile-dropdown-menu,
+.mobile-sub_menu {
+    display: none;
+    background: transparent;
+}
+
+.mobile-dropdown.active>.mobile-dropdown-menu {
+    display: block;
+}
+
+/* ============================================
+   SUB MENU LEVEL 2
+   ============================================ */
+
+.mobile-sub-dropdown {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0.75rem 0.75rem 0.75rem 0;
+}
+
+.mobile-sub-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Vazirmatn', 'Segoe UI', sans-serif;
+    color: #cbd5e1;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+
+.mobile-sub-btn span {
+    color: #cbd5e1;
+}
+
+.mobile-sub-btn i {
+    font-size: 12px;
+    transition: all 0.3s ease;
+    color: #64748b;
+}
+
+.mobile-sub-dropdown.active>.mobile-sub-btn i {
+    transform: rotate(-90deg);
+    color: #3b82f6;
+}
+
+/* ============================================
+   SUB MENU LEVEL 3
+   ============================================ */
+
+.mobile-sub_menu {
+    display: none;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 6px 0;
+    border-radius: 8px;
+    margin: 4px 0;
+}
+
+.mobile-sub-dropdown.active>.mobile-sub_menu {
+    display: block;
+}
+
+.mobile-sub_menu li {
+    padding: 0.75rem 0.75rem 0.75rem 0;
+}
+
+.mobile-sub_menu a {
+    display: block;
+    padding: 3px 7px;
+    text-decoration: none;
+    color: #94a3b8;
+    font-size: 13px;
+    font-family: 'Vazirmatn', 'Segoe UI', sans-serif;
+    transition: all 0.25s ease;
+    border-radius: 8px;
+}
+
+.mobile-sub_menu a:hover {
+    color: #3b82f6;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+.mobile-dropdown-menu,
+.mobile-sub_menu {
+    animation: fadeDown 0.25s ease;
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   OVERLAY
+   ============================================ */
+
+.mobile-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 9998;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.mobile-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+
+.mobile-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.mobile-menu::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.mobile-menu::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 1000px) {
+    .mobile-header {
+        display: block;
+    }
+
+    .mobile-menu {
+        width: 260px;
+        right: -270px;
+    }
+
+    .mobile-menu.active {
+        right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-menu {
+        width: 50%;
+        right: -100%;
+    }
+
+    .mobile-header_container {
+        padding: 0 10px;
+    }
+
+    .website-logo {
+        padding-left: 0;
+    }
+
+    .website-logo_img {
+        width: 4.5rem;
+        height: 2.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .mobile-menu_header {
+        height: 56px;
+    }
+
+    .mobile-close,
+    .mobile-search-btn {
+        width: 34px;
+        height: 34px;
+    }
+
+    .mobile-dropdown-btn {
+        height: 46px;
+        font-size: 14px;
+    }
+
+    .mobile-sub-btn {
+        height: 44px;
+        font-size: 13px;
+    }
+}

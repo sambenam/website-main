@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>درباره ما | حسابیار</title>
+  <link rel="icon" type="image/png" href="../images/ravin.png" />
+  <meta name="description" content="با تیم حسابیار، اهداف و مسیر ما در آموزش حسابداری آشنا شوید." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="درباره ما | حسابیار" />
+  <meta property="og:description" content="با تیم حسابیار، اهداف و مسیر ما در آموزش حسابداری آشنا شوید." />
+  <meta property="og:image" content="../images/ravin.png" />
+  <meta property="og:locale" content="fa_IR" />
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a" crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../styles/header/top-header.css" />
+  <link rel="stylesheet" href="../styles/header/bottom-header.css" />
+  <link rel="stylesheet" href="../styles/header/mobile-header.css" />
+  <link rel="stylesheet" href="../styles/main/main.css" />
+  <link rel="stylesheet" href="../styles/pages/about-us.css" />
+  <link rel="stylesheet" href="../styles/footer/main-footer.css" />
+</head>
+
+<body>
+  <%- include("./partials/header") %>
+  <section class="mobile-header">
+    <div class="mobile-menu_container">
+      <div class="mobile-header_container">
+        <button class="mobile-menu-btn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+
+      <div class="website-logo">
+        <a href="/">
+          <img src="../images/ravin.png" class="website-logo_img" alt="لوگوی حسابیار" />
+        </a>
+      </div>
+    </div>
+
+    <div class="mobile-menu">
+      <div class="mobile-menu_header">
+        <button class="mobile-close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="mobile-search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="جستجو..." />
+        </div>
+
+        <button class="mobile-search-btn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+
+      <ul class="mobile-menu_list">
+        <li class="mobile-dropdown">
+          <button class="mobile-dropdown-btn">
+            <span>برای دانشجویان</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+
+          <ul class="mobile-dropdown-menu">
+            <li class="mobile-sub-dropdown">
+              <button class="mobile-sub-btn">
+                <span>کتاب و جزوه</span>
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+
+              <ul class="mobile-sub_menu">
+                <li>
+                  <a href="list-page.html?cat=diploma"> دروس تخصصی دیپلم </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=associate_degree">
+                    دروس تخصصی کاردانی
+                  </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=bachelor">
+                    دروس تخصصی کارشناسی
+                  </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=master"> دروس تخصصی ارشد </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=phd"> دروس تخصصی دکتری </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- کنکوری ها -->
+
+            <li class="mobile-sub-dropdown">
+              <button class="mobile-sub-btn">
+                <span>کنکوری ها</span>
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+
+              <ul class="mobile-sub_menu">
+                <li>
+                  <a href="list-page.html?cat=konkur1">
+                    سوالات کنکوری ها + جواب ها
+                  </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=konkur2">
+                    ضرایب و منابع کنکور ها
+                  </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=konkur3">
+                    روش های مطالعه و تست
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- پروژه ها -->
+
+            <li class="mobile-sub-dropdown">
+              <button class="mobile-sub-btn">
+                <span>پروژه های حسابداری</span>
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+
+              <ul class="mobile-sub_menu">
+                <li>
+                  <a href="list-page.html?cat=Enterpreneurship_projects">پروژه های کارآفرینی</a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=Enternship-projects">پروژه های کاراموزی</a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=Financial-project">پروژه های مالی و حسابداری</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <li class="mobile-dropdown">
+          <button class="mobile-dropdown-btn">
+            <span>فایل های حسابداری</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+
+          <ul class="mobile-dropdown-menu">
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=power_point">
+                دانلود فایل پاور پوینت
+              </a>
+            </li>
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=Exel"> دانلود فایل های اکسل</a>
+            </li>
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=Word"> دانلود فایل های ورد</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="mobile-dropdown">
+          <button class="mobile-dropdown-btn">
+            <span>مقالات</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+
+          <ul class="mobile-dropdown-menu">
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=accounting_article">
+                مقالات حسابداری
+              </a>
+            </li>
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=software_training">
+                آموزش نرم افزار ها</a>
+            </li>
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=standards"> اصول و استانداردها</a>
+            </li>
+
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=accounting_circulars">
+                بخش نامه های حسابداری</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="mobile-dropdown">
+          <button class="mobile-dropdown-btn">
+            <span>فیلم های آموزشی</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+
+          <ul class="mobile-dropdown-menu">
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=videos"> فیلم های آموزشی </a>
+            </li>
+          </ul>
+        </li>
+        <li class="mobile-dropdown">
+          <button class="mobile-dropdown-btn">
+            <span>محصولات و دوره ها</span>
+          </button>
+        </li>
+        <li class="mobile-dropdown">
+          <a href="/sign-up" class="mobile-dropdown-btn">
+            <span>ورود</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="mobile-overlay"></div>
+  </section>
+
+  <main class="main">
+    <div class="main-container">
+      <!-- PAGE HEADER -->
+      <div class="page-header">
+        <h1 class="page-title">درباره ما</h1>
+      </div>
+
+      <!-- ABOUT CONTENT -->
+      <div class="about-content">
+        <div class="about-text">
+          <h2>چرا حسابیار؟</h2>
+          <p>
+            حسابیار با هدف <strong>آموزش کاربردی حسابداری</strong>، مالیات و
+            نرم‌افزارهای مالی راه‌اندازی شده است. ما معتقدیم که یادگیری
+            حسابداری باید برای همه آسان و در دسترس باشد.
+          </p>
+          <p>
+            تیم ما شامل <strong>حسابداران با تجربه</strong> و
+            <strong>اساتید دانشگاه</strong> است که سال‌ها در زمینه آموزش
+            حسابداری فعالیت داشته‌اند. تمام مطالب سایت توسط متخصصان بررسی و
+            تایید می‌شود.
+          </p>
+          <div class="about-features">
+            <div class="about-feature">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <h3>آموزش حرفه‌ای</h3>
+              <p>مقالات و ویدیوهای آموزشی با کیفیت بالا</p>
+            </div>
+            <div class="about-feature">
+              <i class="fa-solid fa-file-lines"></i>
+              <h3>فایل‌های آماده</h3>
+              <p>دانلود پروژه‌ها و فایل‌های حسابداری</p>
+            </div>
+            <div class="about-feature">
+              <i class="fa-solid fa-users"></i>
+              <h3>پشتیبانی تخصصی</h3>
+              <p>پاسخگویی سریع به سوالات شما</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEAM SECTION -->
+      <section class="team-section">
+        <h2 class="section-title">
+          <i class="fa-solid fa-user-group"></i>
+          تیم ما
+        </h2>
+        <div class="team-grid">
+          <div class="team-member">
+            <img src="../images/ravin.png" alt="مدیر سایت" loading="lazy" />
+            <h3>مهندس حیدر بنام</h3>
+            <p>بنیانگذار و مدیر سایت</p>
+            <p class="team-bio">متخصص حسابداری با ۱۵ سال تجربه</p>
+            <div class="team-socials">
+              <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+              <a href="#"><i class="fa-brands fa-telegram"></i></a>
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+          </div>
+          <div class="team-member">
+            <img src="../images/ravin.png" alt="مدرس اکسل" loading="lazy" />
+            <h3>سرکار خانم زهره احمدی</h3>
+            <p>مدرس اکسل حسابداری</p>
+            <p class="team-bio">متخصص توابع پیشرفته اکسل</p>
+            <div class="team-socials">
+              <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+              <a href="#"><i class="fa-brands fa-telegram"></i></a>
+            </div>
+          </div>
+          <div class="team-member">
+            <img src="../images/ravin.png" alt="مدرس اکسل" loading="lazy" />
+            <h3>مهندس علی رضایی</h3>
+            <p>مدرس اکسل حسابداری</p>
+            <p class="team-bio">متخصص توابع پیشرفته اکسل</p>
+            <div class="team-socials">
+              <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+              <a href="#"><i class="fa-brands fa-telegram"></i></a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- toggle btn -->
+  <button id="themeToggleBtn" class="theme-toggle" aria-label="تغییر تم">
+    <span class="theme-toggle-track-icons"><span>🌙</span><span>☀️</span></span>
+    <span class="theme-toggle-knob">
+      <span class="icon-sun">☀️</span>
+      <span class="icon-moon">🌙</span>
+    </span>
+  </button>
+
+  <!-- FOOTER -->
+  <%- include("./partials/footer") %>
+
+  <!-- scripts -->
+  <!-- Mock backend: delete these three lines when the real server is live.
+         See the header of api.js for the two-line switch. -->
+  <script>
+    window.APP_CONFIG = { apiMode: "real", apiBaseUrl: "" };
+  </script>
+  <script src="../scripts/api.js"></script>
+  <script src="../scripts/app-shell.js"></script>
+  <script src="../scripts/mobile-menu.js"></script>
+  <script src="../scripts/mobile-menu.js"></script>
+  <script src="../scripts/ai-widget.js"></script>
+  <script src="../scripts/up-btn.js"></script>
+  <script src="../scripts/toggle-btn.js"></script>
+</body>
+
+</html>

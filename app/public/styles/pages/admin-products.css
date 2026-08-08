@@ -1,0 +1,277 @@
+/* ============================================================================
+   تب محصولات: انتخاب منبع فایل و مودال دوستونه
+
+   The add/edit product dialog: the two-column layout, the image picker and
+ * the advice box that appears under a file URL.
+
+   Part of the admin stylesheet, split out of a single 2,764-line file.
+   Load order is set in html/admin.html and matters: see admin-base.css first
+   and admin-msg-actions.css last.
+   ========================================================================== */
+
+/* ============================================
+   FILE SOURCE PICKER (add-product modal)
+   ============================================ */
+.source-options {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.source-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.source-option:hover {
+  border-color: rgba(0, 122, 255, 0.4);
+}
+
+.source-option input[type="radio"] {
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.source-option:has(input:checked) {
+  border-color: var(--primary);
+  background: rgba(0, 122, 255, 0.05);
+}
+
+.source-option__body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.source-option__body strong {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.source-option__body strong>i {
+  margin-left: 5px;
+  font-size: 12px;
+}
+
+.source-option__body small {
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.source-option--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: rgba(148, 163, 184, 0.05);
+}
+
+.source-option--disabled:hover {
+  border-color: rgba(148, 163, 184, 0.22);
+}
+
+/* Advice shown under a URL field */
+.url-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.url-notice>i {
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.url-notice--info {
+  background: rgba(0, 122, 255, 0.07);
+  color: var(--text-primary);
+  border: 1px solid rgba(0, 122, 255, 0.16);
+}
+
+.url-notice--info>i {
+  color: #007aff;
+}
+
+.url-notice--warn {
+  background: rgba(234, 179, 8, 0.08);
+  color: var(--text-primary);
+  border: 1px solid rgba(234, 179, 8, 0.22);
+}
+
+.url-notice--warn>i {
+  color: #ca8a04;
+}
+
+.field-hint--warn {
+  color: #ca8a04 !important;
+}
+
+/* Product image picker */
+.image-picker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.image-picker__preview {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  flex-shrink: 0;
+}
+
+.image-picker__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.image-picker__actions .btn-secondary {
+  padding: 7px 12px;
+  font-size: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* ============================================
+   PRODUCT MODAL — two-column layout
+   The form has ~10 fields; stacked in a 500px box it needed constant
+   scrolling. Two columns fit it on one screen at desktop width and
+   collapse back to one column on narrow displays.
+   ============================================ */
+.product-modal {
+  max-width: 900px;
+  max-height: 88vh;
+  overflow-y: auto;
+}
+
+.product-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.product-form-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.product-form-legend {
+  margin: 0 0 2px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.product-form-legend>i {
+  margin-left: 6px;
+  color: var(--primary);
+  font-size: 12px;
+}
+
+/* Two short fields side by side (format + size) */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Inside the grid the old inline margins are no longer needed */
+.product-form-grid .form-group {
+  margin-bottom: 0;
+}
+
+.product-form-grid .form-control,
+.product-form-grid .select-dropdown {
+  width: 100%;
+}
+
+.form-control--readonly {
+  display: block;
+  background: rgba(148, 163, 184, 0.08);
+  color: var(--text-secondary);
+}
+
+.product-modal .modal-footer {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+/* Stack on narrow screens */
+@media (max-width: 860px) {
+  .product-form-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .product-modal {
+    max-width: none;
+    width: calc(100% - 24px);
+  }
+}
+
+@media (max-width: 480px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* "check link" button beside the URL field */
+.url-field {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.url-field .form-control {
+  flex: 1;
+  min-width: 0;
+}
+
+.url-check-btn {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  font-size: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.url-check-btn>i {
+  margin-left: 5px;
+  font-size: 11px;
+}
+
+.url-check-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.url-notice--ok {
+  background: rgba(52, 199, 89, 0.08);
+  color: var(--text-primary);
+  border: 1px solid rgba(52, 199, 89, 0.22);
+}
+
+.url-notice--ok>i {
+  color: #34c759;
+}

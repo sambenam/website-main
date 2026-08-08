@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>درگاه پرداخت الکترونیک امن | حسابیار</title>
+  <link rel="icon" type="image/png" href="../images/ravin.png" />
+  <meta name="description" content="صفحه پرداخت امن سفارش." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="درگاه پرداخت الکترونیک امن | حسابیار" />
+  <meta property="og:description" content="صفحه پرداخت امن سفارش." />
+  <meta property="og:image" content="../images/ravin.png" />
+  <meta property="og:locale" content="fa_IR" />
+  <link rel="stylesheet" href="../styles/pages/gateway.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a" crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <div class="gateway-main-wrapper">
+    <!-- Top Security & Timer Bar -->
+    <header class="gateway-topbar">
+      <div class="secure-badge">
+        <i class="fas fa-lock"></i>
+        <span>ارتباط امن شاپرک (SSL)</span>
+      </div>
+      <div class="timer-badge">
+        <i class="fas fa-clock"></i>
+        <span>زمان باقی‌مانده: <strong id="countdownTimer">09:50</strong></span>
+      </div>
+    </header>
+
+    <!-- Two Column Gateway Card -->
+    <div class="gateway-desktop-card">
+      <!-- LEFT COLUMN: Merchant Info & Amount -->
+      <div class="merchant-column">
+        <div class="merchant-brand">
+          <div class="brand-icon"><i class="fas fa-store"></i></div>
+          <h3>اطلاعات پذیرنده</h3>
+        </div>
+
+        <div class="merchant-details">
+          <div class="detail-item">
+            <span>نام پذیرنده:</span>
+            <strong>فروشگاه مرکزی آموزش و فایل</strong>
+          </div>
+          <div class="detail-item">
+            <span>شماره پذیرنده:</span>
+            <strong>۸۵۴۹۲۰۱</strong>
+          </div>
+          <div class="detail-item">
+            <span>شماره ترمینال:</span>
+            <strong>۶۳۹۸۳۶</strong>
+          </div>
+          <div class="detail-item">
+            <span>آدرس وب‌سایت:</span>
+            <strong style="color: var(--primary)">https://example.com</strong>
+          </div>
+        </div>
+
+        <div class="merchant-amount-box">
+          <span>مبلغ قابل پرداخت:</span>
+          <div class="amount-value" id="gatewayAmount">— <span>تومان</span></div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: Card Form -->
+      <div class="form-column">
+        <div class="form-column-header">
+          <h2><i class="fas fa-credit-card"></i> اطلاعات کارت بانکی</h2>
+          <p>لطفاً اطلاعات کارت عضو شتاب خود را با دقت وارد کنید</p>
+        </div>
+
+        <form id="desktopPaymentForm" action="receipt.html" method="GET">
+          <!-- Card Number -->
+          <div class="form-group">
+            <label>شماره کارت (۱۶ رقمی)</label>
+            <div class="input-with-icon">
+              <input type="text" id="cardNumber" maxlength="19" placeholder="xxxx - xxxx - xxxx - xxxx" required />
+              <i class="fas fa-id-card"></i>
+            </div>
+          </div>
+
+          <!-- CVV2 & Expiry -->
+          <div class="form-row-grid">
+            <div class="form-group">
+              <label>شماره شناسایی دوم (CVV2)</label>
+              <input type="password" id="cvv2" maxlength="4" placeholder="CVV2" required style="text-align: center" />
+            </div>
+            <div class="form-group">
+              <label>تاریخ انقضای کارت</label>
+              <div class="expiry-grid">
+                <input type="text" id="expYear" maxlength="2" placeholder="سال" required style="text-align: center" />
+                <input type="text" id="expMonth" maxlength="2" placeholder="ماه" required style="text-align: center" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Captcha -->
+          <div class="form-group">
+            <label>کد امنیتی</label>
+            <div class="captcha-group">
+              <input type="text" id="captchaInput" maxlength="5" placeholder="کد تصویر را وارد کنید" required />
+              <div class="captcha-image">
+                <span id="captchaCode">۵۶۶۸۹</span>
+                <button type="button" class="refresh-captcha" onclick="refreshCaptcha()" title="تغییر کد">
+                  <i class="fas fa-sync-alt"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- OTP / Dynamic Password -->
+          <div class="form-group">
+            <label>رمز اینترنتی کارت (رمز پویا)</label>
+            <div class="otp-desktop-group">
+              <input type="password" id="otpCode" placeholder="رمز پویا را وارد کنید" required />
+              <button type="button" class="btn-otp-request" onclick="requestOtp()">
+                <i class="fas fa-paper-plane"></i> دریافت رمز پویا
+              </button>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label>ایمیل (اختیاری جهت دریافت رسید)</label>
+            <input type="email" placeholder="example@gmail.com" />
+          </div>
+
+          <!-- Test switch: lets the shop owner produce a failed payment so
+                 the admin panel can be verified without a real gateway.
+                 BACKEND NOTE: remove this block when the real gateway is wired. -->
+          <label class="gateway-test-toggle">
+            <input type="checkbox" id="gatewayForceFail" />
+            <span>شبیه‌سازی پرداخت ناموفق (فقط برای تست)</span>
+          </label>
+
+          <!-- Actions -->
+          <div class="gateway-action-buttons">
+            <a href="receipt.html?status=cancelled" class="btn-cancel-gateway">انصراف</a>
+            <button type="submit" class="btn-submit-gateway">
+              پرداخت نهایی
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mock backend: delete these three lines when the real server is live.
+         See the header of api.js for the two-line switch. -->
+  <script>
+    window.APP_CONFIG = { apiMode: "real", apiBaseUrl: "" };
+  </script>
+  <script src="../scripts/api.js"></script>
+  <script src="../scripts/app-shell.js"></script>
+  <script src="../scripts/gateway.js"></script>
+</body>
+
+</html>

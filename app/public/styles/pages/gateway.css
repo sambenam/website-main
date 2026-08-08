@@ -1,0 +1,448 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #007AFF;
+    --success: #22c55e;
+    --danger: #ef4444;
+    --bg-dark: #0f172a;
+    --card-bg: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --border-color: #cbd5e1;
+}
+
+body {
+    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, #1e293b 100%);
+    min-height: 100vh;
+    direction: rtl;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+    color: var(--text-primary);
+}
+
+.gateway-main-wrapper {
+    width: 100%;
+    max-width: 960px;
+    animation: fadeInScale 0.4s ease-out;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.98) translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Topbar */
+.gateway-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 0 10px;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.secure-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--success);
+    font-weight: 600;
+}
+
+.timer-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 6px 14px;
+    border-radius: 20px;
+    color: #f8fafc;
+}
+
+.timer-badge strong {
+    color: #38bdf8;
+    letter-spacing: 1px;
+}
+
+/* Desktop Two-Column Card */
+.gateway-desktop-card {
+    background: var(--card-bg);
+    border-radius: 28px;
+    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3);
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Left Column: Merchant & Amount */
+.merchant-column {
+    background: #f8fafc;
+    border-left: 1px solid #e2e8f0;
+    padding: 30px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.merchant-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 16px;
+}
+
+.brand-icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(0, 122, 255, 0.1);
+    color: var(--primary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.merchant-brand h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.merchant-details {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 30px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 13px;
+}
+
+.detail-item span {
+    color: var(--text-secondary);
+}
+
+.detail-item strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.merchant-amount-box {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border: 1px solid #bfdbfe;
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+}
+
+.merchant-amount-box span {
+    display: block;
+    font-size: 12px;
+    color: #1e40af;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.amount-value {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1d4ed8;
+}
+
+.amount-value span {
+    display: inline;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Right Column: Card Form */
+.form-column {
+    padding: 32px;
+}
+
+.form-column-header {
+    margin-bottom: 24px;
+}
+
+.form-column-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-column-header h2 i {
+    color: var(--primary);
+}
+
+.form-column-header p {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 6px;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon input {
+    direction: ltr;
+    width: 100%;
+    padding: 12px 16px 12px 45px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 15px;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.input-with-icon i {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 18px;
+}
+
+.form-row-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.expiry-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.form-row-grid input,
+.expiry-grid input,
+.captcha-group input,
+.otp-desktop-group input,
+.form-group input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.captcha-group {
+    display: grid;
+    grid-template-columns: 1fr 140px;
+    gap: 10px;
+}
+
+.captcha-image {
+    background: #e2e8f0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    font-family: monospace;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #0f172a;
+    border: 1px solid var(--border-color);
+}
+
+.refresh-captcha {
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.otp-desktop-group {
+    display: flex;
+    gap: 10px;
+}
+
+.otp-desktop-group input {
+    flex: 1;
+}
+
+.btn-otp-request {
+    background: #e0f2fe;
+    color: #0284c7;
+    border: none;
+    padding: 0 16px;
+    border-radius: 12px;
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.btn-otp-request:hover {
+    background: #bae6fd;
+}
+
+input:focus {
+    outline: none;
+    background: #ffffff !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.12);
+}
+
+/* Actions */
+.gateway-action-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.btn-cancel-gateway {
+    flex: 1;
+    background: #f1f5f9;
+    color: var(--text-secondary);
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-cancel-gateway:hover {
+    background: #e2e8f0;
+    color: var(--text-primary);
+}
+
+.btn-submit-gateway {
+    flex: 2;
+    background: linear-gradient(135deg, var(--success) 0%, #16a34a 100%);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
+    transition: all 0.2s ease;
+}
+
+.btn-submit-gateway:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.45);
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+    .gateway-desktop-card {
+        grid-template-columns: 1fr;
+    }
+
+    .merchant-column {
+        border-left: none;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .form-column {
+        padding: 24px 20px;
+    }
+}
+
+@media (max-width:420px) {
+
+    .form-row-grid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .captcha-group {
+        grid-template-columns: 1fr 102px;
+    }
+}
+
+.gateway-message {
+    margin: 0 0 16px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: .9rem;
+    line-height: 1.8;
+    background: rgba(59, 130, 246, .1);
+    color: var(--primary);
+}
+
+.gateway-message[data-type="error"] {
+    background: rgba(239, 68, 68, .12);
+    color: #dc2626;
+}
+
+/* Test-only switch for simulating a declined payment.
+   Remove together with #gatewayForceFail when the real gateway is connected. */
+.gateway-test-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 14px 0;
+    padding: 10px 12px;
+    border: 1px dashed rgba(234, 179, 8, 0.45);
+    border-radius: 9px;
+    background: rgba(234, 179, 8, 0.06);
+    font-size: 12px;
+    color: #92400e;
+    cursor: pointer;
+}
+
+.gateway-test-toggle input {
+    cursor: pointer;
+}

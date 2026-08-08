@@ -1,0 +1,117 @@
+/* ============================================================================
+   بارگذاری تصویر مدرک در فرم گزارش
+
+   The evidence picker: choose a file, see a small preview, remove it.
+   Its tone follows the outcome — a rejected file has to look rejected.
+
+   Split out of support.css. Load order is set in html/support.html.
+   ========================================================================== */
+
+
+/* ============================================
+   گزارش تخلف — بارگذاری مدرک
+   ============================================ */
+.evidence-upload {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.evidence-upload__btn,
+.evidence-upload__clear {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 16px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: .88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .25s;
+}
+
+.evidence-upload__btn {
+    background: rgba(59, 130, 246, .1);
+    border: 1px solid rgba(59, 130, 246, .28);
+    color: #60a5fa;
+}
+
+.evidence-upload__btn:hover {
+    background: rgba(59, 130, 246, .18);
+    border-color: rgba(59, 130, 246, .45);
+}
+
+.evidence-upload__clear {
+    background: rgba(239, 68, 68, .08);
+    border: 1px solid rgba(239, 68, 68, .25);
+    color: #f87171;
+}
+
+.evidence-upload__clear:hover {
+    background: rgba(239, 68, 68, .16);
+}
+
+.evidence-upload__preview {
+    display: block;
+    margin-top: 12px;
+    max-width: 220px;
+    max-height: 160px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.evidence-upload__hint {
+    display: block;
+    margin-top: 8px;
+    font-size: .8rem;
+    line-height: 1.9;
+    color: var(--text-muted);
+}
+
+/* Tone follows the outcome: a rejected file has to look rejected. */
+.evidence-upload__hint[data-tone="error"] {
+    color: #f87171;
+}
+
+.evidence-upload__hint[data-tone="ok"] {
+    color: #34d399;
+}
+
+html[data-theme="light"] .evidence-upload__btn {
+    background: rgba(59, 130, 246, .08) !important;
+    border-color: rgba(59, 130, 246, .3) !important;
+    color: #1d4ed8 !important;
+}
+
+html[data-theme="light"] .evidence-upload__btn:hover {
+    background: rgba(59, 130, 246, .16) !important;
+}
+
+html[data-theme="light"] .evidence-upload__clear {
+    background: rgba(239, 68, 68, .07) !important;
+    border-color: rgba(239, 68, 68, .28) !important;
+    color: #dc2626 !important;
+}
+
+html[data-theme="light"] .evidence-upload__hint {
+    color: #64748b !important;
+}
+
+html[data-theme="light"] .evidence-upload__hint[data-tone="error"] {
+    color: #dc2626 !important;
+}
+
+html[data-theme="light"] .evidence-upload__hint[data-tone="ok"] {
+    color: #15803d !important;
+}
+
+html[data-theme="light"] .evidence-upload__preview {
+    border-color: rgba(15, 23, 42, .12) !important;
+}
+
+html[data-theme="light"] .field-optional {
+    color: #64748b !important;
+}

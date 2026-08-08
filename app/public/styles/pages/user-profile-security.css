@@ -1,0 +1,214 @@
+/* ============================================================================
+   تب امنیت و رمز عبور
+
+   The collapsible security section, the countdown warning shown before a
+   password is actually replaced, and the stats pair above it.
+
+   LOADS LAST: it carries [hidden] { display: none !important }, which has to
+   beat every display rule before it.
+
+   Split out of user-profile.css. Load order is set in html/user-profile.html and
+   matters where noted.
+   ========================================================================== */
+
+
+/* ============================================
+   امنیت و رمز عبور
+   ============================================ */
+.profile-stats--pair {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.password-field {
+  position: relative;
+  display: block;
+}
+
+.password-field .form-control {
+  width: 100%;
+  padding-left: 42px;
+}
+
+.password-eye {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--up-text-soft);
+  font-size: 13px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.password-eye:hover {
+  opacity: 1;
+  background: rgba(0, 122, 255, 0.1);
+  color: var(--up-primary);
+}
+
+.password-change-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin: 4px 0 0;
+  padding: 12px 15px;
+  border-radius: 12px;
+  border: 1px dashed var(--up-border);
+  background: transparent;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--up-text);
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.password-change-toggle:hover {
+  border-color: var(--up-primary);
+  background: rgba(0, 122, 255, 0.05);
+}
+
+.password-change-toggle>i:first-child {
+  color: var(--up-primary);
+  font-size: 13px;
+}
+
+.password-change-toggle span {
+  flex: 1;
+  text-align: right;
+}
+
+.password-change-toggle__chevron {
+  font-size: 11px;
+  color: var(--up-text-soft);
+  transition: transform 0.25s ease;
+}
+
+.password-change-toggle.is-open {
+  border-style: solid;
+  border-color: var(--up-primary);
+  background: rgba(0, 122, 255, 0.06);
+}
+
+.password-change-toggle.is-open .password-change-toggle__chevron {
+  transform: rotate(180deg);
+}
+
+.new-password-section {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 13px;
+  border: 1px solid var(--up-border);
+  background: var(--up-field);
+  animation: fadeIn 0.25s ease;
+}
+
+.password-hint {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--up-text-soft);
+}
+
+.password-hint[data-tone="warn"] {
+  color: #b45309;
+}
+
+.password-hint[data-tone="ok"] {
+  color: #15803d;
+}
+
+#updatePasswordBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Countdown warning before the password is actually replaced. */
+.password-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(6px);
+}
+
+.password-confirm-box {
+  width: 100%;
+  max-width: 420px;
+  padding: 26px 24px;
+  border-radius: 18px;
+  background: var(--up-card-hover);
+  border: 1px solid var(--up-border);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.28);
+  text-align: center;
+  animation: fadeIn 0.25s ease;
+}
+
+.password-confirm-icon {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 14px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 149, 0, 0.14);
+  color: #f59e0b;
+  font-size: 22px;
+}
+
+.password-confirm-box h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  color: var(--up-text);
+}
+
+.password-confirm-box p {
+  margin: 0 0 14px;
+  font-size: 13px;
+  line-height: 2;
+  color: var(--up-text-soft);
+}
+
+.password-confirm-timer {
+  margin-bottom: 18px;
+  padding: 8px;
+  border-radius: 9px;
+  background: rgba(255, 149, 0, 0.1);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #b45309;
+}
+
+.password-confirm-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.password-confirm-actions button {
+  flex: 1;
+  padding: 11px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* The `hidden` attribute is only a weak default; any display rule beats it. */
+[hidden] {
+  display: none !important;
+}

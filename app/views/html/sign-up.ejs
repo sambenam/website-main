@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ورود و عضویت | حسابیار</title>
+  <link rel="icon" type="image/png" href="../images/ravin.png" />
+  <meta name="description"
+    content="ورود به حساب کاربری یا ثبت‌نام در حسابیار برای دسترسی به دوره‌ها و فایل‌های آموزشی." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ورود و عضویت | حسابیار" />
+  <meta property="og:description"
+    content="ورود به حساب کاربری یا ثبت‌نام در حسابیار برای دسترسی به دوره‌ها و فایل‌های آموزشی." />
+  <meta property="og:image" content="../images/ravin.png" />
+  <meta property="og:locale" content="fa_IR" />
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a" crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../styles/header/top-header.css" />
+  <link rel="stylesheet" href="../styles/header/bottom-header.css" />
+  <link rel="stylesheet" href="../styles/header/mobile-header.css" />
+  <link rel="stylesheet" href="../styles/main/main.css" />
+  <link rel="stylesheet" href="../styles/pages/signup.css" />
+  <link rel="stylesheet" href="../styles/footer/main-footer.css" />
+</head>
+
+<body>
+  
+ <%- include("./partials/header") %>
+ 
+  <%- include("./partials/navbar") %>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+    <div class="main-container">
+      <div class="signup-container">
+        <!-- SIGNUP TABS -->
+        <div class="signup-tabs">
+          <button class="tab-btn active" data-tab="login">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            ورود
+          </button>
+          <button class="tab-btn" data-tab="register">
+            <i class="fa-solid fa-user-plus"></i>
+            ثبت‌نام
+          </button>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <div class="tab-content active" id="login">
+          <form class="signup-form" id="loginForm">
+            <div class="form-group">
+              <label for="loginEmail">ایمیل یا نام کاربری</label>
+              <input type="email" id="loginEmail" placeholder="ایمیل یا نام کاربری" required />
+            </div>
+            <div class="form-group">
+              <label for="loginPassword">رمز عبور</label>
+              <div class="password-input">
+                <input type="password" id="loginPassword" placeholder="رمز عبور" required />
+                <i class="fa-solid fa-eye-slash toggle-password"></i>
+              </div>
+            </div>
+            <div class="form-options">
+              <label class="checkbox-label">
+                <input type="checkbox" id="rememberMe" />
+                <span class="checkmark"></span>
+                مرا به خاطر بسپار
+              </label>
+              <a href="#" class="forgot-password">رمز عبور را فراموش کرده‌اید؟</a>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              <i class="fa-solid fa-right-to-bracket"></i>
+              ورود
+            </button>
+            <div class="divider">
+              <span>یا</span>
+            </div>
+            <div class="social-login">
+              <button class="social-btn google">
+                <i class="fa-brands fa-google"></i>
+                ورود با گوگل
+              </button>
+              <button class="social-btn telegram">
+                <i class="fa-brands fa-telegram"></i>
+                ورود با تلگرام
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- REGISTER FORM -->
+        <div class="tab-content" id="register">
+          <form class="signup-form" id="registerForm" action="/sigg">
+            <div class="form-group">
+              <label for="registerName">نام و نام خانوادگی</label>
+              <input type="text" id="registerName" placeholder="نام و نام خانوادگی" required />
+            </div>
+            <div class="form-group">
+              <label for="registerEmail">ایمیل</label>
+              <input type="email" id="registerEmail" placeholder="ایمیل" required />
+            </div>
+
+            <div class="form-group">
+              <label for="registerPassword">رمز عبور</label>
+              <div class="password-input">
+                <input type="password" id="registerPassword" placeholder="رمز عبور" required />
+                <i class="fa-solid fa-eye-slash toggle-password"></i>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="registerConfirmPassword">تکرار رمز عبور</label>
+              <div class="password-input">
+                <input type="password" id="registerConfirmPassword" placeholder="تکرار رمز عبور" required />
+                <i class="fa-solid fa-eye-slash toggle-password"></i>
+              </div>
+            </div>
+            <label class="checkbox-label">
+              <input type="checkbox" id="termsCheckbox" required />
+              <span class="checkmark"></span>
+              با <a href="#">قوانین سایت</a> موافقم
+            </label>
+            <button type="submit" class="btn btn-primary btn-block">
+              <i class="fa-solid fa-user-plus"></i>
+              ثبت‌نام
+            </button>
+            <div class="divider">
+              <span>یا</span>
+            </div>
+            <div class="social-login">
+              <button class="social-btn google">
+                <i class="fa-brands fa-google"></i>
+                ثبت‌نام با گوگل
+              </button>
+              <button class="social-btn telegram">
+                <i class="fa-brands fa-telegram"></i>
+                ثبت‌نام با تلگرام
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- toggle btn -->
+  <button id="themeToggleBtn" class="theme-toggle" aria-label="تغییر تم">
+    <span class="theme-toggle-track-icons"><span>🌙</span><span>☀️</span></span>
+    <span class="theme-toggle-knob">
+      <span class="icon-sun">☀️</span>
+      <span class="icon-moon">🌙</span>
+    </span>
+  </button>
+
+  <!-- FOOTER -->
+    <%- include("./partials/footer") %>
+
+  <!-- SCRIPTS -->
+  <!-- Mock backend: delete these three lines when the real server is live.
+         See the header of api.js for the two-line switch. -->
+  <script>
+    window.APP_CONFIG = { apiMode: "real", apiBaseUrl: "" };
+  </script>
+  <script src="../scripts/api.js"></script>
+  <script src="../scripts/app-shell.js"></script>
+  <script src="../scripts/login-singup.js"></script>
+  <script src="../scripts/mobile-menu.js"></script>
+  <script src="../scripts/ai-widget.js"></script>
+  <script src="../scripts/up-btn.js"></script>
+  <script src="../scripts/toggle-btn.js"></script>
+</body>
+
+</html>

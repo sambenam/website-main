@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>پروفایل کاربری و سبد خرید | حسابیار</title>
+  <link rel="icon" type="image/png" href="../images/ravin.png" />
+  <meta name="description" content="مدیریت اطلاعات حساب کاربری، سبد خرید و فایل‌های خریداری‌شده." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="پروفایل کاربری و سبد خرید | حسابیار" />
+  <meta property="og:description" content="مدیریت اطلاعات حساب کاربری، سبد خرید و فایل‌های خریداری‌شده." />
+  <meta property="og:image" content="../images/ravin.png" />
+  <meta property="og:locale" content="fa_IR" />
+  <link rel="stylesheet" href="../styles/header/top-header.css" />
+  <link rel="stylesheet" href="../styles/header/bottom-header.css" />
+  <link rel="stylesheet" href="../styles/header/mobile-header.css" />
+  <link rel="stylesheet" href="../styles/main/main.css" />
+  <!-- The profile stylesheet, split by tab. user-profile-security.css MUST
+         stay last: it carries the [hidden] rule that has to win. -->
+  <link rel="stylesheet" href="../styles/pages/user-profile-base.css" />
+  <link rel="stylesheet" href="../styles/pages/user-profile-messages.css" />
+  <link rel="stylesheet" href="../styles/pages/user-profile-security.css" />
+  <link rel="stylesheet" href="../styles/footer/main-footer.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a" crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <%- include("./partials/header") %>
+
+
+  <section class="mobile-header">
+    <div class="mobile-menu_container">
+      <div class="mobile-header_container">
+        <button class="mobile-menu-btn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+
+      <div class="website-logo">
+        <a href="/">
+          <img src="../images/ravin.png" class="website-logo_img" alt="لوگوی حسابیار" />
+        </a>
+      </div>
+    </div>
+
+    <div class="mobile-menu">
+      <div class="mobile-menu_header">
+        <button class="mobile-close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="mobile-search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="جستجو..." />
+        </div>
+
+        <button class="mobile-search-btn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+
+      <ul class="mobile-menu_list">
+        <li class="mobile-dropdown">
+          <button class="mobile-dropdown-btn">
+            <span>برای دانشجویان</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+
+          <ul class="mobile-dropdown-menu">
+            <li class="mobile-sub-dropdown">
+              <button class="mobile-sub-btn">
+                <span>کتاب و جزوه</span>
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+
+              <ul class="mobile-sub_menu">
+                <li>
+                  <a href="list-page.html?cat=diploma"> دروس تخصصی دیپلم </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=associate_degree">
+                    دروس تخصصی کاردانی
+                  </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=bachelor">
+                    دروس تخصصی کارشناسی
+                  </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=master"> دروس تخصصی ارشد </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=phd"> دروس تخصصی دکتری </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- کنکوری ها -->
+
+            <li class="mobile-sub-dropdown">
+              <button class="mobile-sub-btn">
+                <span>کنکوری ها</span>
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+
+              <ul class="mobile-sub_menu">
+                <li>
+                  <a href="list-page.html?cat=konkur1">
+                    سوالات کنکوری ها + جواب ها
+                  </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=konkur2">
+                    ضرایب و منابع کنکور ها
+                  </a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=konkur3">
+                    روش های مطالعه و تست
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- پروژه ها -->
+
+            <li class="mobile-sub-dropdown">
+              <button class="mobile-sub-btn">
+                <span>پروژه های حسابداری</span>
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+
+              <ul class="mobile-sub_menu">
+                <li>
+                  <a href="list-page.html?cat=Enterpreneurship_projects">پروژه های کارآفرینی</a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=Enternship-projects">پروژه های کاراموزی</a>
+                </li>
+
+                <li>
+                  <a href="list-page.html?cat=Financial-project">پروژه های مالی و حسابداری</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <li class="mobile-dropdown">
+          <button class="mobile-dropdown-btn">
+            <span>فایل های حسابداری</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+
+          <ul class="mobile-dropdown-menu">
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=power_point">
+                دانلود فایل پاور پوینت
+              </a>
+            </li>
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=Exel"> دانلود فایل های اکسل</a>
+            </li>
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=Word"> دانلود فایل های ورد</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="mobile-dropdown">
+          <button class="mobile-dropdown-btn">
+            <span>مقالات</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+
+          <ul class="mobile-dropdown-menu">
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=accounting_article">
+                مقالات حسابداری
+              </a>
+            </li>
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=software_training">
+                آموزش نرم افزار ها</a>
+            </li>
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=standards"> اصول و استانداردها</a>
+            </li>
+
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=accounting_circulars">
+                بخش نامه های حسابداری</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="mobile-dropdown">
+          <button class="mobile-dropdown-btn">
+            <span>فیلم های آموزشی</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+
+          <ul class="mobile-dropdown-menu">
+            <li class="mobile-sub-dropdown">
+              <a href="list-page.html?cat=videos"> فیلم های آموزشی </a>
+            </li>
+          </ul>
+        </li>
+        <li class="mobile-dropdown">
+          <button class="mobile-dropdown-btn">
+            <span>محصولات و دوره ها</span>
+          </button>
+        </li>
+        <li class="mobile-dropdown">
+          <a href="/sign-up" class="mobile-dropdown-btn">
+            <span>ورود</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="mobile-overlay"></div>
+  </section>
+  <div class="profile-container">
+    <!-- Sidebar Navigation / Quick Info -->
+    <aside class="profile-sidebar glass-card">
+      <div class="user-avatar-section">
+        <div class="avatar-wrapper">
+          <img src="../images/ravin.png" alt="پروفایل کاربر" id="userAvatarImg" />
+          <label for="avatarUpload" class="avatar-edit-btn" title="تغییر تصویر">
+            <i class="fas fa-camera"></i>
+            <input type="file" id="avatarUpload" accept="image/*" style="display: none" />
+          </label>
+        </div>
+        <h3 id="profileFullName">علی احمدی</h3>
+        <p id="profileUserEmail">ali.ahmadi@example.com</p>
+        <span class="user-badge vip"><i class="fas fa-crown"></i> عضو ویژه VIP</span>
+      </div>
+
+      <!-- Both counts are filled from real data; the invented
+             "امتیاز کل" box was removed because nothing produced it. -->
+      <div class="profile-stats profile-stats--pair">
+        <div class="stat-box">
+          <span class="stat-number" id="ordersCountStat">۰</span>
+          <span class="stat-label">سفارش‌ها</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number" id="cartCountStat">۰</span>
+          <span class="stat-label">سبد خرید</span>
+        </div>
+      </div>
+
+      <nav class="profile-nav">
+        <ul>
+          <li class="active" data-tab="info">
+            <a href="#info"><i class="fas fa-user-edit"></i> مشخصات شخصی</a>
+          </li>
+          <li data-tab="cart">
+            <a href="#cart"><i class="fas fa-shopping-cart"></i> سبد خرید من
+              <span class="badge" id="cartBadge" style="display:none"></span></a>
+          </li>
+          <li data-tab="orders">
+            <a href="#orders"><i class="fas fa-shopping-bag"></i> سفارش‌های من
+              <span class="badge" id="ordersBadge" style="display:none"></span></a>
+          </li>
+          <li data-tab="messages">
+            <a href="#messages"><i class="fas fa-comments"></i> پیام‌های من
+              <span class="badge" id="myMessagesBadge" style="display: none"></span></a>
+          </li>
+          <li data-tab="security">
+            <a href="#security"><i class="fas fa-shield-alt"></i> امنیت و رمز عبور</a>
+          </li>
+          <li>
+            <a href="#" id="logoutProfileBtn" class="logout-link"><i class="fas fa-sign-out-alt"></i> خروج از حساب</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Profile Content Area -->
+    <main class="profile-main-content">
+      <!-- TAB 1: PERSONAL INFO -->
+      <div id="tab-info" class="profile-tab-content active">
+        <div class="glass-card">
+          <div class="card-header">
+            <h2>ویرایش مشخصات شخصی</h2>
+            <p>اطلاعات حساب کاربری و راه‌های ارتباطی خود را به‌روز کنید</p>
+          </div>
+          <form id="personalInfoForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>نام و نام خانوادگی</label>
+                <input type="text" id="inputName" class="form-control" value="علی احمدی" required />
+              </div>
+              <div class="form-group">
+                <label>شماره موبایل</label>
+                <input type="text" id="inputPhone" class="form-control" value="۰۹۱۲۳۴۵۶۷۸۹" required />
+              </div>
+              <div class="form-group">
+                <label>ایمیل</label>
+                <input type="email" id="inputEmail" class="form-control" value="ali.ahmadi@example.com" required />
+              </div>
+              <div class="form-group">
+                <label>تاریخ تولد</label>
+                <input type="text" id="inputBirth" class="form-control" value="۱۳۷۲/۰۵/۱۴" />
+              </div>
+              <div class="form-group full-width">
+                <label>آدرس پستی تحویل سفارشات</label>
+                <textarea id="inputAddress" class="form-control" rows="3">
+تهران، خیابان ولیعصر، کوچه صدف، پلاک ۱۲، واحد ۴</textarea>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">
+                <i class="fas fa-check"></i> ذخیره تغییرات
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- TAB 2: SHOPPING CART -->
+      <div id="tab-cart" class="profile-tab-content">
+        <div class="glass-card">
+          <div class="card-header">
+            <h2>سبد خرید شما</h2>
+            <p>اقلام انتخاب شده برای خرید نهایی</p>
+          </div>
+          <div class="cart-items-list" id="cartItemsContainer">
+            <!-- Populated by JS -->
+          </div>
+          <div class="cart-summary" id="cartSummarySection">
+            <div class="summary-row">
+              <span>مجموع قیمت کالاها:</span>
+              <span id="cartTotalPrice">۳۳,۰۰۰,۰۰۰ تومان</span>
+            </div>
+            <div class="summary-row">
+              <span>هزینه ارسال:</span>
+              <span>رایگان</span>
+            </div>
+            <hr style="
+                  border: 0;
+                  border-top: 0.5px solid var(--glass-border);
+                  margin: 12px 0;
+                " />
+            <div class="summary-row total">
+              <span>مبلغ قابل پرداخت:</span>
+              <span id="cartFinalPrice">۳۳,۰۰۰,۰۰۰ تومان</span>
+            </div>
+            <div class="form-actions" style="margin-top: 20px">
+              <button class="btn-primary" onclick="checkoutCart()">
+                <i class="fas fa-credit-card"></i> تایید و پرداخت نهایی
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: ORDERS -->
+      <div id="tab-orders" class="profile-tab-content">
+        <div class="glass-card">
+          <div class="card-header">
+            <h2>سفارش‌های من</h2>
+            <p>تاریخچه خریدها و پیگیری وضعیت مرسوله‌ها</p>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>شماره سفارش</th>
+                  <th>تاریخ ثبت</th>
+                  <th>مبلغ کل</th>
+                  <th>وضعیت سفارش</th>
+                  <th>عملیات</th>
+                </tr>
+              </thead>
+              <tbody id="myOrdersBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: MY MESSAGES
+             Where an admin reply lands. Messages sent from the contact form
+             or the assistant widget appear here as a thread. -->
+      <div id="tab-messages" class="profile-tab-content">
+        <div class="glass-card">
+          <div class="card-header">
+            <h2>پیام‌های من</h2>
+            <p>گفتگوهای شما با پشتیبانی و پاسخ‌های دریافتی</p>
+          </div>
+          <div id="myMessagesList" class="my-messages-list"></div>
+        </div>
+      </div>
+
+      <!-- TAB: SECURITY
+             The three password boxes used to sit open all the time, which
+             asked every visitor to think about changing their password just
+             to look at the tab. The new fields stay collapsed until the user
+             says they want a change. -->
+      <div id="tab-security" class="profile-tab-content">
+        <div class="glass-card">
+          <div class="card-header">
+            <h2>امنیت و رمز عبور</h2>
+            <p>رمز عبور خود را به صورت دوره‌ای تغییر دهید</p>
+          </div>
+          <form id="securityForm">
+            <div class="form-group">
+              <label for="currentPassword">رمز عبور فعلی</label>
+              <div class="password-field">
+                <input type="password" id="currentPassword" class="form-control" placeholder="••••••••"
+                  autocomplete="current-password" required />
+                <button type="button" class="password-eye" data-toggle-password="currentPassword"
+                  aria-label="نمایش رمز عبور">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <button type="button" class="password-change-toggle" id="togglePasswordChange" aria-expanded="false"
+              aria-controls="newPasswordSection">
+              <i class="fas fa-key"></i>
+              <span>تمایل به تغییر رمز عبور دارم</span>
+              <i class="fas fa-chevron-down password-change-toggle__chevron"></i>
+            </button>
+
+            <div id="newPasswordSection" class="new-password-section" hidden>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="newPassword">رمز عبور جدید</label>
+                  <div class="password-field">
+                    <input type="password" id="newPassword" class="form-control" placeholder="حداقل ۶ کاراکتر"
+                      autocomplete="new-password" />
+                    <button type="button" class="password-eye" data-toggle-password="newPassword"
+                      aria-label="نمایش رمز عبور">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="confirmPassword">تکرار رمز عبور جدید</label>
+                  <div class="password-field">
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="••••••••"
+                      autocomplete="new-password" />
+                    <button type="button" class="password-eye" data-toggle-password="confirmPassword"
+                      aria-label="نمایش رمز عبور">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <small class="password-hint" id="passwordHint">
+                رمز جدید باید حداقل ۶ کاراکتر باشد.
+              </small>
+            </div>
+
+            <div class="form-actions" style="margin-top: 20px">
+              <button type="submit" class="btn-primary" id="updatePasswordBtn" disabled>
+                <i class="fas fa-key"></i> به‌روزرسانی رمز عبور
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Countdown confirmation before the password actually changes. -->
+      <div class="password-confirm-overlay" id="passwordConfirmOverlay" hidden>
+        <div class="password-confirm-box" role="alertdialog" aria-modal="true" aria-labelledby="passwordConfirmTitle">
+          <div class="password-confirm-icon"><i class="fas fa-triangle-exclamation"></i></div>
+          <h3 id="passwordConfirmTitle">از تغییر رمز عبور مطمئن هستید؟</h3>
+          <p>
+            پس از تأیید، رمز فعلی شما باطل می‌شود و برای ورود بعدی باید از
+            رمز جدید استفاده کنید.
+          </p>
+          <div class="password-confirm-timer">
+            <span id="passwordConfirmCount">۵</span> ثانیه تا تأیید خودکار
+          </div>
+          <div class="password-confirm-actions">
+            <button type="button" class="btn-secondary" id="passwordConfirmCancel">انصراف</button>
+            <button type="button" class="btn-primary" id="passwordConfirmAccept">
+              بله، تغییر بده
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- FOOTER -->
+  <%- include("./partials/footer") %>
+
+  <!-- Mock backend: delete these three lines when the real server is live.
+         See the header of api.js for the two-line switch. -->
+  <script>
+    window.APP_CONFIG = { apiMode: "real", apiBaseUrl: "" };
+  </script>
+  <script src="../scripts/api.js"></script>
+  <script src="../scripts/app-shell.js"></script>
+  <script src="../scripts/mobile-menu.js"></script>
+  <script src="../scripts/user-profile.js"></script>
+</body>
+
+</html>

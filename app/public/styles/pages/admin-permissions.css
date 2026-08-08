@@ -1,0 +1,120 @@
+/* ============================================================================
+   حالت‌های دسترسی محدود و نشان‌های نقش
+
+   What a restricted operator sees: greyed-out actions, the banner explaining
+ * why, masked phone numbers and the role badges in the staff table.
+
+   Part of the admin stylesheet, split out of a single 2,764-line file.
+   Load order is set in html/admin.html and matters: see admin-base.css first
+   and admin-msg-actions.css last.
+   ========================================================================== */
+
+/* ============================================
+   PERMISSION STATES
+   Applied when an "ادمین" account is signed in. Full access belongs to
+   "مدیر سایت" / "مدیر سیستم".
+   ============================================ */
+
+/* Masked value - the digits are replaced in JS, this only styles the result. */
+.user-cell--restricted {
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+  user-select: none;
+  cursor: not-allowed;
+}
+
+/* Disabled action button */
+.user-action--locked {
+  padding: 6px 14px;
+  font-size: 12px;
+  border-radius: 8px;
+  opacity: 0.45;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+
+/* Banner explaining why controls are greyed out */
+.permission-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.22);
+  color: var(--text-primary);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.permission-notice>i {
+  color: #ca8a04;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+/* Staff table badges (tab: مدیریت دسترسی‌ها) */
+.staff-self-badge {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(0, 122, 255, 0.12);
+  color: #007aff;
+}
+
+.staff-locked-badge {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(234, 179, 8, 0.14);
+  color: #ca8a04;
+}
+
+.field-hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* Products table: article owner + type badges */
+.product-owner {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.product-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 6px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.product-type-badge>i {
+  font-size: 9px;
+}
+
+.product-type-badge--video {
+  background: rgba(175, 82, 222, 0.12);
+  color: #af52de;
+}
+
+.product-type-badge--file {
+  background: rgba(52, 199, 89, 0.12);
+  color: #34c759;
+}

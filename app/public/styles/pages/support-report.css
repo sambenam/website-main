@@ -1,0 +1,283 @@
+/* ============================================================================
+   فرم گزارش تخلف و حالت روز
+
+   The violation-report form — its type and severity pickers — and the whole
+   light-theme block.
+
+   Reporting a violation used to be one option inside the "موضوع" dropdown,
+   sitting between a study question and a partnership enquiry. It is a
+   different kind of thing, so it has its own section.
+
+   Split out of support.css. Load order is set in html/support.html.
+   ========================================================================== */
+
+
+/* ---- report form: violation type ---- */
+.custom-select-option[data-value="content"] .opt-icon {
+    background: rgba(239, 68, 68, .15);
+    color: #f87171
+}
+
+.custom-select-option[data-value="copyright"] .opt-icon {
+    background: rgba(59, 130, 246, .15);
+    color: #60a5fa
+}
+
+.custom-select-option[data-value="abuse"] .opt-icon {
+    background: rgba(249, 115, 22, .15);
+    color: #fb923c
+}
+
+.custom-select-option[data-value="fraud"] .opt-icon {
+    background: rgba(168, 85, 247, .15);
+    color: #c084fc
+}
+
+.custom-select-option[data-value="other"] .opt-icon {
+    background: rgba(148, 163, 184, .15);
+    color: #94a3b8
+}
+
+/* ---- report form: severity, coloured by how serious it is ---- */
+.custom-select-option[data-value="low"] .opt-icon {
+    background: rgba(16, 185, 129, .15);
+    color: #34d399
+}
+
+.custom-select-option[data-value="medium"] .opt-icon {
+    background: rgba(234, 179, 8, .15);
+    color: #facc15
+}
+
+.custom-select-option[data-value="high"] .opt-icon {
+    background: rgba(239, 68, 68, .15);
+    color: #f87171
+}
+
+/* Fallback for a native <option> list, which the browser draws with the
+   select's own colours. Without an explicit pair the near-white
+   --text-primary sat on an almost transparent background and the choices
+   were unreadable; light mode fell back to the raw OS list. This only shows
+   if the JS enhancement has not run. */
+.form-group select option {
+    background-color: #141c32;
+    color: #f1f5f9;
+}
+
+html[data-theme="light"] .form-group select option {
+    background-color: #ffffff;
+    color: #0f172a;
+}
+
+/* روز */
+html[data-theme="light"] .custom-select-trigger {
+    background: #f8fafc !important;
+    border-color: rgba(15, 23, 42, .12) !important;
+    color: #0f172a !important;
+}
+
+html[data-theme="light"] .custom-select-options {
+    background: rgba(255, 255, 255, .98) !important;
+    border-color: rgb(118 152 234 / 59%) !important;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, .12) !important;
+}
+
+html[data-theme="light"] .custom-select-option {
+    color: #475569 !important;
+    border-bottom: 1px solid #ebe6e6;
+}
+
+html[data-theme="light"] .custom-select-option:hover {
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
+}
+
+/* The chosen row needs its own light-mode pair, otherwise it kept the dark
+   theme's pale blue text on a white sheet and read as washed out. */
+html[data-theme="light"] .custom-select-option.selected {
+    background: rgba(59, 130, 246, .1) !important;
+    color: #1d4ed8 !important;
+    border: 1px solid rgba(59, 130, 246, .28) !important;
+}
+
+html[data-theme="light"] .custom-select-trigger .custom-select-value {
+    color: #0f172a !important;
+}
+
+html[data-theme="light"] .custom-select-option .opt-icon {
+    background: rgba(15, 23, 42, .05);
+}
+
+/* حالت روز */
+html[data-theme="light"] .page-header {
+    background: #f5f5f5 !important;
+    border-color: rgb(18 19 20 / 8%) !important;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, .05);
+}
+
+html[data-theme="light"] .page-title {
+    color: #0f172a !important;
+}
+
+html[data-theme="light"] .page-subtitle {
+    color: #475569 !important;
+}
+
+html[data-theme="light"] .contact-card {
+    background: #fff !important;
+    border-color: rgb(151, 141, 141) !important;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, .05);
+}
+
+html[data-theme="light"] .contact-card h3 {
+    color: #0f172a !important;
+}
+
+html[data-theme="light"] .contact-card p {
+    color: #272829 !important;
+    font-size: 0.9rem;
+}
+
+html[data-theme="light"] .contact-form-section,
+html[data-theme="light"] .faq-section {
+    background: #fff !important;
+    border-color: rgb(156, 145, 145) !important;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, .05)
+}
+
+html[data-theme="light"] .form-group label {
+    color: #334155 !important;
+}
+
+html[data-theme="light"] .form-group input,
+html[data-theme="light"] .form-group select,
+html[data-theme="light"] .form-group textarea {
+    background: #f8fafc !important;
+    border-color: rgba(15, 23, 42, .12) !important;
+    color: #0f172a !important;
+}
+
+html[data-theme="light"] .faq-item {
+    background: #f8fafc !important;
+    border-color: rgba(15, 23, 42, .08) !important;
+}
+
+html[data-theme="light"] .faq-question {
+    color: #0f172a !important;
+}
+
+html[data-theme="light"] .faq-answer p {
+    color: #475569 !important;
+}
+
+@media(max-width:980px) {
+    .contact-info {
+        grid-template-columns: 1fr
+    }
+
+    .form-row {
+        grid-template-columns: 1fr
+    }
+}
+
+@media(max-width:600px) {
+    .page-header {
+        padding: 1.5rem 1rem
+    }
+
+    .page-title {
+        font-size: 1.5rem
+    }
+
+    .contact-form-section,
+    .faq-section {
+        padding: 1.2rem
+    }
+}
+
+.form-message {
+    margin: 0 0 16px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: .9rem;
+    line-height: 1.8;
+    background: rgba(59, 130, 246, .1);
+    color: var(--primary);
+}
+
+.form-message[data-type="success"] {
+    background: rgba(34, 197, 94, .12);
+    color: #16a34a;
+}
+
+.form-message[data-type="error"] {
+    background: rgba(239, 68, 68, .12);
+    color: #dc2626;
+}
+
+/* ============================================
+   گزارش تخلف
+   --------------------------------------------
+   Reporting a violation used to be one option inside the "موضوع" dropdown,
+   sitting between a study question and a partnership enquiry. It is a
+   different kind of thing, so it has its own section below the message form.
+   The form behind it is built in a later step.
+   ============================================ */
+.report-abuse-section {
+    margin-top: 2rem;
+}
+
+.report-abuse-note {
+    margin: 0 0 1.25rem;
+    font-size: 14px;
+    line-height: 2;
+    color: var(--text-secondary, #64748b);
+}
+
+.btn-outline-danger {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(239, 68, 68, 0.06);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.28);
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-outline-danger:hover:not(:disabled) {
+    background: #dc2626;
+    color: #fff;
+}
+
+.btn-outline-danger:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.report-abuse-soon {
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: rgba(100, 116, 139, 0.16);
+    color: #475569;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* Report form sits inside the same section as the intro text. */
+.report-abuse-form {
+    margin-top: 1.5rem;
+}
+
+.field-optional {
+    font-size: 12px;
+    font-weight: 400;
+    color: #94a3b8;
+}
+
+/* The submit button is a real button now, not a disabled placeholder. */
+.report-abuse-form .btn-outline-danger {
+    margin-top: 0.5rem;
+}
