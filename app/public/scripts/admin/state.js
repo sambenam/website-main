@@ -39,89 +39,19 @@ function loadDynamicProducts() {
   return [];
 }
 
-const initialOrders = [
-  {
-    id: "#۷۴۸۳۲",
-    customer: "سام به‌نام",
-    product: "دانلود فایل PDF دوره حسابداری مقدماتی",
-    amount: "۴۹,۰۰۰ تومان",
-    date: "۱۴۰۵/۰۵/۰۱",
-    status: "success",
-  },
-  {
-    id: "#۵۸۳۹۲",
-    customer: "مریم حسینی",
-    product: "دانلود ویدیوهای آموزشی دوره حسابداری مقدماتی",
-    amount: "۹۵,۰۰۰ تومان",
-    date: "۱۴۰۵/۰۴/۳۰",
-    status: "success",
-  },
-  {
-    id: "#۴۸۲۹۱",
-    customer: "علی رضایی",
-    product: "پکیج آموزش ثبت سند حسابداری از صفر تا صد",
-    amount: "۲۹,۰۰۰ تومان",
-    date: "۱۴۰۵/۰۴/۲۹",
-    status: "success",
-  },
-];
-
 function loadDynamicOrders() {
   try {
     const raw = localStorage.getItem("irHesabdarOrders");
     if (raw) {
       const parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? parsed : initialOrders;
+      return Array.isArray(parsed) ? parsed : [];
     }
   } catch (e) {
     console.warn("admin: error loading orders", e);
   }
-  localStorage.setItem("irHesabdarOrders", JSON.stringify(initialOrders));
-  return initialOrders;
+  localStorage.setItem("irHesabdarOrders", JSON.stringify([]));
+  return [];
 }
-
-const initialUsers = [
-  {
-    id: 1,
-    name: "سام به‌نام",
-    email: "sam@example.com",
-    phone: "09121111111",
-    role: "مدیر سایت",
-    status: "فعال",
-  },
-  {
-    id: 2,
-    name: "محمد رضایی",
-    email: "mohammad@example.com",
-    phone: "09122222222",
-    role: "ادمین",
-    status: "فعال",
-  },
-  {
-    id: 3,
-    name: "علی احمدی",
-    email: "ali@example.com",
-    phone: "09121234567",
-    role: "کاربر عادی",
-    status: "فعال",
-  },
-  {
-    id: 4,
-    name: "سارا محمدی",
-    email: "sara@example.com",
-    phone: "09129876543",
-    role: "کاربر عادی",
-    status: "فعال",
-  },
-  {
-    id: 5,
-    name: "زهرا کریمی",
-    email: "zahra@example.com",
-    phone: "09123456789",
-    role: "کاربر عادی",
-    status: "غیرفعال",
-  },
-];
 
 function normalizeUserContact(user) {
   const copy = Object.assign({}, user);
@@ -158,8 +88,8 @@ function loadDynamicUsers() {
   } catch (e) {
     console.warn("admin: error loading users", e);
   }
-  localStorage.setItem("irHesabdarUsers", JSON.stringify(initialUsers));
-  return initialUsers;
+  localStorage.setItem("irHesabdarUsers", JSON.stringify([]));
+  return [];
 }
 
 /**
@@ -237,95 +167,6 @@ function loadSystemSettings() {
    because there is no server deciding roles yet.
    -------------------------------------------------------------------------- */
 
-const initialMessages = [
-  {
-    id: 1,
-    sender: "علی احمدی",
-    email: "ali@example.com",
-    text: "سلام، وقت بخیر. آیا دوره حسابداری مقدماتی شامل پشتیبانی تلگرامی هم هست؟",
-    time: "۱۴۰۵/۰۵/۰۲ - ۱۰:۳۰",
-    unread: true,
-    history: [
-      {
-        sender: "user",
-        name: "علی احمدی",
-        text: "سلام، وقت بخیر. آیا دوره حسابداری مقدماتی شامل پشتیبانی تلگرامی هم هست؟",
-        time: "۱۴۰۵/۰۵/۰۲ - ۱۰:۳۰",
-      },
-    ],
-  },
-  {
-    id: 2,
-    sender: "سارا محمدی",
-    email: "sara@example.com",
-    text: "درود بر شما. فایل اکسل محاسبه حقوق و دستمزد را خریدم ولی دانلود نشد. لطفا راهنمایی کنید.",
-    time: "۱۴۰۵/۰۵/۰۱ - ۱۶:۴۵",
-    unread: true,
-    history: [
-      {
-        sender: "user",
-        name: "سارا محمدی",
-        text: "درود بر شما. فایل اکسل محاسبه حقوق و دستمزد را خریدم ولی دانلود نشد. لطفا راهنمایی کنید.",
-        time: "۱۴۰۵/۰۵/۰۱ - ۱۶:۴۵",
-      },
-    ],
-  },
-  {
-    id: 3,
-    sender: "محمد رضایی",
-    email: "mohammad@example.com",
-    text: "سلام. خسته نباشید. آزمون استخدامی بعدی وزارت اقتصاد چه زمانی برگزار می‌شود؟",
-    time: "۱۴۰۵/۰۴/۳۰ - ۱۴:۱۵",
-    unread: false,
-    history: [
-      {
-        sender: "user",
-        name: "محمد رضایی",
-        text: "سلام. خسته نباشید. آزمون استخدامی بعدی وزارت اقتصاد چه زمانی برگزار می‌شود؟",
-        time: "۱۴۰۵/۰۴/۳۰ - ۱۴:۱۵",
-      },
-      {
-        sender: "admin",
-        name: "مدیر کل سایت",
-        text: "سلام دوست عزیز، هنوز بخشنامه جدیدی صادر نشده است. به محض اعلام اخبار، در تب آزمون‌ها قرار می‌گیرد.",
-        time: "۱۴۰۵/۰۴/۳۰ - ۱۵:۰۰",
-      },
-    ],
-  },
-  {
-    id: 4,
-    sender: "زهرا کریمی",
-    email: "zahra@example.com",
-    text: "سلام. چطور می‌توانم فاکتور خرید دوره مالیاتی را دریافت کنم؟",
-    time: "۱۴۰۵/۰۵/۰۳ - ۰۹:۰۰",
-    unread: true,
-    history: [
-      {
-        sender: "user",
-        name: "زهرا کریمی",
-        text: "سلام. چطور می‌توانم فاکتور خرید دوره مالیاتی را دریافت کنم؟",
-        time: "۱۴۰۵/۰۵/۰۳ - ۰۹:۰۰",
-      },
-    ],
-  },
-  {
-    id: 5,
-    sender: "پشتیبان تستی",
-    email: "test-support@example.com",
-    text: "این یک پیام آزمایشی خوانده‌نشده و بی‌پاسخ است تا بتوانید تپش قلب و انتقال‌ها را به راحتی تست کنید.",
-    time: "۱۴۰۵/۰۵/۰۳ - ۱۲:۰۰",
-    unread: true,
-    history: [
-      {
-        sender: "user",
-        name: "پشتیبان تستی",
-        text: "این یک پیام آزمایشی خوانده‌نشده و بی‌پاسخ است تا بتوانید تپش قلب و انتقال‌ها را به راحتی تست کنید.",
-        time: "۱۴۰۵/۰۵/۰۳ - ۱۲:۰۰",
-      },
-    ],
-  },
-];
-
 function loadDynamicMessages() {
   try {
     const raw = localStorage.getItem("irHesabdarMessages");
@@ -360,8 +201,8 @@ function loadDynamicMessages() {
   } catch (e) {
     console.warn("admin: error loading messages", e);
   }
-  localStorage.setItem("irHesabdarMessages", JSON.stringify(initialMessages));
-  return initialMessages;
+  localStorage.setItem("irHesabdarMessages", JSON.stringify([]));
+  return [];
 }
 
 /* ----------------------------------------------------------------------------
